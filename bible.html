@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA Project Bible &mdash; Documentation Compl&egrave;te</title>
+    <meta name="description" content="Documentation compl&egrave;te du projet AMA. Arborescence, fichiers, strat&eacute;gie, workflow Claude.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-code: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+            --red: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-card);
+            border-right: 1px solid #2a2a3a;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .nav h2 {
+            font-size: 1.2rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .nav a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-light);
+        }
+
+        .nav .nav-section {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main content */
+        .main {
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--accent-light);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+            color: var(--orange);
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-accent { border-left: 4px solid var(--accent); }
+        .card-green { border-left: 4px solid var(--green); }
+        .card-orange { border-left: 4px solid var(--orange); }
+        .card-pink { border-left: 4px solid var(--pink); }
+        .card-red { border-left: 4px solid var(--red); }
+
+        /* Grids */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        .tag-accent { background: rgba(99, 102, 241, 0.2); color: var(--accent-light); }
+        .tag-green { background: rgba(34, 197, 94, 0.2); color: var(--green); }
+        .tag-orange { background: rgba(245, 158, 11, 0.2); color: var(--orange); }
+        .tag-pink { background: rgba(236, 72, 153, 0.2); color: var(--pink); }
+        .tag-red { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+
+        /* Code */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-code);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        th {
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* Tree structure */
+        .tree {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .tree .folder {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .tree .file { color: var(--text-secondary); }
+        .tree .file-key { color: var(--green); }
+        .tree .comment { color: #666; font-style: italic; }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 2rem 0;
+        }
+
+        /* Status indicators */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-active::before { background: var(--green); }
+        .status-dev::before { background: var(--orange); }
+        .status-proto::before { background: var(--pink); }
+        .status-planned::before { background: var(--text-secondary); }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2a2a3a;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav { width: 240px; }
+            .main { margin-left: 240px; padding: 30px 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .main { margin-left: 0; padding: 20px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+    <h2>AMA Project Bible</h2>
+
+    <div class="nav-section">Vue d'ensemble</div>
+    <a href="#intro">Introduction</a>
+    <a href="#identity">Identit&eacute; du projet</a>
+    <a href="#pillars">Les 4 piliers</a>
+
+    <div class="nav-section">Structure</div>
+    <a href="#arborescence">Arborescence compl&egrave;te</a>
+    <a href="#folders">D&eacute;tail des dossiers</a>
+    <a href="#key-files">Fichiers cl&eacute;s</a>
+
+    <div class="nav-section">Documentation</div>
+    <a href="#docs-reference">Docs de r&eacute;f&eacute;rence</a>
+    <a href="#docs-strategy">Docs de strat&eacute;gie</a>
+    <a href="#docs-formation">Docs de formation</a>
+
+    <div class="nav-section">Workflow</div>
+    <a href="#claude-strategy">Strat&eacute;gie Claude</a>
+    <a href="#update-process">Processus de mise &agrave; jour</a>
+    <a href="#migration">Guide de migration</a>
+
+    <div class="nav-section">&Eacute;tat actuel</div>
+    <a href="#status">Statut des projets</a>
+    <a href="#outils">Outils de travail</a>
+    <a href="#contacts">Contacts cl&eacute;s</a>
+    <a href="#timeline">Timeline 2026</a>
+    <a href="#suivi" style="color: var(--green); font-weight: 600;">Suivi &amp; Rappels</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <h1>AMA Project Bible</h1>
+    <p class="subtitle">Documentation compl&egrave;te pour migration, collaboration et continuit&eacute;</p>
+
+    <!-- ======================= -->
+    <!-- SECTION 1: INTRODUCTION -->
+    <!-- ======================= -->
+    <section id="intro">
+        <h2>1. Introduction</h2>
+
+        <div class="highlight-box">
+            <p style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0;">
+                <strong>Ce document est la r&eacute;f&eacute;rence centrale du projet AMA.</strong><br>
+                Il d&eacute;crit l'int&eacute;gralit&eacute; de l'arborescence, les fichiers cl&eacute;s, les workflows,
+                et permet &agrave; n'importe qui (humain ou IA) de comprendre et continuer le travail.
+            </p>
+        </div>
+
+        <h3>Pourquoi ce document ?</h3>
+        <ul style="color: var(--text-secondary); margin-left: 1.5rem;">
+            <li><strong>Migration de workspace</strong> &mdash; Tout est document&eacute; pour changer de machine</li>
+            <li><strong>Continuit&eacute; Claude</strong> &mdash; Une nouvelle session peut reprendre imm&eacute;diatement</li>
+            <li><strong>Collaboration</strong> &mdash; Un tiers peut comprendre le projet sans explication orale</li>
+            <li><strong>M&eacute;moire</strong> &mdash; &Eacute;viter de refaire ce qui a d&eacute;j&agrave; &eacute;t&eacute; fait</li>
+        </ul>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 2: IDENTITY     -->
+    <!-- ======================= -->
+    <section id="identity">
+        <h2>2. Identit&eacute; du Projet</h2>
+
+        <div class="grid-2">
+            <div class="card card-accent">
+                <h4 style="color: var(--accent-light); margin-top: 0;">Fondateur</h4>
+                <p><strong style="color: var(--text-primary);">Yann CARIO</strong> (Youhna)</p>
+                <p>25 ans &bull; Paris + Bretagne</p>
+                <p>4 langues : FR, EN, ES, AR</p>
+                <p>Email &eacute;coles : <code>yannkriodemain@gmail.com</code></p>
+            </div>
+            <div class="card card-pink">
+                <h4 style="color: var(--pink); margin-top: 0;">Projet</h4>
+                <p><strong style="color: var(--text-primary);">AMA</strong> &mdash; Art, Musique, Architecture</p>
+                <p>&Eacute;cosyst&egrave;me collaboratif reliant cr&eacute;ation et transition &eacute;cologique</p>
+                <p>Objectif : alternance M1/M2 RSE d'ici sept 2026</p>
+            </div>
+        </div>
+
+        <h3>Formations (ce qui l&eacute;gitime le projet)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Formation</th>
+                    <th>Lieu</th>
+                    <th>Ann&eacute;e</th>
+                    <th>Statut</th>
+                    <th>Comp&eacute;tences</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BSc Maritime Business</td>
+                    <td>Solent, UK</td>
+                    <td>2018-2021</td>
+                    <td><span class="tag tag-green">Dipl&ocirc;m&eacute;</span></td>
+                    <td>Commerce international, flux maritimes, BRI</td>
+                </tr>
+                <tr>
+                    <td>Master SBI (Sustainable Business)</td>
+                    <td>EADA, Barcelone</td>
+                    <td>2021-2022</td>
+                    <td><span class="tag tag-orange">Participant</span></td>
+                    <td>&Eacute;conomie circulaire, innovation sociale</td>
+                </tr>
+                <tr>
+                    <td>Architecture Int&eacute;rieure</td>
+                    <td>LISAA, Paris</td>
+                    <td>2022-2023</td>
+                    <td><span class="tag tag-orange">Participant</span></td>
+                    <td>Design d'espaces, modularit&eacute;</td>
+                </tr>
+                <tr>
+                    <td>Transport &amp; Logistique</td>
+                    <td>ISTELI/AFTRAL + H-K, Pau</td>
+                    <td>2024-2025</td>
+                    <td><span class="tag tag-orange">Alternance</span></td>
+                    <td>CRK, dispatching, calcul co&ucirc;ts, terrain</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 3: PILLARS      -->
+    <!-- ======================= -->
+    <section id="pillars">
+        <h2>3. Les 4 Piliers d'AMA</h2>
+
+        <div class="grid-4">
+            <div class="card" style="border-top: 4px solid var(--accent); text-align: center;">
+                <h4 style="color: var(--accent-light); margin-top: 0;">INDEX</h4>
+                <p>Hub central</p>
+                <p style="font-size: 0.8rem;">Contacts, calendrier, ressources</p>
+                <div class="status status-dev" style="margin-top: 1rem;">En conception</div>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--pink); text-align: center;">
+                <h4 style="color: var(--pink); margin-top: 0;">PIN-LAB</h4>
+                <p>Design &amp; Espaces</p>
+                <p style="font-size: 0.8rem;">Prototypage modulaire</p>
+                <div class="status status-dev" style="margin-top: 1rem;">En d&eacute;veloppement</div>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--orange); text-align: center;">
+                <h4 style="color: var(--orange); margin-top: 0;">FLOAT</h4>
+                <p>Documentation</p>
+                <p style="font-size: 0.8rem;">Captation audiovisuelle</p>
+                <div class="status status-active" style="margin-top: 1rem;">Actif</div>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--green); text-align: center;">
+                <h4 style="color: var(--green); margin-top: 0;">HUBJAM</h4>
+                <p>Musique &amp; Son</p>
+                <p style="font-size: 0.8rem;">Avec Lo&iuml;c (cofondateur)</p>
+                <div class="status status-active" style="margin-top: 1rem;">Test&eacute; en live</div>
+            </div>
+        </div>
+
+        <h3>Projet vision long terme</h3>
+        <div class="card card-accent">
+            <h4 style="color: var(--accent-light); margin-top: 0;">METR H2O</h4>
+            <p>R&eacute;seau d'&icirc;les logistiques flottantes autonomes. Intersection du BSc Maritime, GOTRM, et design modulaire.</p>
+            <p>Cible : Fondation Jacques Rougerie (concours international UNESCO)</p>
+            <div class="status status-planned" style="margin-top: 1rem;">Recherche / Design</div>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 4: ARBORESCENCE -->
+    <!-- ======================= -->
+    <section id="arborescence">
+        <h2>4. Arborescence Compl&egrave;te</h2>
+
+        <pre class="tree">
+<span class="folder">AMA/</span>
+├── <span class="folder">Admissions/</span>
+│   └── <span class="folder">Dossiers/</span>
+│       └── <span class="folder">KLIMA SCHOOL/</span>         <span class="comment"># Dossier candidature KLIMA</span>
+│
+├── <span class="folder">Collabs/</span>
+│   ├── <span class="folder">Gestion/</span>                  <span class="comment"># Fichiers admin collaborations</span>
+│   ├── <span class="folder">Photo - Vid&eacute;os/</span>           <span class="comment"># M&eacute;dias captation (FLOAT)</span>
+│   │   ├── Construction/HubJam/
+│   │   └── &Eacute;v&eacute;nements/
+│   ├── <span class="folder">Projet-Global/</span>
+│   └── <span class="folder">Sch&eacute;ma/</span>
+│
+├── <span class="folder">Docs/</span>                         <span class="comment"># DOCUMENTATION CENTRALE</span>
+│   ├── <span class="file-key">PROFIL-YANN-REFERENCE.md</span>  <span class="comment"># Fiche profil rapide</span>
+│   ├── <span class="file-key">BANQUE-ARGUMENTS-THEMATIQUES.md</span>
+│   ├── <span class="file-key">METHODE-SYNTHESE.md</span>       <span class="comment"># Template synth&egrave;se</span>
+│   ├── <span class="file-key">STRATEGIE-2026-2027.md</span>    <span class="comment"># Strat&eacute;gie globale</span>
+│   ├── <span class="file-key">STRATEGIE-CLAUDE-AMA.html</span> <span class="comment"># Workflow Claude</span>
+│   ├── <span class="file-key">QUESTIONS-RAPIDES-PROJETS.md</span> <span class="comment"># Questions par projet</span>
+│   ├── <span class="file-key">BRIEFING-QUOTIDIEN.md</span>    <span class="comment"># MAJ chaque matin / session</span>
+│   ├── <span class="file-key">GESTION-TEMPS-TEMPLATE.md</span> <span class="comment"># Planning &amp; relances</span>
+│   ├── <span class="file-key">AMA-DETAILS-ARCHIVE.md</span>    <span class="comment"># Archive d&eacute;tails complets</span>
+│   ├── <span class="file-key">SUIVI-ECOLES.md</span>           <span class="comment"># Suivi contacts &eacute;coles</span>
+│   ├── <span class="file-key">CV-YANN.md</span>                <span class="comment"># CV actuel</span>
+│   ├── <span class="folder">Flashcards/</span>               <span class="comment"># Fiches m&eacute;mo</span>
+│   │   ├── <span class="file">TERMINAL-BASES.md</span>
+│   │   ├── <span class="file">TERMINAL-AVANCE.md</span>
+│   │   └── <span class="file">SETUP-PROJETS.md</span>
+│   ├── <span class="folder">Archive/</span>                  <span class="comment"># Fichiers obsol&egrave;tes (14 fichiers)</span>
+│   │   ├── <span class="file">PROFILE-YANN.md, AMA-OVERVIEW.md</span>
+│   │   ├── <span class="file">CV-YANN-CURRENT.md, ARBORESCENCE-*.md</span>
+│   │   ├── <span class="file">PORTFOLIO-AMA-*.md, AMA-LANDING-PAGE.md</span>
+│   │   └── <span class="file">*-MISTRAL-*.md, CONCIERGERIE.md</span>
+│   ├── <span class="file">AMA-ROADMAP.md</span>
+│   ├── <span class="file">AMA-CONTACTS.md</span>
+│   ├── <span class="file">KLIMA-SCHOOL-*.md</span>
+│   ├── <span class="file">FORMATION-*.md</span>            <span class="comment"># Fiches par formation</span>
+│   ├── <span class="file">RESUME-*.md</span>               <span class="comment"># R&eacute;sum&eacute;s projets</span>
+│   └── <span class="file">*.md</span>                      <span class="comment"># ~50 fichiers docs</span>
+│
+├── <span class="folder">HUBJAM/</span>
+│   └── <span class="folder">HubJam/</span>                   <span class="comment"># Fichiers projet bo&icirc;tier</span>
+│
+├── <span class="folder">INDEX/</span>                        <span class="comment"># 6 REPOS GITHUB</span>
+│   ├── <span class="folder">index-dashboard/</span>          <span class="comment"># Interface web (Svelte)</span>
+│   ├── <span class="folder">index-messaging/</span>          <span class="comment"># Sync WhatsApp/Signal</span>
+│   ├── <span class="folder">index-resources/</span>          <span class="comment"># API ressources</span>
+│   ├── <span class="folder">index-shared/</span>             <span class="comment"># Composants partag&eacute;s</span>
+│   ├── <span class="folder">index-tasks/</span>              <span class="comment"># Gestion t&acirc;ches</span>
+│   └── <span class="folder">index-users/</span>              <span class="comment"># Gestion utilisateurs</span>
+│
+├── <span class="folder">JOE-OnDePhemeres/</span>            <span class="comment"># Festival partenaire</span>
+│   └── <span class="folder">JOE/</span>
+│       ├── ARVOR VOX/
+│       └── JOE 2028/
+│           └── 2024/             <span class="comment"># Dossiers logistique, sceno, admin</span>
+│
+├── <span class="folder">METR-H2O/</span>                     <span class="comment"># PROJET VISION LONG TERME</span>
+│   └── <span class="folder">METR-02/</span>
+│       ├── Data set - Published research/
+│       ├── Personnal Drawings/
+│       │   └── Hand drawing/     <span class="comment"># Croquis originaux</span>
+│       └── THESIS/               <span class="comment"># Dissertation BRI</span>
+│
+├── <span class="folder">Music/</span>
+│   ├── <span class="folder">Me-and-Mind/</span>
+│   └── <span class="folder">Music-and-Arts/</span>
+│
+├── <span class="folder">Plate-Forme-Bateau/</span>          <span class="comment"># Projet annexe</span>
+│
+├── <span class="folder">Portfolios/</span>                   <span class="comment"># LIVRABLES D&Eacute;TAILL&Eacute;S</span>
+│   ├── <span class="file-key">portfolio-ama.html</span>        <span class="comment"># FR Artiste</span>
+│   ├── <span class="file-key">portfolio-ama-en.html</span>     <span class="comment"># EN Artiste</span>
+│   ├── <span class="file-key">portfolio-ama-institutional.html</span>     <span class="comment"># FR Institutionnel</span>
+│   ├── <span class="file-key">portfolio-ama-institutional-en.html</span>  <span class="comment"># EN Institutionnel</span>
+│   ├── <span class="file">KLIMA-SCHOOL-DOSSIER.html</span>
+│   └── <span class="file">questionnaire-ama.html</span>
+│
+├── <span class="folder">Site/</span>                         <span class="comment"># SITE WEB amaworkspace.com</span>
+│   ├── <span class="file-key">index.html</span>                <span class="comment"># Landing page FR</span>
+│   └── <span class="file-key">index-en.html</span>             <span class="comment"># Landing page EN</span>
+│
+├── <span class="folder">Projets-Pro/</span>
+│   └── <span class="folder">MASTER PROJECTS/</span>
+│
+└── <span class="file-key">AMA-PROJECT-BIBLE.html</span>       <span class="comment"># CE DOCUMENT</span>
+        </pre>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 5: FOLDERS      -->
+    <!-- ======================= -->
+    <section id="folders">
+        <h2>5. D&eacute;tail des Dossiers</h2>
+
+        <div class="card card-orange">
+            <h4 style="color: var(--orange); margin-top: 0;">Docs/ &mdash; Cerveau du projet</h4>
+            <p>~50 fichiers Markdown. C'est l&agrave; que Claude cherche en premier.</p>
+            <p><strong>Sous-cat&eacute;gories :</strong></p>
+            <ul style="color: var(--text-secondary); margin-left: 1.5rem; font-size: 0.9rem;">
+                <li><code>PROFIL-*</code> : Fiches identit&eacute;</li>
+                <li><code>FORMATION-*</code> : D&eacute;tail par formation</li>
+                <li><code>RESUME-*</code> : R&eacute;sum&eacute;s projets/exp&eacute;riences</li>
+                <li><code>STRATEGIE-*</code> : Plans d'action</li>
+                <li><code>*-SCHOOL-*</code> : Par &eacute;cole cibl&eacute;e</li>
+                <li><code>REPONSES-*</code> : Transcriptions entretiens</li>
+            </ul>
+        </div>
+
+        <div class="card card-green">
+            <h4 style="color: var(--green); margin-top: 0;">Portfolios/ &mdash; Livrables finaux</h4>
+            <p>Fichiers HTML autonomes, pr&ecirc;ts &agrave; partager via 0x0.st</p>
+            <p><strong>4 versions principales :</strong></p>
+            <ul style="color: var(--text-secondary); margin-left: 1.5rem; font-size: 0.9rem;">
+                <li><code>portfolio-ama.html</code> &mdash; FR, ton artiste</li>
+                <li><code>portfolio-ama-en.html</code> &mdash; EN, ton artiste</li>
+                <li><code>portfolio-ama-institutional.html</code> &mdash; FR, ton institutionnel</li>
+                <li><code>portfolio-ama-institutional-en.html</code> &mdash; EN, ton institutionnel</li>
+            </ul>
+        </div>
+
+        <div class="card card-accent">
+            <h4 style="color: var(--accent-light); margin-top: 0;">INDEX/ &mdash; Infrastructure technique</h4>
+            <p>6 repos GitHub, architecture microservices.</p>
+            <p><strong>Statut :</strong> En conception. Pas encore d&eacute;ploy&eacute;.</p>
+        </div>
+
+        <div class="card card-pink">
+            <h4 style="color: var(--pink); margin-top: 0;">METR-H2O/ &mdash; Vision long terme</h4>
+            <p>Recherche, dessins, th&egrave;se BRI. Projet Fondation Rougerie.</p>
+            <p><strong>Contenu cl&eacute; :</strong> <code>Personnal Drawings/Hand drawing/</code> (croquis originaux)</p>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 6: KEY FILES    -->
+    <!-- ======================= -->
+    <section id="key-files">
+        <h2>6. Fichiers Cl&eacute;s</h2>
+
+        <p>Ces fichiers sont les plus importants. Ils doivent &ecirc;tre maintenus &agrave; jour.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fichier</th>
+                    <th>R&ocirc;le</th>
+                    <th>Mise &agrave; jour</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>PROFIL-YANN-REFERENCE.md</code></td>
+                    <td>Fiche profil rapide &mdash; Claude lit en premier</td>
+                    <td>Rare (nouvelle formation/projet)</td>
+                </tr>
+                <tr>
+                    <td><code>BANQUE-ARGUMENTS-THEMATIQUES.md</code></td>
+                    <td>Arguments pr&eacute;-r&eacute;dig&eacute;s par th&egrave;me</td>
+                    <td>Apr&egrave;s chaque synth&egrave;se</td>
+                </tr>
+                <tr>
+                    <td><code>METHODE-SYNTHESE.md</code></td>
+                    <td>Template pour tests &eacute;crits</td>
+                    <td>Stable</td>
+                </tr>
+                <tr>
+                    <td><code>STRATEGIE-2026-2027.md</code></td>
+                    <td>Strat&eacute;gie &eacute;coles, calendrier, mapping</td>
+                    <td>R&eacute;guli&egrave;re</td>
+                </tr>
+                <tr>
+                    <td><code>portfolio-ama*.html</code> (×4)</td>
+                    <td>Portfolios &agrave; partager</td>
+                    <td>Au besoin</td>
+                </tr>
+                <tr>
+                    <td><code>AMA-PROJECT-BIBLE.html</code></td>
+                    <td>Ce document</td>
+                    <td>&Agrave; chaque changement majeur</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 7: DOCS REF     -->
+    <!-- ======================= -->
+    <section id="docs-reference">
+        <h2>7. Docs de R&eacute;f&eacute;rence</h2>
+
+        <p>Documents que Claude consulte en priorit&eacute; pour g&eacute;n&eacute;rer des r&eacute;ponses adapt&eacute;es :</p>
+
+        <div class="grid-2">
+            <div class="card card-green">
+                <h4 style="color: var(--green); margin-top: 0;">PROFIL-YANN-REFERENCE.md</h4>
+                <p>Mapping th&egrave;me &rarr; formation &rarr; projet AMA</p>
+                <p><strong>Usage :</strong> "Si le sujet parle de X, je mobilise Y"</p>
+            </div>
+            <div class="card card-green">
+                <h4 style="color: var(--green); margin-top: 0;">BANQUE-ARGUMENTS-THEMATIQUES.md</h4>
+                <p>9 th&egrave;mes × 2-3 arguments pr&eacute;-r&eacute;dig&eacute;s</p>
+                <p><strong>Usage :</strong> Piocher pour synth&egrave;ses, lettres, entretiens</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 8: DOCS STRAT   -->
+    <!-- ======================= -->
+    <section id="docs-strategy">
+        <h2>8. Docs de Strat&eacute;gie</h2>
+
+        <div class="card card-orange">
+            <h4 style="color: var(--orange); margin-top: 0;">STRATEGIE-2026-2027.md</h4>
+            <p>Document ma&icirc;tre. Contient :</p>
+            <ul style="color: var(--text-secondary); margin-left: 1.5rem; font-size: 0.9rem;">
+                <li><strong>AXE 1</strong> &mdash; Am&eacute;liorer le portfolio</li>
+                <li><strong>AXE 2</strong> &mdash; Strat&eacute;gie &eacute;coles/alternance (processus, tests, kit pr&eacute;paration)</li>
+                <li><strong>AXE 3</strong> &mdash; Fondations/incubateurs</li>
+                <li><strong>AXE 4</strong> &mdash; Calendrier 2026-2027</li>
+            </ul>
+        </div>
+
+        <div class="card card-accent">
+            <h4 style="color: var(--accent-light); margin-top: 0;">AMA-ROADMAP.md</h4>
+            <p>Feuille de route projet AMA. KPIs, phases, jalons.</p>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 9: DOCS FORM    -->
+    <!-- ======================= -->
+    <section id="docs-formation">
+        <h2>9. Docs de Formation</h2>
+
+        <p>Une fiche par formation. Permet de sourcer pr&eacute;cis&eacute;ment les comp&eacute;tences.</p>
+
+        <div class="grid-3">
+            <div class="card"><code>FORMATION-SOLENT-BSC.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">Maritime, BRI</span></div>
+            <div class="card"><code>FORMATION-EADA-SBI.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">Durable, circulaire</span></div>
+            <div class="card"><code>FORMATION-LISAA-AD1.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">Design, espaces</span></div>
+            <div class="card"><code>FORMATION-ISTELI-PAU.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">GOTRM, logistique</span></div>
+            <div class="card"><code>RESUME-LOGISTIQUE-HK-DISPATCH.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">Terrain</span></div>
+            <div class="card"><code>DISSERTATION-BRI.md</code><br><span style="font-size: 0.8rem; color: var(--text-secondary);">Routes de la Soie</span></div>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 10: CLAUDE STRAT-->
+    <!-- ======================= -->
+    <section id="claude-strategy">
+        <h2>10. Strat&eacute;gie Claude</h2>
+
+        <div class="highlight-box">
+            <p style="color: var(--text-primary); margin-bottom: 0;">
+                <strong>Voir le fichier d&eacute;di&eacute; :</strong> <code>Docs/STRATEGIE-CLAUDE-AMA.html</code><br>
+                D&eacute;crit le workflow complet : quels fichiers je lis, comment je traite chaque type de demande.
+            </p>
+        </div>
+
+        <h3>R&eacute;sum&eacute; du workflow</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type de demande</th>
+                    <th>Je lis</th>
+                    <th>Je produis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Synth&egrave;se / Test</td>
+                    <td>PROFIL + BANQUE + METHODE</td>
+                    <td>Brouillon structur&eacute;</td>
+                </tr>
+                <tr>
+                    <td>Candidature &eacute;cole</td>
+                    <td>STRATEGIE (mapping 2E)</td>
+                    <td>Dossier 4 pages</td>
+                </tr>
+                <tr>
+                    <td>Mise &agrave; jour portfolio</td>
+                    <td>HTML existant</td>
+                    <td>4 fichiers + upload</td>
+                </tr>
+                <tr>
+                    <td>Question g&eacute;n&eacute;rale</td>
+                    <td>PROFIL + contexte</td>
+                    <td>R&eacute;ponse adapt&eacute;e</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 11: UPDATE      -->
+    <!-- ======================= -->
+    <section id="update-process">
+        <h2>11. Processus de Mise &agrave; Jour</h2>
+
+        <h3>R&egrave;gle de coh&eacute;rence</h3>
+        <div class="card card-red">
+            <p style="color: var(--text-primary);">
+                <strong>Une info mise &agrave; jour dans 1 fichier = mise &agrave; jour dans TOUS les fichiers concern&eacute;s.</strong>
+            </p>
+            <p>Exemple : si un statut passe de "proto" &agrave; "test&eacute;", modifier les 4 portfolios + STRATEGIE + ROADMAP.</p>
+        </div>
+
+        <h3>Checklist mise &agrave; jour</h3>
+        <pre>
+Nouvelle formation / exp&eacute;rience :
+  → PROFIL-YANN-REFERENCE.md
+  → STRATEGIE-2026-2027.md (si impact &eacute;coles)
+  → 4 portfolios HTML
+  → AMA-PROJECT-BIBLE.html
+
+Nouveau projet AMA :
+  → PROFIL-YANN-REFERENCE.md (mapping th&egrave;mes)
+  → BANQUE-ARGUMENTS-THEMATIQUES.md
+  → AMA-ROADMAP.md
+  → 4 portfolios HTML
+
+Changement de statut projet :
+  → 4 portfolios HTML
+  → STRATEGIE-2026-2027.md
+  → AMA-ROADMAP.md
+
+Apr&egrave;s un test / synth&egrave;se :
+  → BANQUE-ARGUMENTS-THEMATIQUES.md (nouveaux arguments)
+  → STRATEGIE-2026-2027.md (le&ccedil;ons apprises)
+        </pre>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 12: MIGRATION   -->
+    <!-- ======================= -->
+    <section id="migration">
+        <h2>12. Guide de Migration &amp; Disaster Recovery</h2>
+
+        <p>Ce guide couvre 4 sc&eacute;narios : migration machine, migration agent (personne), migration structure, et disaster recovery. Voir aussi <code>Docs/INVENTAIRE.md</code> pour la liste compl&egrave;te des fichiers.</p>
+
+        <!-- ===== SCENARIO A ===== -->
+        <h3>12.A &mdash; Migration Machine</h3>
+        <p><em>La cl&eacute; USB fonctionne, on change juste d&rsquo;ordinateur.</em></p>
+
+        <h4>&Eacute;tape 1 &mdash; Cr&eacute;er un backup frais</h4>
+        <pre>cd AMA && bash backup.sh</pre>
+        <p>L&rsquo;archive dat&eacute;e est cr&eacute;&eacute;e dans <code>~/AMA-backups/</code>.</p>
+
+        <h4>&Eacute;tape 2 &mdash; Brancher la cl&eacute; sur la nouvelle machine</h4>
+        <pre># La cl&eacute; se monte g&eacute;n&eacute;ralement dans /run/media/ ou /media/
+ls /run/media/$USER/KINGSTON/code/yann/AMA/AMA-PROJECT-BIBLE.html</pre>
+
+        <h4>&Eacute;tape 3 &mdash; V&eacute;rifier l&rsquo;&eacute;tat</h4>
+        <pre>cd AMA && bash start.sh</pre>
+        <p>Le script v&eacute;rifie tous les fichiers cl&eacute;s, repos git, outils install&eacute;s.</p>
+
+        <h4>&Eacute;tape 4 &mdash; Installer les d&eacute;pendances manquantes</h4>
+        <pre># Selon le r&eacute;sultat de start.sh :
+# - Go (pour INDEX backend)
+# - Node.js (pour index-dashboard)
+# - PostgreSQL (pour index-messaging)
+# - signal-cli (pour le pont Signal)
+# - curl (pour uploads 0x0.st)</pre>
+
+        <h4>&Eacute;tape 5 &mdash; Recr&eacute;er les .env</h4>
+        <p>Les fichiers <code>.env</code> ne sont pas versionn&eacute;s. Recr&eacute;er :</p>
+        <pre># INDEX/index-messaging/.env
+PORT=8080
+HOST=localhost
+# + credentials PostgreSQL, Signal config</pre>
+
+        <!-- ===== SCENARIO B ===== -->
+        <h3>12.B &mdash; Migration Agent (nouvelle personne reprend le travail)</h3>
+        <p><em>Yann ou Laz n&rsquo;est plus disponible. Un nouvel agent (humain ou IA) reprend.</em></p>
+
+        <h4>&Eacute;tape 1 &mdash; Lire les documents fondateurs</h4>
+        <pre># Dans cet ordre :
+1. AMA/AMA-PROJECT-BIBLE.html          # Vue d'ensemble compl&egrave;te
+2. AMA/Docs/PROFIL-YANN-REFERENCE.md   # Qui est Yann, son parcours
+3. AMA/Docs/STRATEGIE-2026-2027.md     # Strat&eacute;gie en cours
+4. AMA/Docs/INVENTAIRE.md              # Inventaire de tous les fichiers
+5. AMA/Docs/BRIEFING-QUOTIDIEN.md      # Contexte r&eacute;cent</pre>
+
+        <h4>&Eacute;tape 2 &mdash; Prompt pour un nouvel agent IA</h4>
+        <pre>"Lis AMA/AMA-PROJECT-BIBLE.html pour comprendre le projet AMA.
+Puis lis AMA/Docs/PROFIL-YANN-REFERENCE.md (profil fondateur),
+AMA/Docs/STRATEGIE-2026-2027.md (strat&eacute;gie),
+AMA/Docs/INVENTAIRE.md (inventaire fichiers),
+et AMA/Docs/BRIEFING-QUOTIDIEN.md (contexte r&eacute;cent).
+Ensuite lance bash AMA/start.sh pour v&eacute;rifier l'&eacute;tat."</pre>
+
+        <h4>&Eacute;tape 3 &mdash; Comprendre l&rsquo;architecture INDEX</h4>
+        <pre># Lire les specs techniques :
+AMA/Docs/INDEX_SPECS.md                # Sp&eacute;cifications compl&egrave;tes
+AMA/Docs/INDEX-CHAT-FLOW.md            # Flux de messages
+AMA/Docs/INTEGRATION-POSTGRESQL.md     # Int&eacute;gration DB</pre>
+
+        <h4>&Eacute;tape 4 &mdash; Contacter les personnes cl&eacute;s</h4>
+        <p>Voir <code>Docs/AMA-CONTACTS.md</code> et la section 15 de cette Bible pour les contacts.</p>
+
+        <!-- ===== SCENARIO C ===== -->
+        <h3>12.C &mdash; Migration Structure (AMA absorb&eacute; par une autre entit&eacute;)</h3>
+        <p><em>AMA est int&eacute;gr&eacute; dans une organisation, un studio, ou un projet plus large.</em></p>
+
+        <h4>Ce qui est portable</h4>
+        <ul>
+            <li><strong>INDEX/</strong> &mdash; 6 repos git ind&eacute;pendants, d&eacute;pla&ccedil;ables tels quels</li>
+            <li><strong>Docs/</strong> &mdash; Markdown standard, lisible partout</li>
+            <li><strong>Portfolios/</strong> &mdash; HTML autonomes, pas de d&eacute;pendances externes</li>
+            <li><strong>Les scripts</strong> &mdash; <code>backup.sh</code> et <code>start.sh</code> utilisent des chemins relatifs</li>
+        </ul>
+
+        <h4>Ce qui doit &ecirc;tre adapt&eacute;</h4>
+        <ul>
+            <li><strong>.env et credentials</strong> &mdash; &Agrave; reconfigurer pour le nouvel environnement</li>
+            <li><strong>Liens 0x0.st</strong> &mdash; Relancer <code>bash backup.sh --upload</code> pour g&eacute;n&eacute;rer de nouveaux liens</li>
+            <li><strong>R&eacute;f&eacute;rences &agrave; &laquo; KINGSTON &raquo;</strong> &mdash; Les scripts utilisent des chemins relatifs, mais certains docs r&eacute;f&eacute;rencent la cl&eacute;</li>
+            <li><strong>GitHub remotes</strong> &mdash; Mettre &agrave; jour si le repo change d&rsquo;organisation</li>
+        </ul>
+
+        <h4>Proc&eacute;dure</h4>
+        <pre>1. Copier AMA/ vers la nouvelle structure
+2. bash start.sh                        # V&eacute;rifier l'&eacute;tat
+3. Mettre &agrave; jour les GitHub remotes si besoin :
+   cd INDEX/index-messaging && git remote set-url origin NEW_URL
+4. Recr&eacute;er les .env pour le nouvel environnement
+5. bash backup.sh --upload              # Nouveaux liens 0x0.st
+6. Mettre &agrave; jour cette Bible (section 2, contacts, timeline)</pre>
+
+        <!-- ===== SCENARIO D ===== -->
+        <h3>12.D &mdash; Disaster Recovery (la cl&eacute; USB meurt)</h3>
+        <p><em>La cl&eacute; KINGSTON est perdue, cass&eacute;e ou corrompue. Que reste-t-il ?</em></p>
+
+        <h4>Ce qui survit</h4>
+        <table>
+            <thead>
+                <tr><th>Quoi</th><th>O&ugrave;</th><th>Complet ?</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Code INDEX (6 repos)</td><td>GitHub</td><td>Oui (sauf branches locales non push&eacute;es)</td></tr>
+                <tr><td>HTML publics</td><td>0x0.st</td><td>Temporaire &mdash; liens expirent</td></tr>
+                <tr><td>Dernier backup</td><td><code>~/AMA-backups/</code></td><td>Si <code>backup.sh</code> a &eacute;t&eacute; lanc&eacute; r&eacute;cemment</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ce qui est perdu (sans backup)</h4>
+        <ul>
+            <li>44+ fichiers Docs/ (strat&eacute;gie, profil, arguments, contacts...)</li>
+            <li>4 portfolios HTML + 2 landing pages + questionnaire + dossier KLIMA</li>
+            <li>Bible AMA, Dashboard, Conciergerie</li>
+            <li>Collabs, Music, METR, JOE (~1.5 Go de m&eacute;dias)</li>
+            <li>Tous les .env et configurations locales</li>
+        </ul>
+
+        <h4>Proc&eacute;dure de relance compl&egrave;te</h4>
+        <pre>
+# 1. Pr&eacute;parer le nouveau support
+mkdir -p /chemin/nouveau/AMA
+
+# 2. R&eacute;cup&eacute;rer depuis le backup (si disponible)
+cd /chemin/nouveau
+tar xzf ~/AMA-backups/AMA-backup-DERNIER.tar.gz
+
+# 3. Sinon, reconstruire depuis GitHub
+mkdir -p AMA/INDEX && cd AMA/INDEX
+git clone git@github.com:USER/index-messaging.git
+git clone git@github.com:USER/index-dashboard.git
+git clone git@github.com:USER/index-resources.git
+git clone git@github.com:USER/index-shared.git
+git clone git@github.com:USER/index-tasks.git
+git clone git@github.com:USER/index-users.git
+
+# 4. V&eacute;rifier l'&eacute;tat
+cd /chemin/nouveau/AMA && bash start.sh
+
+# 5. Recr&eacute;er les fichiers manquants
+# - .env (voir section 7 de INVENTAIRE.md)
+# - BRIEFING-QUOTIDIEN.md (r&eacute;&eacute;crire)
+# - Les Docs/ devront &ecirc;tre recr&eacute;&eacute;s si pas de backup
+
+# 6. Relancer les liens publics
+bash backup.sh --upload
+        </pre>
+
+        <!-- ===== PREVENTION ===== -->
+        <h3>12.E &mdash; Pr&eacute;vention</h3>
+        <p>Pour &eacute;viter la perte de donn&eacute;es :</p>
+        <ul>
+            <li><strong>Lancer <code>bash backup.sh</code> au moins 1x/semaine</strong></li>
+            <li>Configurer <code>BACKUP_DEST</code> vers un dossier <strong>hors de la cl&eacute; USB</strong> (disque dur, cloud mount)</li>
+            <li>V&eacute;rifier les liens 0x0.st r&eacute;guli&egrave;rement (<code>bash backup.sh --upload</code>)</li>
+            <li>Pusher les branches INDEX avant de d&eacute;brancher la cl&eacute;</li>
+            <li>Consulter <code>Docs/INVENTAIRE.md</code> pour la liste compl&egrave;te de ce qui n&rsquo;est pas prot&eacute;g&eacute;</li>
+        </ul>
+
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 13: STATUS      -->
+    <!-- ======================= -->
+    <section id="status">
+        <h2>13. Statut des Projets</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Projet</th>
+                    <th>Pilier</th>
+                    <th>Statut</th>
+                    <th>Prochaine &eacute;tape</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bo&icirc;tier HUBJAM (V1-V5)</td>
+                    <td>HUBJAM</td>
+                    <td><span class="status status-active">Test&eacute; en live</span></td>
+                    <td>Production s&eacute;rie</td>
+                </tr>
+                <tr>
+                    <td>Ateliers R&eacute;paration</td>
+                    <td>HUBJAM</td>
+                    <td><span class="status status-dev">En pr&eacute;paration</span></td>
+                    <td>Premier atelier</td>
+                </tr>
+                <tr>
+                    <td>Jams</td>
+                    <td>HUBJAM</td>
+                    <td><span class="status status-active">Actif</span></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>HS Setup</td>
+                    <td>PIN-LAB</td>
+                    <td><span class="status status-proto">En prototypage</span></td>
+                    <td>Tests terrain</td>
+                </tr>
+                <tr>
+                    <td>INDEX (hub)</td>
+                    <td>INDEX</td>
+                    <td><span class="status status-dev">En conception</span></td>
+                    <td>D&eacute;ploiement v1</td>
+                </tr>
+                <tr>
+                    <td>METR H2O</td>
+                    <td>Vision</td>
+                    <td><span class="status status-planned">Recherche</span></td>
+                    <td>Dossier Rougerie</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 14: OUTILS      -->
+    <!-- ======================= -->
+    <section id="outils">
+        <h2>14. Outils de Travail</h2>
+
+        <p>Documents pratiques pour le travail quotidien, la formation et la gestion du temps.</p>
+
+        <h3>Flashcards (Docs/Flashcards/)</h3>
+        <div class="grid-3">
+            <div class="card card-accent">
+                <h4 style="margin-top: 0;">TERMINAL-BASES.md</h4>
+                <p>Navigation, gestion fichiers, permissions, lecture</p>
+            </div>
+            <div class="card card-accent">
+                <h4 style="margin-top: 0;">TERMINAL-AVANCE.md</h4>
+                <p>SSH, SCP, Grep, Find, Sed, Cron, R&eacute;seau</p>
+            </div>
+            <div class="card card-accent">
+                <h4 style="margin-top: 0;">SETUP-PROJETS.md</h4>
+                <p>Python, Flask, SQLite, Git, Automatisation</p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Questions Rapides</h3>
+        <div class="card card-orange">
+            <h4 style="margin-top: 0; color: var(--orange);">QUESTIONS-RAPIDES-PROJETS.md</h4>
+            <p>3-4 questions cibl&eacute;es par projet pour cadrer chaque &eacute;change :</p>
+            <ul style="color: var(--text-secondary); margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>INDEX, PIN-LAB, FLOAT, HUBJAM, METR H2O</li>
+                <li>&Eacute;coles / Alternance</li>
+                <li>Airbnb / Conciergerie</li>
+                <li>Questions g&eacute;n&eacute;rales (d&eacute;but de session)</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Gestion du Temps</h3>
+        <div class="card card-green">
+            <h4 style="margin-top: 0; color: var(--green);">GESTION-TEMPS-TEMPLATE.md</h4>
+            <p>Template de planification :</p>
+            <ul style="color: var(--text-secondary); margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Emploi du temps type (Airbnb matin, babysitting 16h-20h)</li>
+                <li>Blocs de travail AMA par type de t&acirc;che</li>
+                <li>Syst&egrave;me de relances (format + suivi)</li>
+                <li>T&acirc;ches r&eacute;currentes (quotidien, hebdo, mensuel)</li>
+                <li>Automatisations &agrave; mettre en place</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Utilisation</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Outil</th>
+                    <th>Quand l'utiliser</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Flashcards Terminal</td>
+                    <td>Avant de lancer une commande inconnue</td>
+                </tr>
+                <tr>
+                    <td>Questions Rapides</td>
+                    <td>D&eacute;but de session Claude ou changement de sujet</td>
+                </tr>
+                <tr>
+                    <td>Gestion Temps</td>
+                    <td>Planification hebdomadaire, suivi relances</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 15: CONTACTS    -->
+    <!-- ======================= -->
+    <section id="contacts">
+        <h2>15. Contacts Cl&eacute;s</h2>
+
+        <h3>Collaborateurs AMA</h3>
+        <div class="grid-3">
+            <div class="card card-green">
+                <h4 style="margin-top: 0; color: var(--green);">Lo&iuml;c</h4>
+                <p>Cofondateur HUBJAM<br>Ing. son/lumi&egrave;re<br>Larmor-Baden (Bretagne)</p>
+            </div>
+            <div class="card card-orange">
+                <h4 style="margin-top: 0; color: var(--orange);">Maya</h4>
+                <p>Coordination FLOAT<br>Logistique &eacute;v&eacute;nements<br>S&oelig;ur de Yann</p>
+            </div>
+            <div class="card card-accent">
+                <h4 style="margin-top: 0; color: var(--accent-light);">Laz</h4>
+                <p>Support technique<br>INDEX / Infrastructure</p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">&Eacute;coles, Fondations &amp; Contacts externes</h3>
+        <div class="grid-2">
+            <div class="card card-accent">
+                <h4 style="margin-top: 0; color: var(--accent-light);">Amine Lehna</h4>
+                <p>Pr&eacute;sident Deep Blue Foundation<br>Strat&eacute;gie internationale Fondation Rougerie<br>RDV &agrave; reprogrammer</p>
+            </div>
+            <div class="card">
+                <h4 style="margin-top: 0;">GabGrooveBox</h4>
+                <p>R&eacute;sident Cit&eacute; Fertile<br>Pr&eacute;sentation AMA &amp; collaboration</p>
+            </div>
+            <div class="card">
+                <h4 style="margin-top: 0;">Jonathan Sottier</h4>
+                <p>KLIMA School<br><code>jonathan@klimaschool.com</code></p>
+            </div>
+            <div class="card">
+                <h4 style="margin-top: 0;">Ga&euml;lle GUENGANT</h4>
+                <p>Creapole<br>Relance &agrave; envoyer</p>
+            </div>
+            <div class="card">
+                <h4 style="margin-top: 0;">Fondation Rougerie</h4>
+                <p>Via Amine Lehna (Deep Blue)<br>Concours international architecture</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 16: TIMELINE    -->
+    <!-- ======================= -->
+    <section id="timeline">
+        <h2>16. Timeline 2026</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>P&eacute;riode</th>
+                    <th>Actions</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>F&eacute;vrier 2026</td>
+                    <td>
+                        Entretien KLIMA (02/02) ✓<br>
+                        Tests KLIMA rendus (04/02) ✓<br>
+                        Portfolios 4 versions ✓<br>
+                        Attente retour KLIMA
+                    </td>
+                    <td><span class="tag tag-green">En cours</span></td>
+                </tr>
+                <tr>
+                    <td>Mars 2026</td>
+                    <td>
+                        Dossier candidature type<br>
+                        Mod&egrave;le &eacute;conomique AMA<br>
+                        Prospecter ESI, Alternis
+                    </td>
+                    <td><span class="tag tag-orange">&Agrave; faire</span></td>
+                </tr>
+                <tr>
+                    <td>Avril-Juin 2026</td>
+                    <td>
+                        Candidatures &eacute;coles<br>
+                        Dossier Fondation Rougerie
+                    </td>
+                    <td><span class="tag tag-accent">Planifi&eacute;</span></td>
+                </tr>
+                <tr>
+                    <td>Sept-Oct 2026</td>
+                    <td>
+                        Concours Fondation Rougerie<br>
+                        D&eacute;but alternance (si admis)
+                    </td>
+                    <td><span class="tag tag-accent">Planifi&eacute;</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ======================= -->
+    <!-- SECTION 17: SUIVI       -->
+    <!-- ======================= -->
+    <section id="suivi">
+        <h2>17. Suivi &amp; Rappels</h2>
+
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Section de mise &agrave; jour rapide pour chaque nouvelle session Claude.
+            <strong style="color: var(--text-primary);">Yann doit lire cette section en d&eacute;but de session.</strong>
+        </p>
+
+        <div class="grid-2">
+            <!-- ADMISSIONS -->
+            <div class="card card-accent">
+                <h4 style="margin-top: 0; color: var(--accent-light);">Admissions &amp; Fondations</h4>
+                <ul style="color: var(--text-secondary); margin-left: 1rem; font-size: 0.9rem;">
+                    <li><strong>Deep Blue / Amine Lehna</strong> &mdash; RDV report&eacute;, relance envoy&eacute;e, en attente de r&eacute;ponse</li>
+                    <li><strong>KLIMA School</strong> &mdash; Choisir cr&eacute;neau Calendly pour restitution admission</li>
+                    <li><strong>GabGrooveBox (Cit&eacute; Fertile)</strong> &mdash; RDV demain (11/02) apr&egrave;s-midi, liens envoy&eacute;s</li>
+                    <li><strong>Creapole</strong> &mdash; Relancer Ga&euml;lle GUENGANT</li>
+                </ul>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Derni&egrave;re MAJ : 10/02/2026</p>
+            </div>
+
+            <!-- MIGRATION -->
+            <div class="card card-orange">
+                <h4 style="margin-top: 0; color: var(--orange);">Migration Mars 2026</h4>
+                <ul style="color: var(--text-secondary); margin-left: 1rem; font-size: 0.9rem;">
+                    <li>Destination : Paris, studio 1, fibre</li>
+                    <li>Machine : Beelink (AMD Ryzen, Windows 11)</li>
+                    <li>Stockage : MyPassport (disque externe)</li>
+                    <li>Backup AMA cr&eacute;&eacute; le 10/02 (1.6 Go)</li>
+                </ul>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Derni&egrave;re MAJ : 10/02/2026</p>
+            </div>
+
+            <!-- RELECTEURS -->
+            <div class="card card-green">
+                <h4 style="margin-top: 0; color: var(--green);">Relecteurs AMA</h4>
+                <ul style="color: var(--text-secondary); margin-left: 1rem; font-size: 0.9rem;">
+                    <li>Kit de liens pr&eacute;par&eacute; &agrave; envoyer aux amis</li>
+                    <li>Landing + Portfolio Instit + Bible</li>
+                </ul>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Derni&egrave;re MAJ : 10/02/2026</p>
+            </div>
+
+            <!-- RDV -->
+            <div class="card card-pink">
+                <h4 style="margin-top: 0; color: var(--pink);">Prochains RDV</h4>
+                <ul style="color: var(--text-secondary); margin-left: 1rem; font-size: 0.9rem;">
+                    <li><strong>GabGrooveBox</strong> &mdash; Demain apr&egrave;s-midi (Cit&eacute; Fertile)</li>
+                    <li><strong>Amine Lehna</strong> &mdash; &Agrave; reprogrammer (matin de pr&eacute;f&eacute;rence)</li>
+                    <li><strong>KLIMA</strong> &mdash; Calendly &agrave; choisir</li>
+                </ul>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Derni&egrave;re MAJ : 10/02/2026</p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Actions cette semaine</h3>
+        <div class="card" style="border-left: 4px solid var(--green);">
+            <ul style="color: var(--text-secondary); margin-left: 1rem;">
+                <li><span class="tag tag-pink">URGENT</span> Relancer Amine Lehna (Deep Blue) &mdash; proposer matin</li>
+                <li><span class="tag tag-accent">URGENT</span> Choisir cr&eacute;neau Calendly KLIMA</li>
+                <li><span class="tag tag-green">FAIT</span> Liens envoy&eacute;s &agrave; GabGrooveBox pour demain</li>
+                <li><span class="tag tag-orange">SEMAINE</span> Envoyer kit liens aux amis relecteurs</li>
+                <li><span class="tag tag-orange">SEMAINE</span> Relancer Ga&euml;lle (Creapole)</li>
+                <li><span class="tag tag-orange">SEMAINE</span> Copier backup AMA sur MyPassport</li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Liens 0x0.st (mis &agrave; jour 10/02/2026)</h3>
+        <div class="card card-accent">
+            <table>
+                <thead>
+                    <tr><th>Page</th><th>Lien</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Dashboard</td><td><a href="https://0x0.st/PuM_.html" style="color: var(--accent-light);">https://0x0.st/PuM_.html</a></td></tr>
+                    <tr><td>Bible AMA</td><td><a href="https://0x0.st/PuML.html" style="color: var(--accent-light);">https://0x0.st/PuML.html</a></td></tr>
+                    <tr><td>Fiche Deep Blue</td><td><a href="https://0x0.st/PABw.html" style="color: var(--accent-light);">https://0x0.st/PABw.html</a></td></tr>
+                    <tr><td>Conciergerie</td><td><a href="https://0x0.st/PuM2.html" style="color: var(--accent-light);">https://0x0.st/PuM2.html</a></td></tr>
+                    <tr><td>Strat&eacute;gie Claude</td><td><a href="https://0x0.st/PTg_.html" style="color: var(--accent-light);">https://0x0.st/PTg_.html</a></td></tr>
+                    <tr><td>Landing FR</td><td><a href="https://0x0.st/PTgj.html" style="color: var(--accent-light);">https://0x0.st/PTgj.html</a></td></tr>
+                    <tr><td>Landing EN</td><td><a href="https://0x0.st/PTge.html" style="color: var(--accent-light);">https://0x0.st/PTge.html</a></td></tr>
+                    <tr><td>Portfolio Artiste FR</td><td><a href="https://0x0.st/PTgu.html" style="color: var(--accent-light);">https://0x0.st/PTgu.html</a></td></tr>
+                    <tr><td>Portfolio Artiste EN</td><td><a href="https://0x0.st/PTgS.html" style="color: var(--accent-light);">https://0x0.st/PTgS.html</a></td></tr>
+                    <tr><td>Portfolio Instit FR</td><td><a href="https://0x0.st/PTgQ.html" style="color: var(--accent-light);">https://0x0.st/PTgQ.html</a></td></tr>
+                    <tr><td>Portfolio Instit EN</td><td><a href="https://0x0.st/PTg1.html" style="color: var(--accent-light);">https://0x0.st/PTg1.html</a></td></tr>
+                    <tr><td>Dossier KLIMA</td><td><a href="https://0x0.st/PTxR.html" style="color: var(--accent-light);">https://0x0.st/PTxR.html</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Fichier de r&eacute;f&eacute;rence</h3>
+        <p style="color: var(--text-secondary);">
+            Pour le d&eacute;tail jour par jour : <code>Docs/BRIEFING-QUOTIDIEN.md</code>
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>AMA Project Bible &mdash; Cr&eacute;&eacute; le 04/02/2026 &mdash; Mis &agrave; jour le 10/02/2026</p>
+        <p style="margin-top: 0.5rem;">
+            Ce document doit &ecirc;tre mis &agrave; jour &agrave; chaque changement majeur du projet.
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">
+            Derni&egrave;re mise &agrave; jour : Section 12 (migration), section 15 (contacts Deep Blue, GabGrooveBox), section 17 (suivi), liens 0x0.st (10/02/2026)
+        </p>
+    </footer>
+
+</main>
+
+</body>
+</html>

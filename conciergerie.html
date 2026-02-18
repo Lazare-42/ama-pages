@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conciergerie RPN - F&eacute;vrier 2026</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            min-height: 100vh;
+            padding: 24px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+        .header .subtitle {
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f59e0b;
+            margin: 32px 0 14px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(245,158,11,0.15);
+        }
+        h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #22c55e;
+            margin: 20px 0 10px 0;
+        }
+
+        /* L&eacute;gende */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #12121a 0%, #16162a 100%);
+            border-radius: 12px;
+            border: 1px solid #2a2a3a;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #bbb;
+            font-weight: 500;
+        }
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        /* Calendrier mois */
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .cal-header {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            padding: 8px 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cal-day {
+            min-height: 60px;
+            background: linear-gradient(135deg, #12121a 0%, #14142a 100%);
+            border: 1px solid #1e1e2e;
+            border-radius: 8px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .cal-day.empty { background: transparent; border: none; min-height: 0; }
+        .cal-day.today {
+            border-color: #818cf8;
+            border-width: 2px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3e 100%);
+            box-shadow: 0 0 16px rgba(129,140,248,0.2);
+        }
+        .cal-day.today .cal-num { color: #fff; font-weight: 700; }
+        .cal-day.menage-day { border-color: rgba(245,158,11,0.5); border-width: 2px; }
+        .cal-day.today.menage-day { border-color: #818cf8; box-shadow: 0 0 16px rgba(129,140,248,0.25); }
+        .cal-num {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: right;
+            padding-right: 3px;
+        }
+        .cal-day.menage-day .cal-num::after {
+            content: " 🧹";
+            font-size: 0.6rem;
+        }
+        .cal-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+        .cal-bar {
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+        }
+        .bar-s1 { background: linear-gradient(90deg, #818cf8, #6366f1); box-shadow: 0 0 4px rgba(129,140,248,0.3); }
+        .bar-s2 { background: linear-gradient(90deg, #ec4899, #db2777); box-shadow: 0 0 4px rgba(236,72,153,0.3); }
+        .bar-s3 { background: linear-gradient(90deg, #22c55e, #16a34a); box-shadow: 0 0 4px rgba(34,197,94,0.3); }
+
+        /* Vue semaine */
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .week-card {
+            background: linear-gradient(135deg, #12121a 0%, #16162a 100%);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 12px 10px;
+            min-height: 110px;
+            transition: all 0.2s ease;
+        }
+        .week-card.today {
+            border-color: #818cf8;
+            border-width: 2px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3e 100%);
+            box-shadow: 0 0 16px rgba(129,140,248,0.2);
+        }
+        .week-card.today .week-num::after {
+            content: " — Aujourd'hui";
+            font-size: 0.58rem;
+            color: #818cf8;
+            font-weight: 400;
+        }
+        .week-card.past { opacity: 0.4; }
+        .week-card.future { opacity: 0.85; }
+        .week-date {
+            font-size: 0.68rem;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+        .week-num {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .week-event {
+            font-size: 0.72rem;
+            padding: 4px 6px;
+            border-radius: 5px;
+            margin-bottom: 3px;
+            font-weight: 500;
+        }
+        .week-event.ev-s1 { background: rgba(129,140,248,0.15); color: #a5b4fc; }
+        .week-event.ev-s2 { background: rgba(236,72,153,0.15); color: #f472b6; }
+        .week-event.ev-s3 { background: rgba(34,197,94,0.15); color: #4ade80; }
+        .week-event.ev-menage { background: rgba(245,158,11,0.15); color: #fbbf24; }
+        .week-event .arr { font-size: 0.62rem; opacity: 0.8; }
+
+        /* Tableaux */
+        .info-box {
+            background: linear-gradient(135deg, #12121a 0%, #14142a 100%);
+            border: 1px solid #2a2a3a;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+        th, td {
+            padding: 10px 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        th {
+            background: rgba(129,140,248,0.08);
+            color: #818cf8;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        td { color: #aaa; }
+        tr:hover { background: rgba(129,140,248,0.03); }
+        .menage { background: rgba(245, 158, 11, 0.1); color: #fbbf24; font-weight: 600; }
+
+        .studio-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .tag-1 { background: rgba(129, 140, 248, 0.15); color: #818cf8; }
+        .tag-2 { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+        .tag-3 { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+
+        /* Checklists */
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 7px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #bbb;
+            font-size: 0.88rem;
+        }
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #555;
+            font-size: 1rem;
+        }
+        .checklist li.done { color: #444; text-decoration: line-through; }
+        .checklist li.done::before { content: "☑"; color: #22c55e; }
+
+        /* Inventaire */
+        .inv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+        .inv-card {
+            background: linear-gradient(135deg, #12121a 0%, #14142a 100%);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 14px;
+        }
+        .inv-card h4 { font-size: 0.88rem; margin-bottom: 10px; }
+        .inv-card table { margin: 0; font-size: 0.78rem; }
+        .inv-card th, .inv-card td { padding: 4px 6px; }
+        .inv-warn { color: #f59e0b; font-size: 0.72rem; font-weight: 500; }
+
+        /* Messages */
+        .message-box {
+            background: linear-gradient(135deg, #12121a 0%, #1a1a2a 100%);
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: #888;
+            white-space: pre-wrap;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 36px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #333;
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 700px) {
+            .week-grid { grid-template-columns: repeat(4, 1fr); }
+            .inv-grid { grid-template-columns: 1fr; }
+            .cal-day { min-height: 48px; }
+            .cal-bar { height: 4px; }
+            .cal-num { font-size: 0.65rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 6px 4px; }
+        }
+        @media (max-width: 480px) {
+            .week-grid { grid-template-columns: repeat(2, 1fr); }
+            body { padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Conciergerie RPN</h1>
+    <p class="subtitle">F&eacute;vrier 2026</p>
+</div>
+
+<!-- L&Eacute;GENDE -->
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#818cf8; color:#818cf8;"></div> S1</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ec4899; color:#ec4899;"></div> S2</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e; color:#22c55e;"></div> S3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b; color:#f59e0b;"></div> 🧹 M&eacute;nage</div>
+</div>
+
+<!-- CALENDRIER MOIS F&Eacute;VRIER 2026 -->
+<h2>Calendrier F&eacute;vrier 2026</h2>
+<div class="cal-grid">
+    <div class="cal-header">Lun</div>
+    <div class="cal-header">Mar</div>
+    <div class="cal-header">Mer</div>
+    <div class="cal-header">Jeu</div>
+    <div class="cal-header">Ven</div>
+    <div class="cal-header">Sam</div>
+    <div class="cal-header">Dim</div>
+
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+    <div class="cal-day empty"></div>
+
+    <!-- 1 Dim -->
+    <div class="cal-day"><div class="cal-num">1</div><div class="cal-bars"></div></div>
+    <!-- 2 Lun -->
+    <div class="cal-day"><div class="cal-num">2</div><div class="cal-bars"></div></div>
+    <!-- 3 Mar -->
+    <div class="cal-day"><div class="cal-num">3</div><div class="cal-bars"></div></div>
+    <!-- 4 Mer -->
+    <div class="cal-day"><div class="cal-num">4</div><div class="cal-bars"></div></div>
+    <!-- 5 Jeu -->
+    <div class="cal-day"><div class="cal-num">5</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 6 Ven -->
+    <div class="cal-day"><div class="cal-num">6</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s2"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 7 Sam -->
+    <div class="cal-day"><div class="cal-num">7</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s2"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 8 Dim -->
+    <div class="cal-day"><div class="cal-num">8</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s2"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 9 Lun — M&eacute;nage -->
+    <div class="cal-day menage-day"><div class="cal-num">9</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 10 Mar -->
+    <div class="cal-day"><div class="cal-num">10</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 11 Mer -->
+    <div class="cal-day"><div class="cal-num">11</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 12 Jeu — M&eacute;nage ✅ -->
+    <div class="cal-day menage-day"><div class="cal-num">12</div><div class="cal-bars"></div></div>
+    <!-- 13 Ven -->
+    <div class="cal-day"><div class="cal-num">13</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s2"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 14 Sam -->
+    <div class="cal-day"><div class="cal-num">14</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s2"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 15 Dim — M&eacute;nage ✅ -->
+    <div class="cal-day menage-day"><div class="cal-num">15</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 16 Lun -->
+    <div class="cal-day"><div class="cal-num">16</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 17 Mar -->
+    <div class="cal-day"><div class="cal-num">17</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 18 Mer — TODAY -->
+    <div class="cal-day today"><div class="cal-num">18</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 19 Jeu — M&eacute;nage S1 -->
+    <div class="cal-day menage-day"><div class="cal-num">19</div><div class="cal-bars"></div></div>
+    <!-- 20 Ven -->
+    <div class="cal-day"><div class="cal-num">20</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 21 Sam -->
+    <div class="cal-day"><div class="cal-num">21</div><div class="cal-bars"><div class="cal-bar bar-s1"></div><div class="cal-bar bar-s3"></div></div></div>
+    <!-- 22 Dim — M&eacute;nage -->
+    <div class="cal-day menage-day"><div class="cal-num">22</div><div class="cal-bars"></div></div>
+    <!-- 23 Lun -->
+    <div class="cal-day"><div class="cal-num">23</div><div class="cal-bars"></div></div>
+    <!-- 24 Mar -->
+    <div class="cal-day"><div class="cal-num">24</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 25 Mer — M&eacute;nage -->
+    <div class="cal-day menage-day"><div class="cal-num">25</div><div class="cal-bars"></div></div>
+    <!-- 26 Jeu -->
+    <div class="cal-day"><div class="cal-num">26</div><div class="cal-bars"></div></div>
+    <!-- 27 Ven -->
+    <div class="cal-day"><div class="cal-num">27</div><div class="cal-bars"><div class="cal-bar bar-s1"></div></div></div>
+    <!-- 28 Sam — M&eacute;nage -->
+    <div class="cal-day menage-day"><div class="cal-num">28</div><div class="cal-bars"></div></div>
+</div>
+
+<!-- VUE SEMAINE -->
+<h2>Semaine du 16 au 22 F&eacute;vrier</h2>
+<div class="week-grid">
+    <div class="week-card past">
+        <div class="week-date">Lundi</div>
+        <div class="week-num">16</div>
+        <div class="week-event ev-s1">S1 Tom</div>
+    </div>
+    <div class="week-card past">
+        <div class="week-date">Mardi</div>
+        <div class="week-num">17</div>
+        <div class="week-event ev-s1">S1 Tom</div>
+        <div class="week-event ev-menage">🧹 S3 ✅</div>
+    </div>
+    <div class="week-card today">
+        <div class="week-date">Mercredi</div>
+        <div class="week-num">18</div>
+        <div class="week-event ev-s1">S1 Tom</div>
+    </div>
+    <div class="week-card future">
+        <div class="week-date">Jeudi</div>
+        <div class="week-num">19</div>
+        <div class="week-event ev-menage">🧹 S1</div>
+        <div class="week-event ev-s1"><span class="arr">Dep</span> Tom</div>
+    </div>
+    <div class="week-card future">
+        <div class="week-date">Vendredi</div>
+        <div class="week-num">20</div>
+        <div class="week-event ev-s1"><span class="arr">Arr</span> Julien</div>
+        <div class="week-event ev-s3"><span class="arr">Arr</span> Nina</div>
+        <div class="week-event ev-menage">🧹 S2</div>
+    </div>
+    <div class="week-card future">
+        <div class="week-date">Samedi</div>
+        <div class="week-num">21</div>
+        <div class="week-event ev-s1">S1 Julien</div>
+        <div class="week-event ev-s3">S3 Nina</div>
+    </div>
+    <div class="week-card future">
+        <div class="week-date">Dimanche</div>
+        <div class="week-num">22</div>
+        <div class="week-event ev-menage">🧹 S1 + S3</div>
+        <div class="week-event ev-s1"><span class="arr">Dep</span> Julien</div>
+        <div class="week-event ev-s3"><span class="arr">Dep</span> Nina</div>
+    </div>
+</div>
+
+<!-- R&Eacute;SERVATIONS PAR STUDIO -->
+<h2>R&eacute;servations par Studio</h2>
+
+<h3><span class="studio-tag tag-1">Studio 1</span></h3>
+<table>
+    <tr><th>Arriv&eacute;e</th><th>D&eacute;part</th><th>Nuits</th><th>Voyageurs</th><th>Locataire</th></tr>
+    <tr><td>5 f&eacute;v</td><td>9 f&eacute;v</td><td>4</td><td>2</td><td>Averi +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 9 f&eacute;v ✅</td></tr>
+    <tr><td>9 f&eacute;v</td><td>12 f&eacute;v</td><td>3</td><td>2</td><td>Barbara +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 12 f&eacute;v ✅</td></tr>
+    <tr><td>13 f&eacute;v</td><td>19 f&eacute;v</td><td>6</td><td>2</td><td>Tom +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 19 f&eacute;v</td></tr>
+    <tr><td>20 f&eacute;v</td><td>22 f&eacute;v</td><td>2</td><td>2</td><td>Julien +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 22 f&eacute;v</td></tr>
+    <tr><td>24 f&eacute;v</td><td>25 f&eacute;v</td><td>1</td><td>2</td><td>Lo&iuml;c +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 25 f&eacute;v</td></tr>
+    <tr><td>27 f&eacute;v</td><td>28 f&eacute;v</td><td>1</td><td>2</td><td>MA...</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 28 f&eacute;v</td></tr>
+</table>
+
+<h3><span class="studio-tag tag-2">Studio 2</span></h3>
+<table>
+    <tr><th>Arriv&eacute;e</th><th>D&eacute;part</th><th>Nuits</th><th>Voyageurs</th><th>Locataire</th></tr>
+    <tr><td>6 f&eacute;v</td><td>9 f&eacute;v</td><td>3</td><td>2</td><td>Josep M +1</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 9 f&eacute;v ✅</td></tr>
+    <tr><td>13 f&eacute;v</td><td>15 f&eacute;v</td><td>2</td><td>1</td><td>Emir</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 15 f&eacute;v ✅</td></tr>
+</table>
+
+<h3><span class="studio-tag tag-3">Studio 3</span></h3>
+<table>
+    <tr><th>Arriv&eacute;e</th><th>D&eacute;part</th><th>Nuits</th><th>Voyageurs</th><th>Locataire</th></tr>
+    <tr><td>5 f&eacute;v</td><td>9 f&eacute;v</td><td>4</td><td>2</td><td>Claudio</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 9 f&eacute;v ✅</td></tr>
+    <tr><td>9 f&eacute;v</td><td>12 f&eacute;v</td><td>3</td><td>1</td><td>Locataire r&eacute;gulier</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 12 f&eacute;v ✅</td></tr>
+    <tr><td>13 f&eacute;v</td><td>15 f&eacute;v</td><td>2</td><td>1</td><td>Erin</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 17 f&eacute;v ✅</td></tr>
+    <tr><td>20 f&eacute;v</td><td>22 f&eacute;v</td><td>2</td><td>1</td><td>Nina</td></tr>
+    <tr class="menage"><td colspan="5">&rarr; M&eacute;nage 22 f&eacute;v</td></tr>
+</table>
+
+<!-- INVENTAIRE SERVIETTES -->
+<h2>Inventaire Serviettes par Studio</h2>
+<div class="inv-grid">
+    <div class="inv-card" style="border-color: rgba(129,140,248,0.35);">
+        <h4 style="color: #818cf8;">Studio 1 — Set Vert ✅</h4>
+        <table>
+            <tr><td>Grandes serviettes</td><td>2</td><td style="color:#22c55e;">vertes</td></tr>
+            <tr><td>Petites serviettes</td><td>2</td><td style="color:#22c55e;">vertes</td></tr>
+            <tr><td>Serviettes de main</td><td>2</td><td></td></tr>
+        </table>
+        <p style="font-size:0.72rem;color:#22c55e;margin-top:6px;font-weight:500;">Set complet</p>
+    </div>
+    <div class="inv-card" style="border-color: rgba(236,72,153,0.35);">
+        <h4 style="color: #ec4899;">Studio 2</h4>
+        <table>
+            <tr><td>Tapis de bain</td><td>1</td><td style="color:#ef4444;">rouge</td></tr>
+            <tr><td>Grandes serviettes</td><td>3</td><td></td></tr>
+            <tr><td>Petite serviette</td><td>1</td><td></td></tr>
+        </table>
+        <p class="inv-warn" style="margin-top:6px;">Set incomplet — compl&eacute;ter 1 petite serviette</p>
+    </div>
+    <div class="inv-card" style="border-color: rgba(34,197,94,0.35);">
+        <h4 style="color: #22c55e;">Studio 3 — Set Vert</h4>
+        <table>
+            <tr><td>Tapis de bain</td><td>1</td><td></td></tr>
+            <tr><td>Petites serv. main</td><td>3</td><td style="color:#ccc;">blanches</td></tr>
+            <tr><td>Serv. cheveux</td><td>2</td><td></td></tr>
+            <tr><td>Grande serv. corps</td><td>1</td><td style="color:#22c55e;">verte</td></tr>
+        </table>
+        <p class="inv-warn" style="margin-top:6px;">Manque 1 grande serviette verte</p>
+    </div>
+</div>
+
+<div class="info-box">
+    <h3 style="color: #f59e0b; margin-bottom: 10px;">Produits m&eacute;nagers &agrave; v&eacute;rifier</h3>
+    <ul class="checklist">
+        <li>Produit &agrave; vitre</li>
+        <li>Savon de Marseille</li>
+        <li>Gel express &agrave; main</li>
+        <li>Liquide vaisselle</li>
+    </ul>
+</div>
+
+<!-- CHECKLIST M&Eacute;NAGE -->
+<h2>Checklist M&eacute;nage (1h30-2h/appart)</h2>
+
+<h3>T&acirc;ches du 12 f&eacute;vrier — S1 + S3 ✅</h3>
+<div class="info-box">
+    <ul class="checklist">
+        <li class="done">Retirer linge sale S1 (Barbara)</li>
+        <li class="done">Retirer linge sale S3 (R&eacute;gulier)</li>
+        <li class="done">Nettoyer surfaces S1 + S3</li>
+        <li class="done">Passer l'aspirateur S1 + S3</li>
+        <li class="done">Nettoyer sanitaires S1 + S3</li>
+        <li class="done">Pr&eacute;parer sets literie/serviettes S1 + S3</li>
+        <li class="done">V&eacute;rifier stocks produits</li>
+        <li class="done">Regrouper poubelles</li>
+    </ul>
+</div>
+
+<h3>T&acirc;ches du 17 f&eacute;vrier — S3 ✅</h3>
+<div class="info-box">
+    <ul class="checklist">
+        <li class="done">Retirer linge sale S3 (Erin)</li>
+        <li class="done">Nettoyer surfaces S3</li>
+        <li class="done">Passer l'aspirateur S3</li>
+        <li class="done">Nettoyer sanitaires S3</li>
+        <li class="done">Pr&eacute;parer sets literie/serviettes S3</li>
+        <li class="done">Regrouper poubelles</li>
+    </ul>
+</div>
+
+<h3>Prochain : 19 f&eacute;vrier — S1 (Tom)</h3>
+<div class="info-box">
+    <ul class="checklist">
+        <li>Retirer linge sale S1 (Tom)</li>
+        <li>Nettoyer surfaces S1</li>
+        <li>Passer l'aspirateur S1</li>
+        <li>Nettoyer sanitaires S1</li>
+        <li>Nettoyer carreaux et vitres S1</li>
+        <li>Pr&eacute;parer sets literie/serviettes S1</li>
+        <li>V&eacute;rifier stocks produits</li>
+        <li>Regrouper poubelles</li>
+    </ul>
+</div>
+
+<h3>Vendredi 20 f&eacute;vrier — S2</h3>
+<div class="info-box">
+    <ul class="checklist">
+        <li>Retirer linge sale S2</li>
+        <li>Nettoyer surfaces S2</li>
+        <li>Passer l'aspirateur S2</li>
+        <li>Nettoyer sanitaires S2</li>
+        <li>Pr&eacute;parer sets literie/serviettes S2</li>
+        <li>Regrouper poubelles</li>
+    </ul>
+</div>
+
+<h3>Checklist g&eacute;n&eacute;rale (prochains m&eacute;nages)</h3>
+<div class="info-box">
+    <ul class="checklist">
+        <li>Retirer linge sale (draps, serviettes)</li>
+        <li>Nettoyer surfaces (meubles, plans de travail, miroirs)</li>
+        <li>Passer l'aspirateur</li>
+        <li>Nettoyer sanitaires (douche, WC, lavabo)</li>
+        <li>Nettoyer carreaux et vitres</li>
+        <li>V&eacute;rifier stocks (savon, papier toilette, produits)</li>
+        <li>Pr&eacute;parer sets literie/serviettes</li>
+        <li>V&eacute;rifier chauffage et fen&ecirc;tres (espagnolette)</li>
+        <li>Regrouper poubelles</li>
+    </ul>
+</div>
+
+<!-- MESSAGES TYPES -->
+<h2>Messages Types</h2>
+
+<h3>Bienvenue</h3>
+<div class="message-box">Bonjour [Pr&eacute;nom],
+Votre arriv&eacute;e est pr&eacute;vue le [date] &agrave; partir de 15h.
+
+- Adresse : 31, rue du Pont Neuf, Paris 1 (M&eacute;tro Ch&acirc;telet Les Halles)
+- 6e sans ascenseur
+
+N'h&eacute;sitez pas &agrave; nous contacter. Bonne arriv&eacute;e !
+Cordialement, Yann.</div>
+
+<h3>D&eacute;part</h3>
+<div class="message-box">Bonjour [Pr&eacute;nom],
+Nous esp&eacute;rons que vous avez pass&eacute; un agr&eacute;able s&eacute;jour.
+
+Merci de :
+- Rassembler les serviettes sales
+- Jeter les ordures
+
+&Agrave; bient&ocirc;t !
+Cordialement, Yann.</div>
+
+<footer>
+    Conciergerie RPN &mdash; Mis &agrave; jour 18/02/2026
+</footer>
+
+</body>
+</html>
