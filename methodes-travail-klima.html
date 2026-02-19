@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&eacute;thodes de Travail — Tests d'Admission KLIMA School</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            padding: 28px 24px;
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .sub {
+            color: #888;
+            font-size: 0.82rem;
+            margin-top: 6px;
+        }
+        h2 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #818cf8;
+            margin: 24px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #e0e0f0;
+            margin: 14px 0 6px;
+        }
+        .card {
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+        }
+        .card.green { border-left: 3px solid #22c55e; }
+        .card.blue { border-left: 3px solid #818cf8; }
+        .card.orange { border-left: 3px solid #f59e0b; }
+        .card.pink { border-left: 3px solid #ec4899; }
+
+        /* Results banner */
+        .results-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .res-box {
+            text-align: center;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .res-box .score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .res-box .rlabel { font-size: 0.7rem; color: #888; margin-top: 2px; }
+
+        p { font-size: 0.85rem; color: #c0c0d0; line-height: 1.7; margin: 6px 0; }
+        ul { padding-left: 20px; margin: 6px 0; }
+        li { font-size: 0.82rem; margin: 4px 0; color: #c0c0d0; }
+        strong { color: #e0e0f0; }
+        .highlight { color: #22c55e; font-weight: 600; }
+
+        .quote {
+            border-left: 3px solid #818cf8;
+            padding: 10px 14px;
+            margin: 10px 0;
+            background: rgba(129,140,248,0.05);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.82rem;
+            font-style: italic;
+            color: #a0a0b0;
+        }
+
+        .formula {
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: #818cf8;
+            margin: 8px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .t-green { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .t-blue { background: rgba(129,140,248,0.15); color: #818cf8; }
+        .t-orange { background: rgba(245,158,11,0.15); color: #f59e0b; }
+
+        .small { font-size: 0.72rem; color: #666; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th {
+            text-align: left;
+            color: #818cf8;
+            font-weight: 600;
+            padding: 6px 8px;
+            border-bottom: 1px solid #2a2a3a;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        td {
+            padding: 7px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #333;
+            font-size: 0.65rem;
+        }
+        @media (max-width: 500px) {
+            body { padding: 16px; }
+            .results-banner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>M&eacute;thodes de Travail</h1>
+    <div class="sub">Tests d'Admission KLIMA School &mdash; Yann CARIO &mdash; F&eacute;vrier 2026</div>
+</div>
+
+<!-- RESULTATS -->
+<h2>R&eacute;sultats</h2>
+<div class="results-banner">
+    <div class="res-box">
+        <div class="score">8/10</div>
+        <div class="rlabel">Test de logique<br>15 questions</div>
+    </div>
+    <div class="res-box">
+        <div class="score">7.5/10</div>
+        <div class="rlabel">Test de synth&egrave;se<br>D&eacute;carbonation (1000-2000 mots)</div>
+    </div>
+</div>
+
+<!-- CONTEXTE -->
+<h2>1. Contexte personnel</h2>
+<div class="card blue">
+<p>
+    Diagnostiqu&eacute; <strong>dyscalculique</strong>, j'ai d&eacute;velopp&eacute; tr&egrave;s t&ocirc;t des strat&eacute;gies d'adaptation face aux chiffres et aux calculs. Plut&ocirc;t que de subir cette difficult&eacute;, je l'ai transform&eacute;e en m&eacute;thode : <strong>&eacute;crire chaque &eacute;tape</strong>, <strong>visualiser les probl&egrave;mes</strong>, <strong>v&eacute;rifier syst&eacute;matiquement</strong>.
+</p>
+<p>
+    Ces habitudes viennent aussi de mes formations pr&eacute;c&eacute;dentes : le BSc &agrave; Solent (calculs logistiques, co&ucirc;ts de transport), l'ISTELI/AFTRAL (gestion de flux, CRK), et le travail terrain chez H-K (op&eacute;rations sous contrainte de temps).
+</p>
+<div class="quote">
+    La dyscalculie m'oblige &agrave; &ecirc;tre plus rigoureux que la moyenne : je ne peux pas "deviner" un r&eacute;sultat, je dois le construire &eacute;tape par &eacute;tape. C'est une contrainte qui est devenue une force.
+</div>
+</div>
+
+<!-- LOGIQUE -->
+<h2>2. Tests de logique &mdash; 8/10</h2>
+
+<div class="card green">
+<h3>Approche g&eacute;n&eacute;rale</h3>
+<p>Pour chaque probl&egrave;me, j'applique un processus en 3 temps :</p>
+<ul>
+    <li><strong>Identifier le type</strong> &mdash; proportionnalit&eacute;, suite, pourcentage, logique conditionnelle</li>
+    <li><strong>&Eacute;crire les donn&eacute;es</strong> &mdash; poser clairement ce qu'on sait et ce qu'on cherche</li>
+    <li><strong>V&eacute;rifier</strong> &mdash; relire le r&eacute;sultat, le confronter au bon sens</li>
+</ul>
+</div>
+
+<div class="card green">
+<h3>Formules et outils utilis&eacute;s</h3>
+<table>
+<tr><th>Type</th><th>Formule / M&eacute;thode</th><th>Origine</th></tr>
+<tr>
+    <td>Pourcentages</td>
+    <td><div class="formula">(x / 100) &times; nombre</div></td>
+    <td>BSc Solent, ISTELI</td>
+</tr>
+<tr>
+    <td>Proportionnalit&eacute;</td>
+    <td><div class="formula">Si A &rarr; B, alors C &rarr; (C &times; B) / A</div></td>
+    <td>Logistique (calculs de charge)</td>
+</tr>
+<tr>
+    <td>Suites arithm&eacute;tiques</td>
+    <td><div class="formula">U(n) = U(0) + n &times; r &nbsp;&nbsp;(r = raison)</div></td>
+    <td>Compilation personnelle</td>
+</tr>
+<tr>
+    <td>Logique conditionnelle</td>
+    <td>Si A alors B &ne; Si B alors A &mdash; sch&eacute;mas fl&eacute;ch&eacute;s</td>
+    <td>Analyse et d&eacute;duction</td>
+</tr>
+</table>
+</div>
+
+<div class="card green">
+<h3>Exemple de r&eacute;solution</h3>
+<p><strong>Probl&egrave;me type :</strong> <em>"3 machines produisent 15 pi&egrave;ces en 5 minutes. Combien de pi&egrave;ces produisent 5 machines en 10 minutes ?"</em></p>
+<ul>
+    <li><strong>&Eacute;tape 1 :</strong> 1 machine = 15 / 3 = 5 pi&egrave;ces en 5 min</li>
+    <li><strong>&Eacute;tape 2 :</strong> 1 machine en 10 min = 5 &times; 2 = 10 pi&egrave;ces</li>
+    <li><strong>&Eacute;tape 3 :</strong> 5 machines en 10 min = 10 &times; 5 = <span class="highlight">50 pi&egrave;ces</span></li>
+    <li><strong>V&eacute;rification :</strong> ratio coh&eacute;rent (plus de machines + plus de temps = plus de pi&egrave;ces)</li>
+</ul>
+
+<h3>Gestion de la dyscalculie pendant le test</h3>
+<ul>
+    <li><strong>Confusion 6/9, 12/21</strong> &rarr; &Eacute;criture lente et d&eacute;lib&eacute;r&eacute;e, relecture de chaque chiffre</li>
+    <li><strong>Calcul mental limit&eacute;</strong> &rarr; Tout poser par &eacute;crit, jamais calculer "de t&ecirc;te"</li>
+    <li><strong>Gestion du temps</strong> &rarr; Maximum 10 minutes par question, passer si bloqu&eacute;</li>
+</ul>
+</div>
+
+<!-- SYNTHESE -->
+<h2>3. Test de synth&egrave;se &mdash; 7.5/10</h2>
+
+<div class="card orange">
+<h3>M&eacute;thode de lecture et d'analyse</h3>
+<p>Face &agrave; un texte long sur la d&eacute;carbonation, j'ai appliqu&eacute; une m&eacute;thode en 4 temps :</p>
+<ul>
+    <li><strong>Lecture rapide</strong> &mdash; rep&eacute;rer la structure (titres, sous-titres, mots-cl&eacute;s)</li>
+    <li><strong>Hi&eacute;rarchisation</strong> &mdash; identifier les 3-5 id&eacute;es principales</li>
+    <li><strong>Reformulation</strong> &mdash; chaque id&eacute;e r&eacute;sum&eacute;e en 1 phrase personnelle</li>
+    <li><strong>Structuration</strong> &mdash; introduction / d&eacute;veloppement / conclusion avec exemples concrets</li>
+</ul>
+</div>
+
+<div class="card orange">
+<h3>Ce qui a fonctionn&eacute;</h3>
+<ul>
+    <li><strong>Exemples concrets</strong> issus de mon v&eacute;cu &mdash; logistique maritime (BRI), &eacute;co-conception (PIN-LAB), low-tech (HUBJAM)</li>
+    <li><strong>Connexions transversales</strong> &mdash; relier les concepts du texte &agrave; des r&eacute;alit&eacute;s terrain</li>
+    <li><strong>Clart&eacute; de structure</strong> &mdash; titres clairs, paragraphes courts, progression logique</li>
+</ul>
+
+<h3>Axe d'am&eacute;lioration identifi&eacute;</h3>
+<div class="quote">
+    Retour de Jonathan : <strong>"&Ecirc;tre plus concis, aller plus rapidement au but."</strong> En contexte professionnel, la synth&egrave;se doit &ecirc;tre plus percutante. C'est un point de travail pour le M1.
+</div>
+</div>
+
+<!-- OUTILS -->
+<h2>4. Bo&icirc;te &agrave; outils</h2>
+<div class="card blue">
+<table>
+<tr><th>Outil</th><th>Usage</th><th>Origine</th></tr>
+<tr>
+    <td><strong>Fiches de formules</strong></td>
+    <td>Compilation des formules cl&eacute;s (pourcentages, suites, probabilit&eacute;s) &mdash; consultables rapidement</td>
+    <td>ISTELI, EADA, Solent</td>
+</tr>
+<tr>
+    <td><strong>Sch&eacute;mas visuels</strong></td>
+    <td>Dessiner les probl&egrave;mes plut&ocirc;t que les calculer abstraitement</td>
+    <td>Adaptation dyscalculie</td>
+</tr>
+<tr>
+    <td><strong>Gestion du temps</strong></td>
+    <td>Chronom&eacute;trage par question, pas de blocage sur un exercice</td>
+    <td>H-K (ops sous pression)</td>
+</tr>
+<tr>
+    <td><strong>&Eacute;criture &eacute;tap&eacute;e</strong></td>
+    <td>Chaque calcul &eacute;crit compl&egrave;tement, jamais de raccourci mental</td>
+    <td>Habitude personnelle</td>
+</tr>
+<tr>
+    <td><strong>Structuration hi&eacute;rarchique</strong></td>
+    <td>Titres &rarr; sous-titres &rarr; bullets pour toute synth&egrave;se</td>
+    <td>Solent (dissertations), AMA (documentation)</td>
+</tr>
+</table>
+</div>
+
+<!-- CONCLUSION -->
+<h2>5. Perspective pour le M1</h2>
+<div class="card pink">
+<p>
+    Ces m&eacute;thodes ne sont pas apparues pour les tests KLIMA &mdash; elles se sont construites sur <strong>4 formations dans 3 pays</strong> et des ann&eacute;es d'adaptation &agrave; la dyscalculie. Le M1 Business &amp; Transition Climatique repr&eacute;sente l'opportunit&eacute; de <strong>structurer acad&eacute;miquement</strong> ce que je pratique d&eacute;j&agrave; sur le terrain, et d'acqu&eacute;rir les outils formels (RSE, bilan carbone, finance durable) qui me manquent.
+</p>
+<p>
+    Le retour de Jonathan &mdash; <em>"&ecirc;tre plus concis et percutant"</em> &mdash; est exactement le type de progression que je viens chercher en M1.
+</p>
+</div>
+
+<footer>
+    Yann CARIO &mdash; M&eacute;thodes de Travail &mdash; Admission KLIMA School &mdash; F&eacute;vrier 2026
+</footer>
+
+</body>
+</html>

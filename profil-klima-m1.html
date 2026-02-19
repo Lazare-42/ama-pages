@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil &amp; Projets — Yann CARIO x KLIMA School M1</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            padding: 28px 24px;
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .sub {
+            color: #888;
+            font-size: 0.82rem;
+            margin-top: 6px;
+        }
+        h2 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #818cf8;
+            margin: 24px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+            font-weight: 600;
+        }
+        .card {
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+        }
+        .card.green { border-left: 3px solid #22c55e; }
+        .card.blue { border-left: 3px solid #818cf8; }
+        .card.orange { border-left: 3px solid #f59e0b; }
+        .card.pink { border-left: 3px solid #ec4899; }
+
+        /* Profil compact */
+        .profil-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .profil-item {
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        .profil-item .label {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #555;
+            font-weight: 600;
+        }
+        .profil-item .val {
+            font-size: 0.82rem;
+            color: #d0d0e0;
+            margin-top: 3px;
+            font-weight: 500;
+        }
+
+        /* Results */
+        .results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .result {
+            text-align: center;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .result .score {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .result .rlabel { font-size: 0.7rem; color: #888; margin-top: 2px; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th {
+            text-align: left;
+            color: #818cf8;
+            font-weight: 600;
+            padding: 6px 8px;
+            border-bottom: 1px solid #2a2a3a;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        td {
+            padding: 7px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .t-green { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .t-orange { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .t-blue { background: rgba(129,140,248,0.15); color: #818cf8; }
+        .t-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+        .small { font-size: 0.72rem; color: #666; }
+        p { font-size: 0.85rem; color: #c0c0d0; line-height: 1.65; margin: 6px 0; }
+        ul { padding-left: 18px; margin: 4px 0; }
+        li { font-size: 0.82rem; margin: 3px 0; color: #c0c0d0; }
+        strong { color: #e0e0f0; }
+
+        /* Alternance cards */
+        .alt-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        .alt-card {
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 12px;
+        }
+        .alt-card .alt-title { font-size: 0.82rem; font-weight: 600; color: #e0e0f0; margin-bottom: 4px; }
+        .alt-card .alt-desc { font-size: 0.72rem; color: #888; line-height: 1.5; }
+        .alt-card.c-green { border-top: 3px solid #22c55e; }
+        .alt-card.c-blue { border-top: 3px solid #818cf8; }
+        .alt-card.c-orange { border-top: 3px solid #f59e0b; }
+
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #333;
+            font-size: 0.65rem;
+        }
+        @media (max-width: 500px) {
+            body { padding: 16px; }
+            .profil-row, .results { grid-template-columns: 1fr; }
+            .alt-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Profil &amp; Projets</h1>
+    <div class="sub">Yann CARIO &mdash; Candidature M1 Business &amp; Transition Climatique &mdash; KLIMA School 2026-2027</div>
+</div>
+
+<!-- PROFIL -->
+<h2>Profil</h2>
+<div class="profil-row">
+    <div class="profil-item">
+        <div class="label">Formation</div>
+        <div class="val">BSc Commerce Maritime (Solent, UK) &bull; EADA (ES) &bull; LISAA &bull; ISTELI/AFTRAL</div>
+    </div>
+    <div class="profil-item">
+        <div class="label">International</div>
+        <div class="val">8 pays &bull; 4 langues (FR/EN/ES/AR) &bull; 3 pays d'&eacute;tudes</div>
+    </div>
+    <div class="profil-item">
+        <div class="label">Exp&eacute;rience</div>
+        <div class="val">Logistique (H-K) &bull; Coordination (AGORA Bruxelles) &bull; Conciergerie (3 studios)</div>
+    </div>
+    <div class="profil-item">
+        <div class="label">Projet</div>
+        <div class="val">AMA &mdash; Art, Musique, Architecture &mdash; &Eacute;cosyst&egrave;me cr&eacute;atif &amp; transition &eacute;cologique</div>
+    </div>
+</div>
+
+<!-- RESULTATS -->
+<h2>R&eacute;sultats admission</h2>
+<div class="results">
+    <div class="result">
+        <div class="score">8/10</div>
+        <div class="rlabel">Test de logique</div>
+    </div>
+    <div class="result">
+        <div class="score">7.5/10</div>
+        <div class="rlabel">Test de synth&egrave;se</div>
+    </div>
+</div>
+
+<!-- MAPPING M1 -->
+<h2>Modules M1 &mdash; Acquis existants</h2>
+<div class="card blue">
+<table>
+<tr><th>Module M1</th><th>Acquis Yann / AMA</th><th>Statut</th></tr>
+<tr>
+    <td>Logistique responsable</td>
+    <td>BSc Solent (maritime) + ISTELI (transport) + H-K (terrain)</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>Entrepreneuriat &amp; transition</td>
+    <td>AMA : 4 piliers, 16 contacts, 40+ documents structur&eacute;s</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>Eco-conception &amp; ACV</td>
+    <td>PIN-LAB : prototypage modulaire, mobilier r&eacute;employable</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>La low-tech</td>
+    <td>HUBJAM : 5 versions de bo&icirc;tier audio, test&eacute;es en live</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>Communication digitale B2C/B2B</td>
+    <td>40+ pages HTML, 4 portfolios FR/EN, dashboards, landing pages</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>English for Energy &amp; Sustainability</td>
+    <td>3 ans UK (BSc Solent), bilingue FR/EN</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>Sobri&eacute;t&eacute;, enjeux et r&eacute;silience</td>
+    <td>Philosophie AMA : cr&eacute;ation + sobri&eacute;t&eacute; coexistent</td>
+    <td><span class="tag t-green">Pratiqu&eacute;</span></td>
+</tr>
+<tr>
+    <td>Organisation &amp; management &eacute;quipes projets</td>
+    <td>Coordination AMA (4 piliers), AGORA (service civique)</td>
+    <td><span class="tag t-orange">Informel</span></td>
+</tr>
+<tr>
+    <td>Urbanisme &amp; ENR : Immobilier durable</td>
+    <td>LISAA (archi int&eacute;rieure) + METR H2O (vision long terme)</td>
+    <td><span class="tag t-orange">Bases</span></td>
+</tr>
+<tr>
+    <td>Gestion de l'eau</td>
+    <td>METR H2O : &icirc;les logistiques flottantes autonomes (recherche)</td>
+    <td><span class="tag t-orange">Recherche</span></td>
+</tr>
+<tr>
+    <td>Approche syst&eacute;mique Climat &Eacute;nergies</td>
+    <td>EADA (SBI, Autofabricantes) + dissertation BRI</td>
+    <td><span class="tag t-orange">Bases</span></td>
+</tr>
+<tr>
+    <td>Changement climatique &amp; &eacute;cosyst&egrave;mes</td>
+    <td>Dissertation BRI (Routes de la Soie, g&eacute;opolitique climat)</td>
+    <td><span class="tag t-orange">Bases</span></td>
+</tr>
+<tr>
+    <td>Strat&eacute;gie RSE &amp; Bilan carbone</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>Bilan Carbone (certifiant)</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>Finance durable &amp; Corporate Finance</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>Conseil en d&eacute;carbonation</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>QHSE &amp; normes ISO</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>Gestion des d&eacute;chets</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+<tr>
+    <td>&Eacute;nergies renouvelables &amp; alternatives</td>
+    <td>&mdash;</td>
+    <td><span class="tag t-red">&Agrave; acqu&eacute;rir</span></td>
+</tr>
+</table>
+<p style="margin-top:10px; font-size:0.78rem;"><strong>Bilan :</strong> 7 modules d&eacute;j&agrave; pratiqu&eacute;s, 5 avec des bases, 6 enti&egrave;rement nouveaux. Profil id&eacute;al pour l'alternance : exp&eacute;rience terrain + besoin de cadre acad&eacute;mique.</p>
+</div>
+
+<!-- PROJETS → ALTERNANCE -->
+<h2>Projets AMA &rarr; Postes en alternance</h2>
+<div class="alt-grid">
+    <div class="alt-card c-blue">
+        <div class="alt-title">METR H2O</div>
+        <div class="alt-desc">
+            Plateformes flottantes modulaires<br><br>
+            <strong>Poste :</strong> Charg&eacute; de projet innovation durable<br>
+            <strong>Modules :</strong> Gestion de l'eau, Urbanisme ENR, Logistique responsable<br>
+            <strong>Cibles :</strong> MAURIC, bureaux d'&eacute;tudes naval, Deep Blue Foundation
+        </div>
+    </div>
+    <div class="alt-card c-green">
+        <div class="alt-title">PIN-LAB</div>
+        <div class="alt-desc">
+            &Eacute;co-conception &amp; design modulaire<br><br>
+            <strong>Poste :</strong> Assistant &eacute;co-concepteur / chef de projet &eacute;conomie circulaire<br>
+            <strong>Modules :</strong> Eco-conception ACV, Sobri&eacute;t&eacute;, Gestion des d&eacute;chets<br>
+            <strong>Cibles :</strong> Tiers-lieux (Le 6B, ICI Montreuil), acteurs culturels
+        </div>
+    </div>
+    <div class="alt-card c-orange">
+        <div class="alt-title">HUBJAM</div>
+        <div class="alt-desc">
+            Mat&eacute;riel audio low-tech<br><br>
+            <strong>Poste :</strong> Chef de projet RSE / innovation low-tech<br>
+            <strong>Modules :</strong> Low-tech, Entrepreneuriat transition, Communication digitale<br>
+            <strong>Cibles :</strong> Startups impact, Low-tech Lab, structures ESS
+        </div>
+    </div>
+</div>
+
+<!-- LIENS -->
+<h2>Documents compl&eacute;mentaires</h2>
+<div class="card" style="font-size: 0.82rem;">
+<ul style="list-style: none; padding: 0;">
+    <li style="margin: 6px 0;"><strong>One-Pager AMA :</strong> <a href="https://lazare-42.github.io/ama-pages/onepager.html" style="color:#818cf8;" target="_blank">lazare-42.github.io/ama-pages/onepager.html</a></li>
+    <li style="margin: 6px 0;"><strong>Dashboard :</strong> <a href="https://lazare-42.github.io/ama-pages/" style="color:#818cf8;" target="_blank">lazare-42.github.io/ama-pages/</a></li>
+    <li style="margin: 6px 0;"><strong>Portfolio Institutionnel :</strong> <a href="https://lazare-42.github.io/ama-pages/portfolio/institutional.html" style="color:#818cf8;" target="_blank">lazare-42.github.io/ama-pages/portfolio/institutional.html</a></li>
+</ul>
+</div>
+
+<!-- CONTACT -->
+<div style="text-align:center; margin-top:20px; padding:16px; background:linear-gradient(135deg,#12121a,#1a1a30); border:1px solid rgba(129,140,248,0.2); border-radius:12px;">
+    <div style="font-size:1rem; font-weight:600;">Yann CARIO</div>
+    <div style="font-size:0.8rem; color:#888; margin-top:4px;">
+        <a href="mailto:yannkriodemain@gmail.com" style="color:#818cf8; text-decoration:none;">yannkriodemain@gmail.com</a>
+        &bull; +33 6 27 10 93 37 &bull; Paris &bull; 25 ans
+    </div>
+</div>
+
+<footer>
+    Yann CARIO &mdash; Candidature KLIMA School M1 &mdash; F&eacute;vrier 2026
+</footer>
+
+</body>
+</html>
