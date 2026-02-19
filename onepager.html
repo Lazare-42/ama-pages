@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA — One Pager</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            padding: 32px 24px;
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+        }
+        .header .tagline {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+            margin-top: 6px;
+            font-weight: 300;
+        }
+
+        /* Sections */
+        .section { margin-bottom: 28px; }
+        .section-title {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #818cf8;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+            font-weight: 600;
+        }
+
+        /* Pitch */
+        .pitch {
+            font-size: 1rem;
+            color: #c8c8d8;
+            line-height: 1.75;
+        }
+        .pitch strong { color: #e0e0f0; }
+
+        /* Pillar cards */
+        .pillars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .pillar {
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 14px 16px;
+            transition: all 0.2s;
+        }
+        .pillar:hover { border-color: #818cf8; transform: translateY(-1px); }
+        .pillar .icon { font-size: 1.2rem; margin-bottom: 6px; }
+        .pillar .name { font-size: 0.85rem; font-weight: 600; color: #e0e0f0; }
+        .pillar .desc { font-size: 0.75rem; color: #888; margin-top: 4px; line-height: 1.5; }
+        .pillar.green { border-left: 3px solid #22c55e; }
+        .pillar.orange { border-left: 3px solid #f59e0b; }
+        .pillar.purple { border-left: 3px solid #818cf8; }
+        .pillar.pink { border-left: 3px solid #ec4899; }
+
+        /* Profile row */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .profile-item {
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .profile-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: #555; font-weight: 600; }
+        .profile-item .value { font-size: 0.85rem; font-weight: 500; color: #d0d0e0; margin-top: 4px; }
+
+        /* Numbers */
+        .numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .number {
+            text-align: center;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 14px 8px;
+        }
+        .number .big {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .number .label { font-size: 0.65rem; color: #666; margin-top: 4px; }
+
+        /* Links */
+        .links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 10px 14px;
+            text-decoration: none;
+            color: #e0e0e8;
+            transition: all 0.2s;
+        }
+        .link-card:hover { border-color: #818cf8; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(129,140,248,0.1); }
+        .link-card .emoji { font-size: 1rem; }
+        .link-card .text { font-size: 0.8rem; font-weight: 500; }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            background: linear-gradient(135deg, #12121a, #1a1a30);
+            border: 1px solid rgba(129,140,248,0.2);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .contact .name { font-size: 1.1rem; font-weight: 600; }
+        .contact .info { font-size: 0.82rem; color: #888; margin-top: 6px; }
+        .contact a { color: #818cf8; text-decoration: none; }
+        .contact a:hover { text-decoration: underline; }
+
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            color: #333;
+            font-size: 0.65rem;
+        }
+
+        @media (max-width: 500px) {
+            body { padding: 16px; }
+            .pillars, .profile-grid, .links { grid-template-columns: 1fr; }
+            .numbers { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>AMA</h1>
+    <p class="tagline">Art, Musique, Architecture &mdash; Cr&eacute;ation &amp; Transition &Eacute;cologique</p>
+</div>
+
+<!-- PITCH -->
+<div class="section">
+    <div class="section-title">Le projet</div>
+    <p class="pitch">
+        <strong>AMA</strong> relie art, musique et architecture autour de la transition &eacute;cologique.
+        Concr&egrave;tement : on construit des <strong>espaces modulaires &eacute;co-con&ccedil;us</strong>,
+        on r&eacute;pare et fabrique du <strong>mat&eacute;riel audio low-tech</strong>,
+        et on documente tout &ccedil;a en <strong>vid&eacute;o</strong>.
+        L'objectif : prouver que cr&eacute;ation et sobri&eacute;t&eacute; peuvent coexister
+        &mdash; et cr&eacute;er un r&eacute;seau de collaborateurs autour de &ccedil;a.
+    </p>
+</div>
+
+<!-- 4 PILIERS -->
+<div class="section">
+    <div class="section-title">Les 4 piliers</div>
+    <div class="pillars">
+        <div class="pillar purple">
+            <div class="icon">&#x1F310;</div>
+            <div class="name">INDEX</div>
+            <div class="desc">Hub collaboratif — coordination, contacts, messagerie. 6 repos GitHub, stack Svelte/Go.</div>
+        </div>
+        <div class="pillar green">
+            <div class="icon">&#x1F528;</div>
+            <div class="name">PIN-LAB</div>
+            <div class="desc">&Eacute;co-conception &amp; design modulaire. Prototypage, sc&eacute;nographie, mobilier r&eacute;employable.</div>
+        </div>
+        <div class="pillar pink">
+            <div class="icon">&#x1F3A5;</div>
+            <div class="name">FLOAT</div>
+            <div class="desc">Documentation audiovisuelle. Captation &eacute;v&eacute;nements, logistique terrain, m&eacute;moire collective.</div>
+        </div>
+        <div class="pillar orange">
+            <div class="icon">&#x1F3B5;</div>
+            <div class="name">HUBJAM</div>
+            <div class="desc">Mat&eacute;riel audio low-tech modulaire. 5 versions test&eacute;es en live. Avec Lo&iuml;c (ing&eacute; son).</div>
+        </div>
+    </div>
+</div>
+
+<!-- PROFIL -->
+<div class="section">
+    <div class="section-title">Fondateur</div>
+    <div class="profile-grid">
+        <div class="profile-item">
+            <div class="label">Parcours</div>
+            <div class="value">BSc Commerce Maritime (Solent, UK) &bull; Master DD (EADA, ES) &bull; Archi Int&eacute;rieure (LISAA) &bull; Transport &amp; Logistique (ISTELI/AFTRAL)</div>
+        </div>
+        <div class="profile-item">
+            <div class="label">Exp&eacute;rience terrain</div>
+            <div class="value">H-K Courses (dispatching, chargement) &bull; AGORA Bruxelles (coordination) &bull; Conciergerie Airbnb (gestion 3 studios)</div>
+        </div>
+        <div class="profile-item">
+            <div class="label">Langues</div>
+            <div class="value">Fran&ccedil;ais (natif) &bull; Anglais (courant) &bull; Espagnol (conversation) &bull; Arabe (notions)</div>
+        </div>
+        <div class="profile-item">
+            <div class="label">International</div>
+            <div class="value">8 pays &bull; 3 pays d'&eacute;tudes (UK, ES, FR) &bull; Enfance : &Eacute;AU, Cor&eacute;e du Sud, Jordanie, Maroc</div>
+        </div>
+    </div>
+</div>
+
+<!-- CHIFFRES -->
+<div class="section">
+    <div class="section-title">En chiffres</div>
+    <div class="numbers">
+        <div class="number">
+            <div class="big">4</div>
+            <div class="label">Formations<br>3 pays</div>
+        </div>
+        <div class="number">
+            <div class="big">5</div>
+            <div class="label">Versions<br>HUBJAM</div>
+        </div>
+        <div class="number">
+            <div class="big">40+</div>
+            <div class="label">Documents<br>structur&eacute;s</div>
+        </div>
+        <div class="number">
+            <div class="big">16</div>
+            <div class="label">Profils<br>r&eacute;seau</div>
+        </div>
+    </div>
+</div>
+
+<!-- VISION -->
+<div class="section">
+    <div class="section-title">Vision long terme &mdash; METR H2O</div>
+    <p class="pitch" style="font-size: 0.88rem;">
+        &Agrave; long terme, l'expertise modulaire et logistique d'AMA alimente <strong>METR H2O</strong> :
+        un r&eacute;seau d'&icirc;les logistiques flottantes autonomes.
+        Projet de recherche en cours, nourri par la dissertation BRI (Routes de la Soie)
+        et les &eacute;changes avec la <strong>Fondation Deep Blue</strong>.
+    </p>
+</div>
+
+<!-- LIENS -->
+<div class="section">
+    <div class="section-title">Portfolio &amp; Documents</div>
+    <div class="links">
+        <a href="https://lazare-42.github.io/ama-pages/" class="link-card" target="_blank">
+            <span class="emoji">&#x1F4CA;</span>
+            <span class="text">Dashboard AMA</span>
+        </a>
+        <a href="https://lazare-42.github.io/ama-pages/bible.html" class="link-card" target="_blank">
+            <span class="emoji">&#x1F4D6;</span>
+            <span class="text">Bible Projet</span>
+        </a>
+        <a href="https://0x0.st/PTgQ.html" class="link-card" target="_blank">
+            <span class="emoji">&#x1F4C4;</span>
+            <span class="text">Portfolio Institutionnel FR</span>
+        </a>
+        <a href="https://0x0.st/PTg1.html" class="link-card" target="_blank">
+            <span class="emoji">&#x1F30D;</span>
+            <span class="text">Portfolio Institutional EN</span>
+        </a>
+        <a href="https://0x0.st/PTgu.html" class="link-card" target="_blank">
+            <span class="emoji">&#x1F3A8;</span>
+            <span class="text">Portfolio Artiste FR</span>
+        </a>
+        <a href="https://0x0.st/PTgS.html" class="link-card" target="_blank">
+            <span class="emoji">&#x1F3A8;</span>
+            <span class="text">Portfolio Artist EN</span>
+        </a>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section">
+    <div class="contact">
+        <div class="name">Yann CARIO</div>
+        <div class="info">
+            <a href="mailto:yannkriodemain@gmail.com">yannkriodemain@gmail.com</a>
+            &bull; +33 6 27 10 93 37<br>
+            Paris &bull; 25 ans &bull; FR / EN / ES / AR
+        </div>
+    </div>
+</div>
+
+<footer>
+    AMA &mdash; Art, Musique, Architecture &mdash; F&eacute;vrier 2026
+</footer>
+
+</body>
+</html>
