@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche — Low-tech Lab</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#818cf8;text-decoration:none}.back:hover{text-decoration:underline}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#818cf8}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .b-green{background:rgba(34,197,94,.2);color:#22c55e}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-blue{background:rgba(56,189,248,.2);color:#38bdf8}
+        .b-pink{background:rgba(236,72,153,.2);color:#ec4899}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(34,197,94,.3);background:linear-gradient(135deg,#12121a,rgba(34,197,94,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        a.ext{color:#818cf8;text-decoration:none;font-size:.8rem}a.ext:hover{text-decoration:underline}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:">";position:absolute;left:2px;color:#555}
+        table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:8px}
+        th,td{padding:8px 6px;text-align:left;border-bottom:1px solid #1e1e2e}
+        th{color:#818cf8;font-weight:600;background:#1a1a2a}
+        td{color:#999}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<a href="https://lazare-42.github.io/ama-pages/fiches.html" class="back">&larr; Fiches Infos</a>
+
+<h1>Low-tech Lab</h1>
+<p class="tagline">Association &mdash; Recherche, partage &amp; promotion des low-technologies</p>
+
+<div class="meta">
+    <span class="badge b-green">Low-tech</span>
+    <span class="badge b-purple">Open source</span>
+    <span class="badge b-blue">Nomade des Mers</span>
+    <span class="badge b-orange">Cible HUBJAM</span>
+</div>
+
+<div class="section">
+    <div class="section-title">En bref</div>
+    <div class="card">
+        <div class="card-text">
+            Association fond&eacute;e en <strong>2014</strong> par <strong>Corentin de Chatelperron</strong> &agrave; Concarneau (29). Connue mondialement pour l'exp&eacute;dition <strong>Nomade des Mers</strong> (catamaran-laboratoire low-tech, Arte). Anime un <strong>wiki open source</strong> avec 50+ tutoriels de fabrication low-tech, dont plusieurs li&eacute;s &agrave; l'audio DIY. Financ&eacute;e notamment par l'<strong>ADEME</strong>.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Infos cl&eacute;s</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Site</div>
+            <a href="https://lowtechlab.org" class="ext" target="_blank">lowtechlab.org</a>
+        </div>
+        <div class="card">
+            <div class="card-title">Localisation</div>
+            <div class="card-text">Concarneau, Finist&egrave;re (29)</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Fondateur</div>
+            <div class="card-text">Corentin de Chatelperron</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Cr&eacute;ation</div>
+            <div class="card-text">2014 (association loi 1901)</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Projets phares</div>
+    <div class="card highlight">
+        <div class="card-title">Nomade des Mers</div>
+        <div class="card-text">
+            Exp&eacute;dition maritime mondiale &agrave; bord d'un catamaran-laboratoire &eacute;quip&eacute; de low-tech. <strong>Documentaire Arte</strong> en 4 saisons. Tour du monde pour documenter et tester des solutions low-tech dans des contextes r&eacute;els. Lien direct avec le maritime et l'innovation frugale.
+        </div>
+    </div>
+    <div class="card highlight">
+        <div class="card-title">Wiki Low-tech</div>
+        <div class="card-text">
+            Plateforme open source avec <strong>50+ tutoriels</strong> de fabrication. Documentation pas-&agrave;-pas, plans, vid&eacute;os. Licence libre. Contributif et communautaire.
+        </div>
+    </div>
+    <div class="card highlight">
+        <div class="card-title">La Base Low-tech</div>
+        <div class="card-text">
+            Incubateur &agrave; Concarneau qui accompagne <strong>~15 entrepreneurs/an</strong> dans le d&eacute;veloppement de projets low-tech. Programme d'acc&eacute;l&eacute;ration, mentorat, mise en r&eacute;seau.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Tutoriels audio sur le wiki</div>
+    <div class="card highlight">
+        <div class="card-text">
+            Le wiki Low-tech Lab contient des tutoriels directement li&eacute;s &agrave; l'audio DIY :<br><br>
+            <strong>Caisson de musique</strong> &mdash; Enceinte portable low-tech fabriqu&eacute;e avec mat&eacute;riaux de r&eacute;cup&eacute;ration<br>
+            <strong>Joyeux Bidon</strong> &mdash; Instrument/enceinte &agrave; partir de bidons m&eacute;talliques recycl&eacute;s<br>
+            <strong>Low Tech Sound</strong> &mdash; Syst&egrave;me sonore minimaliste et &eacute;co-con&ccedil;u<br><br>
+            <em>= Match direct avec l'approche HUBJAM (bo&icirc;tier audio modulaire low-tech)</em>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">&Eacute;cosyst&egrave;me &amp; partenaires</div>
+    <div class="card">
+        <ul>
+            <li><strong>ADEME</strong> &mdash; Financeur principal (transition &eacute;cologique)</li>
+            <li><strong>Arte</strong> &mdash; Diffusion documentaire Nomade des Mers</li>
+            <li><strong>R&eacute;seau Low-tech</strong> &mdash; Communaut&eacute; mondiale de contributeurs</li>
+            <li><strong>Universit&eacute;s &amp; &eacute;coles</strong> &mdash; Partenariats acad&eacute;miques (ing&eacute;nierie, design)</li>
+            <li><strong>Tiers-lieux</strong> &mdash; Connexion avec les fablabs et makerspaces fran&ccedil;ais</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Contact</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">G&eacute;n&eacute;ral</div>
+            <div class="card-text">
+                <a href="mailto:hello@lowtechlab.org" class="ext">hello@lowtechlab.org</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Web</div>
+            <div class="card-text">
+                <a href="https://lowtechlab.org" class="ext" target="_blank">lowtechlab.org</a><br>
+                <a href="https://wiki.lowtechlab.org" class="ext" target="_blank">wiki.lowtechlab.org</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Pertinence pour AMA</div>
+    <div class="card warn">
+        <div class="card-text">
+            <strong>Match HUBJAM :</strong> Les tutoriels audio du wiki (Caisson de musique, Joyeux Bidon, Low Tech Sound) sont la <strong>preuve de concept id&eacute;ologique</strong> de HUBJAM. Partenariat naturel : publier le bo&icirc;tier HUBJAM sur le wiki Low-tech Lab = visibilit&eacute; internationale + cr&eacute;dibilit&eacute; open source.<br><br>
+            <strong>Match PIN-LAB :</strong> L'approche low-tech rejoint l'&eacute;co-conception de PIN-LAB. La Base Low-tech (incubateur) pourrait accompagner le d&eacute;veloppement.<br><br>
+            <strong>Lien maritime :</strong> Nomade des Mers = pont th&eacute;matique avec METR H2O et le parcours maritime de Yann (BSc Solent).<br><br>
+            <strong>Strat&eacute;gie :</strong> Proposer de documenter le bo&icirc;tier HUBJAM comme tutoriel wiki. Candidater &agrave; La Base Low-tech pour l'incubation. Le mod&egrave;le open source + ADEME-funded est align&eacute; avec la vision AMA.<br><br>
+            <strong>Lien KLIMA M1 :</strong> Low-tech Lab est un cas d'&eacute;tude parfait pour le programme &laquo; Business &amp; Transition Climatique &raquo; &mdash; mod&egrave;le &eacute;conomique frugal &amp; impact.
+        </div>
+    </div>
+</div>
+
+<footer>Fiche mise &agrave; jour &mdash; 19/02/2026</footer>
+
+</body>
+</html>
