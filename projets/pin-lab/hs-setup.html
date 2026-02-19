@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN-LAB — HS Setup</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#ec4899;text-decoration:none}.back:hover{text-decoration:underline}
+        .parent{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:4px}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#ec4899}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-pink{background:rgba(236,72,153,.2);color:#ec4899}
+        .b-green{background:rgba(34,197,94,.2);color:#22c55e}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,#12121a,rgba(236,72,153,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        .done{border-color:rgba(34,197,94,.3);background:linear-gradient(135deg,#12121a,rgba(34,197,94,.05))}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:"›";position:absolute;left:2px;color:#555}
+        .phase{display:flex;align-items:center;gap:10px;padding:10px 14px}
+        .phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+        .dot-done{background:#22c55e}
+        .dot-active{background:#ec4899;box-shadow:0 0 8px rgba(236,72,153,.5)}
+        .dot-pending{background:#333}
+        .phase-label{font-size:.8rem;color:#999}.phase-label strong{color:#ccc}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/Pmel.html" class="back">&larr; PIN-LAB</a>
+<div class="parent">PIN-LAB &mdash; Sous-projet</div>
+
+<h1>HS Setup</h1>
+<p class="tagline">&Eacute;chafaudage modulaire pour installations artistiques &amp; &eacute;v&eacute;nementielles</p>
+
+<div class="meta">
+    <span class="badge b-pink">PIN-LAB</span>
+    <span class="badge b-green">Cross-pilier FLOAT</span>
+    <span class="badge b-orange">Prototypage</span>
+    <span class="badge b-purple">Priorit&eacute; #1</span>
+</div>
+
+<div class="section">
+    <div class="section-title">Concept</div>
+    <div class="card">
+        <div class="card-text">
+            Syst&egrave;me d'<strong>&eacute;chafaudage modulaire, l&eacute;ger et reconfigurable</strong> con&ccedil;u pour monter rapidement des installations artistiques, sc&egrave;nes &eacute;ph&eacute;m&egrave;res et structures &eacute;v&eacute;nementielles. Le &laquo; H &raquo; et le &laquo; S &raquo; font r&eacute;f&eacute;rence &agrave; la forme des pi&egrave;ces d'assemblage. Pens&eacute; pour &ecirc;tre <strong>transport&eacute; facilement</strong>, mont&eacute; sans outils sp&eacute;cialis&eacute;s, et <strong>r&eacute;utilisable</strong> d'un &eacute;v&eacute;nement &agrave; l'autre.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Principes de design</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Modularit&eacute;</div>
+            <div class="card-text">Pi&egrave;ces interchangeables, configurations multiples (lin&eacute;aire, grille, tour)</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Portabilit&eacute;</div>
+            <div class="card-text">L&eacute;ger, d&eacute;montable, empilable pour le transport</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Montage rapide</div>
+            <div class="card-text">Sans outils sp&eacute;cialis&eacute;s, 2 personnes max</div>
+        </div>
+        <div class="card">
+            <div class="card-title">&Eacute;co-conception</div>
+            <div class="card-text">Mat&eacute;riaux durables, r&eacute;parables, recyclables</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Applications</div>
+    <div class="card highlight">
+        <ul>
+            <li><strong>Jams HUBJAM</strong> &mdash; Structures sc&eacute;niques pour sessions live</li>
+            <li><strong>&Eacute;v&eacute;nements FLOAT</strong> &mdash; Supports cam&eacute;ra, &eacute;clairage, d&eacute;cor</li>
+            <li><strong>Festivals</strong> &mdash; Ondes &Eacute;ph&eacute;m&egrave;res, JOE (JO 2028)</li>
+            <li><strong>Expositions</strong> &mdash; Stands modulaires, cimaises temporaires</li>
+            <li><strong>Ateliers r&eacute;paration</strong> &mdash; Postes de travail reconfigurables</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Avancement</div>
+    <div class="card">
+        <div class="phase">
+            <div class="phase-dot dot-done"></div>
+            <div class="phase-label"><strong>Concept</strong> &mdash; Design initial, principes d&eacute;finis</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-done"></div>
+            <div class="phase-label"><strong>Recherche</strong> &mdash; R&eacute;f&eacute;rences biomim&eacute;tiques, mat&eacute;riaux</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-active"></div>
+            <div class="phase-label"><strong>Prototypage</strong> &mdash; Premiers mod&egrave;les en cours</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Tests terrain</strong> &mdash; Installation r&eacute;elle &agrave; planifier</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>It&eacute;ration</strong> &mdash; Retours, am&eacute;liorations, V2</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Production</strong> &mdash; Petite s&eacute;rie reproductible</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Besoins pour avancer</div>
+    <div class="card warn">
+        <ul>
+            <li><strong>Acc&egrave;s FabLab</strong> &mdash; D&eacute;coupe laser, impression 3D (LISAA ? R&eacute;serve des Arts ?)</li>
+            <li><strong>Mat&eacute;riaux prototype</strong> &mdash; Sourcing + chiffrage (aluminium, bois, composites)</li>
+            <li><strong>Premier test terrain</strong> &mdash; Jam HUBJAM ou &eacute;v&eacute;nement FLOAT</li>
+            <li><strong>Plans techniques</strong> &mdash; Cotes, assemblages, charges admissibles</li>
+            <li><strong>Partenaire ingénierie</strong> &mdash; Validation structure / s&eacute;curit&eacute;</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Inspirations</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>Al Bahar Towers</strong> &mdash; Fa&ccedil;ade r&eacute;active : adaptabilit&eacute; aux conditions<br>
+            <strong>Autofabricantes (EADA)</strong> &mdash; Conteneurs modulaires de production<br>
+            <strong>Syst&egrave;mes &eacute;chafaudage pro</strong> &mdash; Layher, Altrad : simplifier pour l'art<br>
+            <strong>&Eacute;conomie circulaire</strong> &mdash; R&eacute;parable, r&eacute;utilisable, z&eacute;ro d&eacute;chet
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Connexions</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>FLOAT</strong> &mdash; Utilisateur principal : structures pour tournages et &eacute;v&eacute;nements<br>
+            <strong>HUBJAM</strong> &mdash; Sc&egrave;nes modulaires pour les jams et ateliers<br>
+            <strong>PIN-LAB / Po_Russes</strong> &mdash; &Eacute;l&eacute;ments d&eacute;coratifs &agrave; int&eacute;grer<br>
+            <strong>Creapole / LISAA</strong> &mdash; Workshops &eacute;tudiants, acc&egrave;s FabLab
+        </div>
+    </div>
+</div>
+
+<footer>PIN-LAB / HS Setup &mdash; 10/02/2026</footer>
+</body>
+</html>

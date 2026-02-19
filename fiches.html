@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA — Fiches Infos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        h1 { text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #818cf8; }
+        .subtitle { text-align: center; color: #666; font-size: 0.8rem; margin-bottom: 24px; }
+        .section { margin-bottom: 24px; }
+        .section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555;
+            margin-bottom: 10px;
+            padding-left: 2px;
+        }
+
+        /* Contacts */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .contact-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .av-purple { background: rgba(129,140,248,0.2); color: #818cf8; }
+        .av-pink { background: rgba(236,72,153,0.2); color: #ec4899; }
+        .av-green { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .av-orange { background: rgba(245,158,11,0.2); color: #f59e0b; }
+        .av-blue { background: rgba(56,189,248,0.2); color: #38bdf8; }
+        .contact-info { flex: 1; }
+        .contact-name { font-size: 0.85rem; font-weight: 600; }
+        .contact-role { font-size: 0.7rem; color: #666; }
+        .contact-detail { font-size: 0.65rem; color: #555; }
+
+        /* Fiches */
+        .fiche {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        .fiche:hover { border-color: #818cf8; transform: translateY(-1px); }
+        .fiche-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .fi-purple { background: rgba(129,140,248,0.15); }
+        .fi-green { background: rgba(34,197,94,0.15); }
+        .fi-green { background: rgba(34,197,94,0.15); }
+        .fi-orange { background: rgba(245,158,11,0.15); }
+        .fi-blue { background: rgba(56,189,248,0.15); }
+        .fi-pink { background: rgba(236,72,153,0.15); }
+        .tag-blue { background: rgba(56,189,248,0.2); color: #38bdf8; }
+        .fiche-text { flex: 1; }
+        .fiche-title { font-size: 0.88rem; font-weight: 600; }
+        .fiche-sub { font-size: 0.72rem; color: #666; }
+        .fiche-tags { margin-top: 4px; }
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .tag-purple { background: rgba(129,140,248,0.2); color: #818cf8; }
+        .tag-green { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .tag-orange { background: rgba(245,158,11,0.2); color: #f59e0b; }
+        .tag-pink { background: rgba(236,72,153,0.2); color: #ec4899; }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: #818cf8;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 12px;
+            border-top: 1px solid #1a1a2a;
+            color: #444;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 480px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            body { padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/PA9T.html" class="back-link">&larr; Dashboard</a>
+
+<h1>Fiches Infos</h1>
+<p class="subtitle">Contacts, partenaires, recherche</p>
+
+<!-- CONTACTS -->
+<div class="section">
+    <div class="section-title">Contacts cl&eacute;s</div>
+    <div class="contact-grid">
+        <div class="contact">
+            <div class="contact-avatar av-orange">JO</div>
+            <div class="contact-info">
+                <div class="contact-name">Jonathan</div>
+                <div class="contact-role">KLIMA School</div>
+                <div class="contact-detail">RDV en cours</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-pink">GA</div>
+            <div class="contact-info">
+                <div class="contact-name">Ga&euml;lle</div>
+                <div class="contact-role">Creapole</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-purple">LO</div>
+            <div class="contact-info">
+                <div class="contact-name">Lo&iuml;c</div>
+                <div class="contact-role">HUBJAM</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-green">MA</div>
+            <div class="contact-info">
+                <div class="contact-name">Maya</div>
+                <div class="contact-role">FLOAT</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-blue">LA</div>
+            <div class="contact-info">
+                <div class="contact-name">Laz</div>
+                <div class="contact-role">INDEX</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-purple">AM</div>
+            <div class="contact-info">
+                <div class="contact-name">Amine Lehna</div>
+                <div class="contact-role">Deep Blue Foundation</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="contact-avatar av-green">GB</div>
+            <div class="contact-info">
+                <div class="contact-name">GabGrooveBox</div>
+                <div class="contact-role">Cit&eacute; Fertile</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FICHES : FONDATIONS -->
+<div class="section">
+    <div class="section-title">Fondations &amp; Prix</div>
+    <a href="https://0x0.st/PABw.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-purple">🌊</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Deep Blue Foundation</div>
+            <div class="fiche-sub">&Eacute;quipe, mission, lien Rougerie, points cl&eacute;s RDV</div>
+            <div class="fiche-tags">
+                <span class="tag tag-purple">Fondation</span>
+                <span class="tag tag-green">Partenaire potentiel</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmjS.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-purple">🏛</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Fondation Jacques Rougerie</div>
+            <div class="fiche-sub">Concours archi Mer/Espace/Climat &mdash; Institut de France &mdash; Deadline sept 2025</div>
+            <div class="fiche-tags">
+                <span class="tag tag-purple">Fondation</span>
+                <span class="tag tag-orange">Concours annuel</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmjf.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">🌿</div>
+        <div class="fiche-text">
+            <div class="fiche-title">CEEBIOS</div>
+            <div class="fiche-sub">Centre Europ&eacute;en d'Excellence en Biomim&eacute;tisme &mdash; Senlis, partenaire LISAA</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Biomim&eacute;tisme</span>
+                <span class="tag tag-purple">R&amp;D</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- FICHES : INCUBATEURS & LIEUX -->
+<div class="section">
+    <div class="section-title">Incubateurs, Tiers-lieux &amp; Ressources</div>
+    <a href="https://0x0.st/PmjM.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">🚀</div>
+        <div class="fiche-text">
+            <div class="fiche-title">La French Tech</div>
+            <div class="fiche-sub">Programmes, financements, r&eacute;seau &mdash; Tremplin deadline 1er mars 2026</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Incubateur</span>
+                <span class="tag tag-pink">Deadline proche</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmjL.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-purple">🤝</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Ashoka</div>
+            <div class="fiche-sub">R&eacute;seau mondial 4 000+ entrepreneurs sociaux &mdash; Lien EADA &amp; Autofabricantes</div>
+            <div class="fiche-tags">
+                <span class="tag tag-purple">Entrepreneuriat social</span>
+                <span class="tag tag-green">Lien EADA</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmjp.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">✅</div>
+        <div class="fiche-text">
+            <div class="fiche-title">B Lab / B Corp</div>
+            <div class="fiche-sub">Certification d'impact &mdash; 1 232 B Corps en France &mdash; Lien EADA</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Certification</span>
+                <span class="tag tag-orange">Lien EADA</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmj9.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-pink">🦾</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Autofabricantes</div>
+            <div class="fiche-sub">Proth&egrave;ses 3D open-source &mdash; ADN fondateur de PIN-LAB (EADA 2021-2022)</div>
+            <div class="fiche-tags">
+                <span class="tag tag-pink">ADN AMA</span>
+                <span class="tag tag-purple">Open source</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmjQ.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">🌱</div>
+        <div class="fiche-text">
+            <div class="fiche-title">La Cit&eacute; Fertile</div>
+            <div class="fiche-sub">Tiers-lieu &eacute;coresponsable Pantin &mdash; RDV GabGrooveBox 11/02</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Tiers-lieu</span>
+                <span class="tag tag-pink">Contact actif</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmj2.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">♻️</div>
+        <div class="fiche-text">
+            <div class="fiche-title">La R&eacute;serve des Arts</div>
+            <div class="fiche-sub">Mat&eacute;riaux r&eacute;cup&eacute;r&eacute;s pour cr&eacute;atifs &mdash; 600t/an, ateliers Montreuil</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">&Eacute;co-circulaire</span>
+                <span class="tag tag-purple">Partenaire LISAA</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- FICHES : ÉCOLES -->
+<div class="section">
+    <div class="section-title">&Eacute;coles &amp; Formations</div>
+    <a href="https://0x0.st/Pmju.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">🎓</div>
+        <div class="fiche-text">
+            <div class="fiche-title">KLIMA School</div>
+            <div class="fiche-sub">Business school transition climat &mdash; RDV en cours avec Jonathan</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">&Eacute;cole</span>
+                <span class="tag tag-pink">RDV actif</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmj1.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">🎨</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Creapole</div>
+            <div class="fiche-sub">Design Transport &amp; Mobilit&eacute; &mdash; Contact Ga&euml;lle (relance)</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">&Eacute;cole</span>
+                <span class="tag tag-pink">Contact en cours</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmje.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">🏗</div>
+        <div class="fiche-text">
+            <div class="fiche-title">LISAA</div>
+            <div class="fiche-sub">Archi int&eacute;rieure &amp; design &mdash; Formation Yann AD1 (2022-2023)</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">&Eacute;cole</span>
+                <span class="tag tag-green">Formation Yann</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmjj.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">🌍</div>
+        <div class="fiche-text">
+            <div class="fiche-title">EADA Business School</div>
+            <div class="fiche-sub">Master Sustainable Business, Barcelone &mdash; Autofabricantes (2021-2022)</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">&Eacute;cole</span>
+                <span class="tag tag-green">Formation Yann</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmj_.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-blue">⚓</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Solent University</div>
+            <div class="fiche-sub">BSc Maritime Business, Southampton &mdash; Gen&egrave;se METR H2O (2018-2021)</div>
+            <div class="fiche-tags">
+                <span class="tag tag-blue">Maritime</span>
+                <span class="tag tag-green">Formation Yann</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PTxR.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">📋</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Dossier KLIMA (pr&eacute;p RDV)</div>
+            <div class="fiche-sub">Pr&eacute;paration RDV Jonathan &mdash; dossier initial</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">Dossier</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- PROJETS AMA -->
+<div class="section">
+    <div class="section-title">Projets AMA</div>
+    <a href="https://0x0.st/Pme8.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-blue">🌊</div>
+        <div class="fiche-text">
+            <div class="fiche-title">METR H2O</div>
+            <div class="fiche-sub">Plateformes logistiques flottantes modulaires &mdash; Concours Rougerie 2026</div>
+            <div class="fiche-tags">
+                <span class="tag tag-blue">Vision</span>
+                <span class="tag tag-purple">Architecture maritime</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmeK.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">🎵</div>
+        <div class="fiche-text">
+            <div class="fiche-title">HUBJAM</div>
+            <div class="fiche-sub">Bo&icirc;tier audio modulaire &amp; communaut&eacute; musicale collaborative</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Pilier AMA</span>
+                <span class="tag tag-orange">Produit physique</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmeZ.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-purple">💻</div>
+        <div class="fiche-text">
+            <div class="fiche-title">INDEX</div>
+            <div class="fiche-sub">Hub central &amp; plateforme digitale &mdash; Go / Svelte / PostgreSQL</div>
+            <div class="fiche-tags">
+                <span class="tag tag-purple">Pilier AMA</span>
+                <span class="tag tag-blue">Tech</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmek.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-pink">🔧</div>
+        <div class="fiche-text">
+            <div class="fiche-title">PIN-LAB</div>
+            <div class="fiche-sub">Design modulaire, sc&eacute;nographie &amp; &eacute;co-conception</div>
+            <div class="fiche-tags">
+                <span class="tag tag-pink">Pilier AMA</span>
+                <span class="tag tag-orange">Prototypage</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/Pmeb.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-green">🎬</div>
+        <div class="fiche-text">
+            <div class="fiche-title">FLOAT</div>
+            <div class="fiche-sub">Documentation audiovisuelle &amp; production &eacute;v&eacute;nementielle</div>
+            <div class="fiche-tags">
+                <span class="tag tag-green">Pilier AMA</span>
+                <span class="tag tag-pink">Audiovisuel</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- RESSOURCES RECHERCHE BRI -->
+<div class="section">
+    <div class="section-title">Ressources Recherche &mdash; BRI 2.0</div>
+    <a href="https://0x0.st/PmjV.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-blue">🌍</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Global South World</div>
+            <div class="fiche-sub">M&eacute;dia ind&eacute;pendant &mdash; Voix du Sud global, 4 r&eacute;dactions continentales</div>
+            <div class="fiche-tags">
+                <span class="tag tag-blue">M&eacute;dia</span>
+                <span class="tag tag-green">Gratuit</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmjO.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-blue">🇨🇳</div>
+        <div class="fiche-text">
+            <div class="fiche-title">The China-Global South Project</div>
+            <div class="fiche-sub">R&eacute;f&eacute;rence Chine-Sud global depuis 2010 &mdash; Newsletter, podcast, analyses</div>
+            <div class="fiche-tags">
+                <span class="tag tag-blue">M&eacute;dia</span>
+                <span class="tag tag-orange">Abo payant</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmjW.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-blue">🗺</div>
+        <div class="fiche-text">
+            <div class="fiche-title">The People's Map of Global China</div>
+            <div class="fiche-sub">Carte interactive projets chinois &agrave; l'&eacute;tranger &mdash; UCLA/ANU, open access</div>
+            <div class="fiche-tags">
+                <span class="tag tag-blue">Carte interactive</span>
+                <span class="tag tag-purple">Acad&eacute;mique</span>
+            </div>
+        </div>
+    </a>
+    <a href="https://0x0.st/PmeS.html" class="fiche" target="_blank">
+        <div class="fiche-icon fi-orange">📋</div>
+        <div class="fiche-text">
+            <div class="fiche-title">Checklist BRI 2.0</div>
+            <div class="fiche-sub">Roadmap dissertation &rarr; m&eacute;moire &mdash; 7 phases, inventaire, sources, plan</div>
+            <div class="fiche-tags">
+                <span class="tag tag-orange">Dossier</span>
+                <span class="tag tag-blue">Solent</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<footer>
+    AMA — Fiches Infos &mdash; Mis &agrave; jour 10/02/2026
+</footer>
+
+</body>
+</html>

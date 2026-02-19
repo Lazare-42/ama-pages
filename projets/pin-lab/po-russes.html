@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN-LAB — Po_Russes</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#ec4899;text-decoration:none}.back:hover{text-decoration:underline}
+        .parent{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:4px}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#ec4899}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-pink{background:rgba(236,72,153,.2);color:#ec4899}
+        .b-green{background:rgba(34,197,94,.2);color:#22c55e}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,#12121a,rgba(236,72,153,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:"›";position:absolute;left:2px;color:#555}
+        .nesting{display:flex;align-items:center;justify-content:center;gap:4px;padding:20px 14px}
+        .nest-box{border:2px solid;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:8px}
+        .n1{border-color:#ec4899;width:160px;height:100px}
+        .n2{border-color:#818cf8;width:120px;height:72px}
+        .n3{border-color:#22c55e;width:76px;height:44px}
+        .n3-label{font-size:.6rem;color:#22c55e}
+        .phase{display:flex;align-items:center;gap:10px;padding:10px 14px}
+        .phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+        .dot-done{background:#22c55e}
+        .dot-active{background:#ec4899;box-shadow:0 0 8px rgba(236,72,153,.5)}
+        .dot-pending{background:#333}
+        .phase-label{font-size:.8rem;color:#999}.phase-label strong{color:#ccc}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2{grid-template-columns:1fr}.n1{width:140px;height:88px}.n2{width:100px;height:60px}.n3{width:60px;height:36px}}
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/Pmel.html" class="back">&larr; PIN-LAB</a>
+<div class="parent">PIN-LAB &mdash; Sous-projet</div>
+
+<h1>Po_Russes</h1>
+<p class="tagline">&Eacute;l&eacute;ments modulaires embo&icirc;tables &mdash; structure &amp; d&eacute;coration gigogne</p>
+
+<div class="meta">
+    <span class="badge b-pink">PIN-LAB</span>
+    <span class="badge b-purple">Design g&eacute;om&eacute;trique</span>
+    <span class="badge b-orange">Conceptualis&eacute;</span>
+    <span class="badge b-green">Biomim&eacute;tisme</span>
+</div>
+
+<div class="section">
+    <div class="section-title">Concept</div>
+    <div class="card">
+        <div class="card-text">
+            Inspir&eacute; des <strong>poup&eacute;es russes (matriochkas)</strong>, Po_Russes est un syst&egrave;me d'<strong>&eacute;l&eacute;ments gigognes</strong> &mdash; des modules qui s'embo&icirc;tent les uns dans les autres. Chaque pi&egrave;ce est &agrave; la fois <strong>d&eacute;corative et structurelle</strong> : tabouret, table basse, &eacute;tag&egrave;re, cloison, sc&egrave;ne... Les modules se rangent compactement (embo&icirc;t&eacute;s) et se d&eacute;ploient pour cr&eacute;er des espaces.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Principe gigogne</div>
+    <div class="card">
+        <div class="nesting">
+            <div class="nest-box n1">
+                <div class="nest-box n2">
+                    <div class="nest-box n3">
+                        <span class="n3-label">S</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-text" style="text-align:center;margin-top:4px">
+            <strong>Grand</strong> contient <strong>Moyen</strong> contient <strong>Petit</strong><br>
+            Stockage compact &rarr; D&eacute;ploiement multiple
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Double fonction</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Structurel</div>
+            <div class="card-text">Assises, tables, estrades, cloisons, pr&eacute;sentoirs</div>
+        </div>
+        <div class="card">
+            <div class="card-title">D&eacute;coratif</div>
+            <div class="card-text">Formes g&eacute;om&eacute;triques, jeux de lumi&egrave;re, &oelig;uvres en soi</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Rangement</div>
+            <div class="card-text">Embo&icirc;tement = volume de stockage minimal</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Sc&eacute;nographie</div>
+            <div class="card-text">Combinaisons infinies pour composer un espace</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Applications</div>
+    <div class="card highlight">
+        <ul>
+            <li><strong>&Eacute;v&eacute;nements &eacute;ph&eacute;m&egrave;res</strong> &mdash; Mobilier d&eacute;ploy&eacute; sur place, remballet compact</li>
+            <li><strong>Espaces de vie</strong> &mdash; Studio/petit appartement : mobilier multifonction</li>
+            <li><strong>Jams HUBJAM</strong> &mdash; Assises + sc&egrave;ne modulaire pour musiciens</li>
+            <li><strong>Galeries / expos</strong> &mdash; Socles, cimaises, pr&eacute;sentoirs</li>
+            <li><strong>Sc&eacute;nographie FLOAT</strong> &mdash; D&eacute;cor modulaire pour tournages</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Inspirations</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>Matriochkas</strong> &mdash; Principe gigogne, optimisation volume<br>
+            <strong>Louvre Abu Dhabi</strong> &mdash; G&eacute;om&eacute;trie modulaire, jeux d'ombre/lumi&egrave;re<br>
+            <strong>Nendo (Oki Sato)</strong> &mdash; Design japonais minimaliste, multifonction<br>
+            <strong>LISAA</strong> &mdash; Exploration formelle, architecture int&eacute;rieure
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Avancement</div>
+    <div class="card">
+        <div class="phase">
+            <div class="phase-dot dot-done"></div>
+            <div class="phase-label"><strong>Id&eacute;e</strong> &mdash; Concept gigogne identifi&eacute;</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-active"></div>
+            <div class="phase-label"><strong>Concept</strong> &mdash; Principes pos&eacute;s, formes &agrave; explorer</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Maquettes</strong> &mdash; Mod&egrave;les r&eacute;duits pour tester embo&icirc;tements</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Prototype &eacute;chelle 1</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Besoins pour avancer</div>
+    <div class="card warn">
+        <ul>
+            <li><strong>Exploration formelle</strong> &mdash; Dessins, maquettes carton, mod&eacute;lisation 3D</li>
+            <li><strong>Choix de formes</strong> &mdash; Cylindre ? Hexagone ? Cube ? Organique ?</li>
+            <li><strong>Mat&eacute;riaux</strong> &mdash; Bois (CNC), plastique recycl&eacute;, composite</li>
+            <li><strong>Tests d'embo&icirc;tement</strong> &mdash; Tol&eacute;rances, solidit&eacute;, facilit&eacute; d'usage</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Connexions</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>HS Setup</strong> &mdash; Po_Russes comme mobilier int&eacute;gr&eacute; aux installations<br>
+            <strong>HW Organizer</strong> &mdash; Petits modules gigognes = rangement<br>
+            <strong>HUBJAM</strong> &mdash; Mobilier &eacute;v&eacute;nementiel pour les jams<br>
+            <strong>Rougerie &laquo; Prix Lab &raquo;</strong> &mdash; Concept candidat (innovation design)
+        </div>
+    </div>
+</div>
+
+<footer>PIN-LAB / Po_Russes &mdash; 10/02/2026</footer>
+</body>
+</html>

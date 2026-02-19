@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN-LAB — MID</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#ec4899;text-decoration:none}.back:hover{text-decoration:underline}
+        .parent{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:4px}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#ec4899}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-pink{background:rgba(236,72,153,.2);color:#ec4899}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,#12121a,rgba(236,72,153,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:"›";position:absolute;left:2px;color:#555}
+        .phase{display:flex;align-items:center;gap:10px;padding:10px 14px}
+        .phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+        .dot-active{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.5)}
+        .dot-pending{background:#333}
+        .phase-label{font-size:.8rem;color:#999}.phase-label strong{color:#ccc}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/Pmel.html" class="back">&larr; PIN-LAB</a>
+<div class="parent">PIN-LAB &mdash; Sous-projet</div>
+
+<h1>MID</h1>
+<p class="tagline">Modular Info Desk &mdash; Comptoir d'accueil &amp; information &eacute;v&eacute;nementiel</p>
+
+<div class="meta">
+    <span class="badge b-pink">PIN-LAB</span>
+    <span class="badge b-purple">&Eacute;v&eacute;nementiel</span>
+    <span class="badge b-orange">&Agrave; documenter</span>
+</div>
+
+<div class="section">
+    <div class="section-title">Concept (hypoth&egrave;se)</div>
+    <div class="card">
+        <div class="card-text">
+            Comptoir d'accueil et d'information <strong>modulaire et d&eacute;montable</strong> pour &eacute;v&eacute;nements. Un point de contact physique &mdash; accueil visiteurs, affichage programme, distribution supports &mdash; qui se monte/d&eacute;monte rapidement et s'adapte &agrave; chaque contexte. Int&egrave;gre les principes PIN-LAB : <strong>&eacute;co-conception, modularit&eacute;, transportabilit&eacute;</strong>.
+        </div>
+    </div>
+    <div class="card warn">
+        <div class="card-text">
+            <strong>Note :</strong> Ce sous-projet n&eacute;cessite une documentation compl&egrave;te de la part de Yann. Les informations ci-dessous sont des pistes bas&eacute;es sur les r&eacute;f&eacute;rences trouv&eacute;es dans les archives AMA.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Fonctions envisag&eacute;es</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Accueil</div>
+            <div class="card-text">Point d'entr&eacute;e visiteurs, billetterie, orientation</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Information</div>
+            <div class="card-text">Affichage programme, supports de com, QR codes</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Stockage</div>
+            <div class="card-text">Rangement mat&eacute;riel de com, goodies, documents</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Identit&eacute;</div>
+            <div class="card-text">Branding &eacute;v&eacute;nement, personnalisation facile</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Applications potentielles</div>
+    <div class="card highlight">
+        <ul>
+            <li><strong>Jams HUBJAM</strong> &mdash; Accueil participants, programme, contacts</li>
+            <li><strong>Festivals JOE</strong> &mdash; Points info modulaires sur site</li>
+            <li><strong>Ateliers r&eacute;paration</strong> &mdash; Comptoir inscription + affichage</li>
+            <li><strong>Salons / expos</strong> &mdash; Stand AMA identifiable et reconfigurable</li>
+            <li><strong>Conciergerie RPN</strong> &mdash; Desk d'accueil temporaire</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Avancement</div>
+    <div class="card">
+        <div class="phase">
+            <div class="phase-dot dot-active"></div>
+            <div class="phase-label"><strong>&Agrave; documenter</strong> &mdash; Concept r&eacute;f&eacute;renc&eacute; mais pas encore d&eacute;taill&eacute;</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Brief</strong> &mdash; D&eacute;finir fonctions, dimensions, contraintes</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Design</strong> &mdash; Croquis, maquettes, choix mat&eacute;riaux</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Prototype</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Synergies PIN-LAB</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>HS Setup</strong> &mdash; Structure porteuse du desk<br>
+            <strong>HW Organizer</strong> &mdash; Modules de rangement int&eacute;gr&eacute;s au comptoir<br>
+            <strong>Po_Russes</strong> &mdash; &Eacute;l&eacute;ments gigognes comme composants du desk<br><br>
+            <em>MID pourrait &ecirc;tre le premier produit qui combine les 3 autres sous-projets.</em>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Prochaines &eacute;tapes</div>
+    <div class="card warn">
+        <ul>
+            <li><strong>Session documentation</strong> &mdash; Yann d&eacute;crit sa vision compl&egrave;te</li>
+            <li><strong>Cahier des charges</strong> &mdash; Fonctions, dimensions, poids max, budget</li>
+            <li><strong>Recherche existant</strong> &mdash; Benchmark desks/comptoirs &eacute;v&eacute;nementiels modulaires</li>
+        </ul>
+    </div>
+</div>
+
+<footer>PIN-LAB / MID &mdash; 10/02/2026</footer>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN-LAB — HW Organizer</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#ec4899;text-decoration:none}.back:hover{text-decoration:underline}
+        .parent{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:4px}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#ec4899}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-pink{background:rgba(236,72,153,.2);color:#ec4899}
+        .b-green{background:rgba(34,197,94,.2);color:#22c55e}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,#12121a,rgba(236,72,153,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:"›";position:absolute;left:2px;color:#555}
+        .phase{display:flex;align-items:center;gap:10px;padding:10px 14px}
+        .phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+        .dot-done{background:#22c55e}
+        .dot-active{background:#ec4899;box-shadow:0 0 8px rgba(236,72,153,.5)}
+        .dot-pending{background:#333}
+        .phase-label{font-size:.8rem;color:#999}.phase-label strong{color:#ccc}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/Pmel.html" class="back">&larr; PIN-LAB</a>
+<div class="parent">PIN-LAB &mdash; Sous-projet</div>
+
+<h1>HW Organizer</h1>
+<p class="tagline">Syst&egrave;me de rangement modulaire pour espaces cr&eacute;atifs &amp; techniques</p>
+
+<div class="meta">
+    <span class="badge b-pink">PIN-LAB</span>
+    <span class="badge b-purple">Design fonctionnel</span>
+    <span class="badge b-orange">Conceptualis&eacute;</span>
+</div>
+
+<div class="section">
+    <div class="section-title">Concept</div>
+    <div class="card">
+        <div class="card-text">
+            Syst&egrave;me de <strong>rangement et organisation modulaire</strong> pens&eacute; pour les espaces de travail cr&eacute;atifs et techniques. HW (Hardware) Organizer r&eacute;pond au probl&egrave;me r&eacute;current des <strong>outils, mat&eacute;riaux et composants dispers&eacute;s</strong> dans un atelier ou un espace de jam. Chaque module peut &ecirc;tre <strong>empil&eacute;, fix&eacute; au mur ou int&eacute;gr&eacute;</strong> dans un setup plus large (comme HS Setup).
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Cas d'usage</div>
+    <div class="grid2">
+        <div class="card highlight">
+            <div class="card-title">Atelier / FabLab</div>
+            <div class="card-text">Rangement outils, composants &eacute;lectroniques, mat&eacute;riaux de prototypage</div>
+        </div>
+        <div class="card highlight">
+            <div class="card-title">Espace jam HUBJAM</div>
+            <div class="card-text">Rangement c&acirc;bles XLR, adaptateurs, p&eacute;dales, accessoires</div>
+        </div>
+        <div class="card highlight">
+            <div class="card-title">Kit FLOAT</div>
+            <div class="card-text">Organisation &eacute;quipement vid&eacute;o : batteries, cartes SD, accessoires</div>
+        </div>
+        <div class="card highlight">
+            <div class="card-title">Espace de vie</div>
+            <div class="card-text">Version domestique : bureau, cuisine, salle de bain modulaire</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Principes</div>
+    <div class="card">
+        <ul>
+            <li><strong>Modulaire</strong> &mdash; Unit&eacute;s combinables en configurations libres</li>
+            <li><strong>Adaptable</strong> &mdash; Mural, sur table, int&eacute;gr&eacute; &agrave; HS Setup</li>
+            <li><strong>Visible</strong> &mdash; Contenu identifiable sans ouvrir (transparent ou &eacute;tiquet&eacute;)</li>
+            <li><strong>&Eacute;co-con&ccedil;u</strong> &mdash; Mat&eacute;riaux r&eacute;cup&eacute;r&eacute;s ou biosourc&eacute;s quand possible</li>
+            <li><strong>Fabricable</strong> &mdash; R&eacute;alisable en FabLab (d&eacute;coupe laser, impression 3D)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Avancement</div>
+    <div class="card">
+        <div class="phase">
+            <div class="phase-dot dot-done"></div>
+            <div class="phase-label"><strong>Id&eacute;e</strong> &mdash; Besoin identifi&eacute; dans la pratique</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-active"></div>
+            <div class="phase-label"><strong>Concept</strong> &mdash; Principes de design d&eacute;finis</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Design d&eacute;taill&eacute;</strong> &mdash; Dimensions, mat&eacute;riaux, assemblages</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Prototype</strong> &mdash; Premier module fonctionnel</div>
+        </div>
+        <div class="phase">
+            <div class="phase-dot dot-pending"></div>
+            <div class="phase-label"><strong>Tests &amp; it&eacute;rations</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Besoins pour avancer</div>
+    <div class="card warn">
+        <ul>
+            <li><strong>Cahier des charges</strong> &mdash; Dimensions types, charges, syst&egrave;me de fixation</li>
+            <li><strong>Mat&eacute;riaux</strong> &mdash; Tester bois (MDF, contreplaqu&eacute;), PLA imprim&eacute; 3D, m&eacute;tal</li>
+            <li><strong>Benchmark</strong> &mdash; &Eacute;tude des solutions existantes (IKEA Skadis, Gridfinity...)</li>
+            <li><strong>Premier proto</strong> &mdash; 1 module test pour valider le concept</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Potentiel commercial</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>Particuliers</strong> &mdash; Makers, musiciens, cr&eacute;atifs avec ateliers<br>
+            <strong>Fablabs &amp; coworkings</strong> &mdash; Organisation espaces partag&eacute;s<br>
+            <strong>Artisans</strong> &mdash; Rangement outillage sp&eacute;cifique<br>
+            <strong>Compl&eacute;mentaire HUBJAM</strong> &mdash; Kit rangement audio vendu avec le bo&icirc;tier
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Connexions</div>
+    <div class="card">
+        <div class="card-text">
+            <strong>HS Setup</strong> &mdash; Int&eacute;gration directe : modules de rangement fix&eacute;s sur la structure<br>
+            <strong>HUBJAM</strong> &mdash; Organisation du mat&eacute;riel audio des jams<br>
+            <strong>FLOAT</strong> &mdash; Kit de rangement &eacute;quipement vid&eacute;o<br>
+            <strong>R&eacute;serve des Arts</strong> &mdash; Source de mat&eacute;riaux r&eacute;cup&eacute;r&eacute;s pour les protos
+        </div>
+    </div>
+</div>
+
+<footer>PIN-LAB / HW Organizer &mdash; 10/02/2026</footer>
+</body>
+</html>

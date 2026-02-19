@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA — Registration Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; font-weight: 600; color: var(--accent-light); margin: 3rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
+        h3 { font-size: 1.2rem; font-weight: 600; color: var(--orange); margin: 2rem 0 1rem; }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 3rem; font-size: 1.1rem; }
+        .step-badge { display: inline-block; background: var(--accent); color: white; padding: 4px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+        .step-badge.optional { background: var(--orange); }
+
+        .form-group { background: var(--bg-card); border-radius: 12px; padding: 24px; margin: 16px 0; border: 1px solid #2a2a3a; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 1rem; }
+        .form-group .hint { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 12px; }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="url"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 12px 16px; background: var(--bg-dark); border: 1px solid #2a2a3a; border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.95rem;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        .required::after { content: " *"; color: var(--pink); }
+
+        .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg-dark); border-radius: 8px; border: 1px solid #2a2a3a; cursor: pointer; }
+        .checkbox-item:hover { border-color: var(--accent); }
+        .checkbox-item input { accent-color: var(--accent); }
+        .checkbox-item label { cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
+
+        .level-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+        .level-card { text-align: center; padding: 16px; background: var(--bg-dark); border-radius: 8px; border: 1px solid #2a2a3a; }
+        .level-card .number { font-size: 1.5rem; font-weight: 700; color: var(--accent-light); }
+        .level-card .label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+
+        .availability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+        .availability-month { background: var(--bg-dark); border-radius: 8px; padding: 16px; border: 1px solid #2a2a3a; text-align: center; }
+        .availability-month .month-name { font-weight: 600; margin-bottom: 8px; color: var(--accent-light); }
+        .availability-month .halves { display: flex; gap: 8px; justify-content: center; }
+        .availability-month .half { padding: 6px 12px; border-radius: 6px; border: 1px solid #2a2a3a; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); }
+        .availability-month .half:hover { border-color: var(--accent); color: var(--text-primary); }
+
+        .cities-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .city-tag { padding: 8px 16px; background: var(--bg-dark); border: 1px solid #2a2a3a; border-radius: 20px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; }
+        .city-tag:hover { border-color: var(--accent); color: var(--text-primary); }
+
+        .btn-submit { display: block; width: 100%; padding: 16px; background: var(--accent); color: white; font-weight: 600; font-size: 1.1rem; border: none; border-radius: 8px; cursor: pointer; margin-top: 2rem; }
+        .btn-submit:hover { background: var(--accent-light); }
+
+        .post-message { background: var(--bg-card); border-left: 4px solid var(--green); border-radius: 8px; padding: 24px; margin: 2rem 0; }
+        .post-message h4 { color: var(--green); margin-bottom: 1rem; }
+        .post-message p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
+
+        .equipment-card { background: var(--bg-card); border-radius: 12px; padding: 24px; margin: 12px 0; border: 1px solid #2a2a3a; border-left: 4px solid var(--orange); }
+
+        .reminder-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .reminder-table th { background: var(--bg-card); padding: 12px; text-align: left; border-bottom: 2px solid var(--accent); font-size: 0.9rem; }
+        .reminder-table td { padding: 12px; border-bottom: 1px solid #2a2a3a; font-size: 0.9rem; color: var(--text-secondary); }
+
+        .domain-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 8px; }
+        .domain-item { text-align: center; padding: 12px 8px; background: var(--bg-dark); border-radius: 8px; border: 1px solid #2a2a3a; cursor: pointer; font-size: 0.85rem; color: var(--text-secondary); }
+        .domain-item:hover { border-color: var(--orange); color: var(--text-primary); }
+        .domain-item .icon { font-size: 1.5rem; margin-bottom: 4px; }
+
+        .condition-options { display: flex; gap: 12px; margin-top: 8px; }
+        .condition-option { flex: 1; text-align: center; padding: 12px; background: var(--bg-dark); border-radius: 8px; border: 1px solid #2a2a3a; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
+        .condition-option:hover { border-color: var(--accent); }
+
+        @media print {
+            body { background: white; color: black; }
+            .form-group { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>A M A - Y _ C</h1>
+    <p class="subtitle">Registration & Equipment Declaration</p>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- STEP 1: REGISTRATION -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2>Step 1 — Registration</h2>
+    <span class="step-badge">Required</span>
+
+    <div class="form-group">
+        <label class="required">Full Name</label>
+        <input type="text" placeholder="John Doe">
+    </div>
+
+    <div class="form-group">
+        <label class="required">Email</label>
+        <input type="email" placeholder="john@example.com">
+    </div>
+
+    <div class="form-group">
+        <label>Phone</label>
+        <p class="hint">For emergencies and WhatsApp communication</p>
+        <input type="tel" placeholder="+33 6 12 34 56 78">
+    </div>
+
+    <div class="form-group">
+        <label class="required">Main City</label>
+        <div class="cities-list">
+            <span class="city-tag">Paris</span>
+            <span class="city-tag">Montpellier</span>
+            <span class="city-tag">Barcelona</span>
+            <span class="city-tag">Pau (Bearn)</span>
+            <span class="city-tag">Bretagne</span>
+            <span class="city-tag">Other</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Secondary Cities</label>
+        <p class="hint">Select all that apply</p>
+        <div class="cities-list">
+            <span class="city-tag">Paris</span>
+            <span class="city-tag">Montpellier</span>
+            <span class="city-tag">Barcelona</span>
+            <span class="city-tag">Pau (Bearn)</span>
+            <span class="city-tag">Bretagne</span>
+            <span class="city-tag">Other</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Mobile</label>
+        <div class="checkbox-item" style="display: inline-flex;">
+            <input type="checkbox" id="mobile">
+            <label for="mobile">I can travel anywhere in France/Europe</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="required">Skills</label>
+        <p class="hint">Select all that apply</p>
+        <div class="checkbox-grid">
+            <div class="checkbox-item"><input type="checkbox" id="s1"><label for="s1">Musician</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s2"><label for="s2">Sound Technician</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s3"><label for="s3">Lighting Technician</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s4"><label for="s4">Videographer / Photographer</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s5"><label for="s5">Designer / Architect</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s6"><label for="s6">Developer</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s7"><label for="s7">Logistics Manager</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="s8"><label for="s8">Cook (for events)</label></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Instrument</label>
+        <p class="hint">If you selected Musician</p>
+        <input type="text" placeholder="e.g. Guitar, Piano, Saxophone...">
+    </div>
+
+    <div class="form-group">
+        <label class="required">Experience Level</label>
+        <p class="hint">Rate yourself for each skill selected</p>
+        <div class="level-grid">
+            <div class="level-card">
+                <div class="number">1</div>
+                <div class="label">Expert<br><small>Can supervise</small></div>
+            </div>
+            <div class="level-card">
+                <div class="number">2</div>
+                <div class="label">Intermediate<br><small>Can assist</small></div>
+            </div>
+            <div class="level-card">
+                <div class="number">3</div>
+                <div class="label">Beginner<br><small>Learning</small></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="required">Availability</label>
+        <p class="hint">Rolling 3-month window, select available fortnights</p>
+        <div class="availability-grid">
+            <div class="availability-month">
+                <div class="month-name">Month 1</div>
+                <div class="halves">
+                    <span class="half">1st half</span>
+                    <span class="half">2nd half</span>
+                </div>
+            </div>
+            <div class="availability-month">
+                <div class="month-name">Month 2</div>
+                <div class="halves">
+                    <span class="half">1st half</span>
+                    <span class="half">2nd half</span>
+                </div>
+            </div>
+            <div class="availability-month">
+                <div class="month-name">Month 3</div>
+                <div class="halves">
+                    <span class="half">1st half</span>
+                    <span class="half">2nd half</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>How did you hear about us?</label>
+        <div class="checkbox-grid">
+            <div class="checkbox-item"><input type="checkbox" id="r1"><label for="r1">Word of mouth</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="r2"><label for="r2">Social media</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="r3"><label for="r3">Event</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="r4"><label for="r4">Other</label></div>
+        </div>
+    </div>
+
+    <button class="btn-submit">Register</button>
+
+    <!-- POST-REGISTRATION MESSAGE -->
+    <div class="post-message" style="margin-top: 3rem;">
+        <h4>After registration, user receives:</h4>
+        <p>
+            Thank you for registering!<br><br>
+            Your user ID: <strong>[XXX]</strong> (keep this for events)<br><br>
+            Next step: <a href="#" style="color: var(--accent-light);">Equipment declaration form</a> (optional, within 7 days)<br><br>
+            Your personal space: Find your history (events, equipment, points).
+        </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- STEP 2: EQUIPMENT -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <h2>Step 2 — Equipment Declaration</h2>
+    <span class="step-badge optional">Optional — Sent 24h after registration</span>
+
+    <div class="form-group">
+        <label class="required">Do you have equipment to declare?</label>
+        <div class="condition-options">
+            <div class="condition-option">Yes</div>
+            <div class="condition-option">No</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Domain</label>
+        <div class="domain-grid">
+            <div class="domain-item"><div class="icon">🎸</div>Music</div>
+            <div class="domain-item"><div class="icon">🎛️</div>Sound</div>
+            <div class="domain-item"><div class="icon">💡</div>Lighting</div>
+            <div class="domain-item"><div class="icon">🎥</div>Video</div>
+            <div class="domain-item"><div class="icon">📦</div>Other</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Equipment Name</label>
+        <input type="text" placeholder="e.g. Shure SM57, Fender Jazz Bass...">
+    </div>
+
+    <div class="form-group">
+        <label>Brand / Model</label>
+        <input type="text" placeholder="e.g. Shure, Fender, Yamaha...">
+    </div>
+
+    <div class="form-group">
+        <label>Condition</label>
+        <div class="condition-options">
+            <div class="condition-option" style="border-color: var(--green);">Good</div>
+            <div class="condition-option" style="border-color: var(--orange);">Needs checking</div>
+            <div class="condition-option" style="border-color: var(--pink);">Damaged</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Storage City</label>
+        <div class="cities-list">
+            <span class="city-tag">Paris</span>
+            <span class="city-tag">Montpellier</span>
+            <span class="city-tag">Barcelona</span>
+            <span class="city-tag">Pau</span>
+            <span class="city-tag">Other</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Photo</label>
+        <p class="hint">Upload to shared Dropbox folder and paste the link</p>
+        <input type="url" placeholder="https://dropbox.com/...">
+    </div>
+
+    <div class="form-group">
+        <label>Ownership</label>
+        <div class="condition-options">
+            <div class="condition-option">I own it</div>
+            <div class="condition-option">Borrowed</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Borrowed from</label>
+        <p class="hint">If not owned by you</p>
+        <input type="text" placeholder="Name of owner">
+    </div>
+
+    <div class="form-group">
+        <label>Serial Number</label>
+        <input type="text" placeholder="Optional">
+    </div>
+
+    <div class="form-group">
+        <label>Acquisition Date</label>
+        <input type="date">
+    </div>
+
+    <div class="form-group">
+        <label>Available for AMA events?</label>
+        <div class="condition-options">
+            <div class="condition-option" style="border-color: var(--green);">Yes</div>
+            <div class="condition-option" style="border-color: var(--pink);">No</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Notes</label>
+        <textarea placeholder="Any additional info about this equipment..."></textarea>
+    </div>
+
+    <button class="btn-submit" style="background: var(--orange);">Declare Equipment</button>
+
+    <!-- AUTOMATIC REMINDERS -->
+    <h3>Automatic Reminders</h3>
+
+    <table class="reminder-table">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: var(--accent-light); font-weight: 600;">D+3</td>
+                <td>"Reminder: You haven't declared your equipment yet. [Link]"</td>
+            </tr>
+            <tr>
+                <td style="color: var(--orange); font-weight: 600;">D+7</td>
+                <td>"Last reminder: Without a declaration, your equipment can't be used for AMA events. [Link]"</td>
+            </tr>
+            <tr>
+                <td style="color: var(--pink); font-weight: 600;">D+14</td>
+                <td>Flag for manual contact: "[Name] hasn't completed the Equipment form"</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- PERSONAL SPACE -->
+    <h2>Personal Space (Post-Registration)</h2>
+
+    <div class="form-group" style="border-left: 4px solid var(--green);">
+        <h4 style="color: var(--green); margin-bottom: 1rem;">Dashboard Features</h4>
+        <div class="checkbox-grid">
+            <div class="checkbox-item"><input type="checkbox" checked disabled><label>Events participated</label></div>
+            <div class="checkbox-item"><input type="checkbox" checked disabled><label>Equipment declared</label></div>
+            <div class="checkbox-item"><input type="checkbox" checked disabled><label>Points accumulated</label></div>
+            <div class="checkbox-item"><input type="checkbox" checked disabled><label>Upcoming events</label></div>
+        </div>
+    </div>
+
+    <div class="post-message">
+        <h4 style="color: var(--accent-light);">Notification Examples</h4>
+        <p>
+            "You have a new event available in <strong>[City]</strong> on <strong>[Date]</strong>. Interested? [Yes/No]"<br><br>
+            "Reminder: Your SM57 mic is reserved for event <strong>[Name]</strong> on <strong>[Date]</strong>."
+        </p>
+    </div>
+
+    <p style="text-align: center; margin-top: 3rem; color: var(--text-secondary); font-size: 0.85rem;">
+        AMA — www.ama-workspace.com
+    </p>
+
+</div>
+
+</body>
+</html>

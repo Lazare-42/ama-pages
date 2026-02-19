@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code &mdash; Guide Yann</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0f; color: #fff; padding: 20px;
+  line-height: 1.6;
+}
+.container { max-width: 740px; margin: 0 auto; }
+h1 { text-align: center; font-size: 1.5rem; color: #818cf8; margin-bottom: 4px; }
+.subtitle { text-align: center; color: #666; font-size: 0.8rem; margin-bottom: 28px; }
+h2 {
+  font-size: 1.1rem; color: #818cf8; margin: 36px 0 16px;
+  padding-bottom: 8px; border-bottom: 1px solid #1a1a2a;
+}
+h3 { font-size: 0.95rem; color: #a5b4fc; margin: 20px 0 8px; }
+p { margin: 6px 0; color: #ccc; font-size: 0.85rem; }
+ul { padding-left: 20px; margin: 6px 0; }
+li { margin-bottom: 4px; color: #ccc; font-size: 0.85rem; }
+code {
+  background: #1a1a2e; padding: 2px 6px; border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem;
+  color: #818cf8;
+}
+pre {
+  background: #0d0d14; border: 1px solid #1a1a2a; border-radius: 8px;
+  padding: 12px 14px; margin: 10px 0; overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem;
+  color: #a5b4fc; line-height: 1.5;
+}
+.tip {
+  background: rgba(34,197,94,0.08); border-left: 3px solid #22c55e;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+.warning {
+  background: rgba(239,68,68,0.08); border-left: 3px solid #ef4444;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+.note {
+  background: rgba(129,140,248,0.08); border-left: 3px solid #818cf8;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+
+/* Sommaire */
+.sommaire {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 12px;
+  padding: 16px 20px; margin-bottom: 24px;
+}
+.sommaire h3 { margin: 0 0 10px; color: #818cf8; font-size: 0.85rem; }
+.sommaire ol { padding-left: 20px; }
+.sommaire li { margin-bottom: 4px; }
+.sommaire a { color: #a5b4fc; text-decoration: none; font-size: 0.82rem; }
+.sommaire a:hover { color: #818cf8; text-decoration: underline; }
+
+/* Card style for Q&A */
+.qa {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px;
+}
+.qa-q { font-weight: 600; font-size: 0.88rem; color: #fff; margin-bottom: 8px; }
+.qa-num { color: #555; font-size: 0.75rem; margin-right: 6px; }
+
+/* Schema */
+.schema {
+  background: #0d0d14; border: 1px solid #1a1a2a; border-radius: 10px;
+  padding: 16px; margin: 12px 0; font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.72rem; line-height: 1.4; color: #a5b4fc; overflow-x: auto;
+  white-space: pre;
+}
+
+/* Steps */
+.step {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid #111118;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  background: #818cf8; color: #0a0a0f; width: 24px; height: 24px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+}
+.step-text { flex: 1; }
+.step-text strong { color: #fff; }
+.step-text p { margin: 2px 0; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.8rem; }
+th { background: #12121a; color: #818cf8; padding: 8px 10px; text-align: left; border: 1px solid #2a2a3a; }
+td { padding: 8px 10px; border: 1px solid #1a1a2a; color: #ccc; }
+
+/* Back to top */
+.top-link { display: inline-block; margin-top: 8px; color: #555; font-size: 0.7rem; text-decoration: none; }
+.top-link:hover { color: #818cf8; }
+
+footer {
+  text-align: center; margin-top: 32px; padding-top: 12px;
+  border-top: 1px solid #1a1a2a; color: #444; font-size: 0.7rem;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1 id="top">Claude Code &mdash; Guide Yann</h1>
+<p class="subtitle">Apprendre pas &agrave; pas &middot; AMA 2026</p>
+
+<!-- SOMMAIRE -->
+<div class="sommaire">
+  <h3>Sommaire</h3>
+  <ol>
+    <li><a href="#ecran">Mon &eacute;cran &mdash; qu'est-ce que je vois ?</a></li>
+    <li><a href="#connecter">Me connecter &mdash; la s&eacute;quence compl&egrave;te</a></li>
+    <li><a href="#parler">Parler &agrave; Claude &mdash; les bases</a></li>
+    <li><a href="#quotidien">Ce que je fais au quotidien</a></li>
+    <li><a href="#perimetre">Ce que je ne touche pas</a></li>
+    <li><a href="#apprendre">Apprendre petit &agrave; petit</a></li>
+    <li><a href="#merde">Quand &ccedil;a merde</a></li>
+    <li><a href="#phrases">Phrases pr&ecirc;tes &agrave; coller</a></li>
+  </ol>
+</div>
+
+<!-- ========================================= -->
+<!-- 1. MON ECRAN                              -->
+<!-- ========================================= -->
+<h2 id="ecran">1. Mon &eacute;cran &mdash; qu'est-ce que je vois ?</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">01</span> L'&eacute;cran est coup&eacute; en plusieurs parties</div>
+  <p>Quand tu te connectes, tu arrives sur <strong>tmux</strong> &mdash; un outil qui d&eacute;coupe ton &eacute;cran en plusieurs zones. Voici ce que tu vois :</p>
+  <div class="schema">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9484;
+&#9474;                                    &#9474;  DROITE HAUT                     &#9474;
+&#9474;   GAUCHE (grande)                  &#9474;  Shell normal                     &#9474;
+&#9474;                                    &#9474;  (listing de fichiers, commandes) &#9474;
+&#9474;   CLAUDE CODE                      &#9474;  Tu n'en as pas besoin            &#9474;
+&#9474;                                    &#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474;   C'est ICI que tu me parles       &#9474;  DROITE BAS                       &#9474;
+&#9474;   et que tu lis mes r&eacute;ponses        &#9474;  Shell normal                     &#9474;
+&#9474;                                    &#9474;  (git, commandes de Laz)          &#9474;
+&#9474;   Tu tapes en bas de cette zone    &#9474;  Tu n'en as pas besoin            &#9474;
+&#9474;                                    &#9474;                                    &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+  <div class="tip">La partie <strong>gauche</strong> (la plus grande) = Claude Code = l&agrave; o&ugrave; on discute. Les 2 parties &agrave; droite sont des terminaux normaux &mdash; et tu peux les utiliser (voir fiche 05) !</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">02</span> Les panneaux de droite &mdash; ton explorateur de fichiers</div>
+  <p>Les 2 zones &agrave; droite ne sont pas juste d&eacute;coratives ! Tu peux les utiliser comme un <strong>explorateur de fichiers</strong>. Pour y aller :</p>
+  <pre>Ctrl+B  puis  fl&egrave;che droite    (aller dans le panneau de droite)
+Ctrl+B  puis  fl&egrave;che gauche    (revenir sur Claude Code)</pre>
+  <p>Une fois dans un panneau de droite, tape :</p>
+  <pre>cd /run/media/lazrossi/KINGSTON/code/yann/AMA
+ls</pre>
+  <p>Et tu verras tous tes dossiers et fichiers AMA. Tu peux naviguer :</p>
+  <pre>ls              &rarr; voir le contenu du dossier actuel
+ls Docs/        &rarr; voir le contenu de Docs/
+ls Portfolios/  &rarr; voir le contenu de Portfolios/
+ls Site/        &rarr; voir le contenu de Site/</pre>
+  <div class="schema">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9484;
+&#9474;                                    &#9474;  DROITE HAUT                     &#9474;
+&#9474;   GAUCHE (grande)                  &#9474;                                    &#9474;
+&#9474;                                    &#9474;  Ton explorateur de fichiers      &#9474;
+&#9474;   CLAUDE CODE                      &#9474;  &rarr; ls pour voir tes dossiers    &#9474;
+&#9474;                                    &#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474;   C'est ICI que tu me parles       &#9474;  DROITE BAS                       &#9474;
+&#9474;   et que tu lis mes r&eacute;ponses        &#9474;                                    &#9474;
+&#9474;                                    &#9474;  Dispo pour d'autres commandes   &#9474;
+&#9474;   Tu tapes en bas de cette zone    &#9474;  (ou un 2e explorateur)           &#9474;
+&#9474;                                    &#9474;                                    &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+  <div class="tip">Astuce : laisse un panneau de droite ouvert sur ton dossier AMA. Comme &ccedil;a tu vois toujours tes fichiers pendant qu'on discute &agrave; gauche.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">03</span> Mon dossier AMA &mdash; o&ugrave; est quoi ?</div>
+  <p>Voici l'arborescence de tes fichiers. <strong>En vert</strong> = ce que tu utilises, <strong>en gris</strong> = p&eacute;rim&egrave;tre Laz.</p>
+  <div class="schema" style="font-size: 0.7rem;">AMA/
+&#9474;
+&#9500;&#9472;&#9472; dashboard.html           &larr; ton tableau de bord (point d'entr&eacute;e)
+&#9500;&#9472;&#9472; conciergerie.html        &larr; gestion m&eacute;nages/studios RPN
+&#9500;&#9472;&#9472; AMA-PROJECT-BIBLE.html   &larr; la Bible du projet (le doc ma&icirc;tre)
+&#9500;&#9472;&#9472; fiches-infos.html        &larr; hub de toutes les fiches contacts
+&#9500;&#9472;&#9472; fiche-klima.html         &larr; exemple de fiche contact
+&#9500;&#9472;&#9472; fiche-rougerie.html      &larr; ...
+&#9500;&#9472;&#9472; flashcards-claude-code.html  &larr; CE fichier (le guide)
+&#9500;&#9472;&#9472; acces-fichiers.html      &larr; matrice d'acc&egrave;s (qui voit quoi)
+&#9500;&#9472;&#9472; backup.sh                &larr; script de sauvegarde
+&#9500;&#9472;&#9472; start.sh                 &larr; script de d&eacute;but de session
+&#9474;
+&#9500;&#9472;&#9472; Docs/                    &larr; TOUTE la documentation
+&#9474;   &#9500;&#9472;&#9472; LIENS-0x0.md        &larr; tous les liens partag&eacute;s
+&#9474;   &#9500;&#9472;&#9472; INVENTAIRE.md       &larr; inventaire complet du projet
+&#9474;   &#9500;&#9472;&#9472; DOSSIER-DEPLOIEMENT-AMA.md
+&#9474;   &#9492;&#9472;&#9472; ...
+&#9474;
+&#9500;&#9472;&#9472; Portfolios/              &larr; les 4 portfolios + dossier KLIMA
+&#9474;   &#9500;&#9472;&#9472; portfolio-ama.html
+&#9474;   &#9500;&#9472;&#9472; portfolio-ama-en.html
+&#9474;   &#9500;&#9472;&#9472; portfolio-ama-institutional.html
+&#9474;   &#9492;&#9472;&#9472; portfolio-ama-institutional-en.html
+&#9474;
+&#9500;&#9472;&#9472; Site/                    &larr; landing pages
+&#9474;   &#9500;&#9472;&#9472; index.html          (FR)
+&#9474;   &#9492;&#9472;&#9472; index-en.html       (EN)
+&#9474;
+&#9500;&#9472;&#9472; INDEX/                   &larr; CODE (p&eacute;rim&egrave;tre Laz)
+&#9474;   &#9500;&#9472;&#9472; index-messaging/     (Go)
+&#9474;   &#9500;&#9472;&#9472; index-dashboard/     (Svelte)
+&#9474;   &#9492;&#9472;&#9472; ...                  (4 autres repos)
+&#9474;
+&#9492;&#9472;&#9472; deploy/                  &larr; SERVEUR (p&eacute;rim&egrave;tre Laz)</div>
+  <div class="note">Ce sch&eacute;ma montre les fichiers principaux. En vrai il y a 40+ fichiers HTML. Tu peux toujours demander &laquo; montre-moi tous les fichiers HTML &raquo; &agrave; Claude.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">04</span> C'est quoi Claude Code ?</div>
+  <p>C'est <strong>un assistant dans ton terminal</strong>. Tu lui parles en fran&ccedil;ais, il comprend, et il peut :</p>
+  <ul>
+    <li>Lire tes fichiers (HTML, docs, images...)</li>
+    <li>Cr&eacute;er et modifier des fichiers</li>
+    <li>Envoyer des fichiers en ligne (0x0.st)</li>
+    <li>Chercher des infos dans ton projet</li>
+    <li>Organiser, trier, r&eacute;sumer</li>
+  </ul>
+  <p>C'est comme un coll&egrave;gue qui a les mains sur le clavier &mdash; il peut <strong>agir</strong>, pas juste parler.</p>
+  <div class="note">Diff&eacute;rence avec claude.ai (le chat web) : claude.ai peut seulement discuter. Claude Code peut aussi <strong>toucher &agrave; tes fichiers</strong> directement.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">05</span> L'interface Claude Code elle-m&ecirc;me</div>
+  <p>Dans la zone gauche (Claude Code), voici ce que tu vois :</p>
+  <ul>
+    <li><strong>En haut</strong> : mes r&eacute;ponses qui d&eacute;filent (texte, tableaux, code...)</li>
+    <li><strong>En bas</strong> : la zone o&ugrave; tu tapes ton message (avec un curseur qui clignote)</li>
+    <li><strong>Des blocs color&eacute;s</strong> qui apparaissent : ce sont mes actions (lire un fichier, modifier, ex&eacute;cuter une commande)</li>
+  </ul>
+  <p>Quand je te demande une <strong>permission</strong> (modifier un fichier, lancer une commande), tu vois un message avec des options. Tu peux accepter ou refuser.</p>
+  <div class="tip">Tu peux <strong>s&eacute;lectionner du texte</strong> avec la souris dans le terminal &mdash; pratique pour copier un lien ou un bout de r&eacute;ponse.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">06</span> Je peux scroller pour relire ?</div>
+  <p>Oui ! Si la conversation est longue et que tu veux remonter :</p>
+  <ul>
+    <li><strong>Molette de la souris</strong> &rarr; scroller dans la conversation</li>
+    <li>Si &ccedil;a ne marche pas, c'est peut-&ecirc;tre tmux qui bloque : essaie <code>Ctrl+B</code> puis <code>[</code> pour entrer en mode &laquo; scroll &raquo;, et <code>q</code> pour en sortir</li>
+  </ul>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 2. ME CONNECTER                           -->
+<!-- ========================================= -->
+<h2 id="connecter">2. Me connecter &mdash; la s&eacute;quence compl&egrave;te</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">07</span> La proc&eacute;dure de connexion pas &agrave; pas</div>
+  <p>Depuis ton Beelink (Windows 11) :</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <p><strong>Ouvrir le terminal</strong></p>
+      <p>Cherche &laquo; Terminal &raquo; dans la barre de recherche Windows, ou tape <code>cmd</code></p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <p><strong>Se connecter au serveur de Laz</strong></p>
+      <p>Tape la commande SSH que Laz t'a donn&eacute;e + mot de passe</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <p><strong>Retrouver ta session</strong></p>
+      <pre>tmux attach</pre>
+      <p>Si &ccedil;a dit &laquo; no sessions &raquo; ou que tu arrives sur la mauvaise session :</p>
+      <pre>tmux list-sessions      (voir les sessions dispo)
+tmux attach -t 0        (se connecter &agrave; la session 0)</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <p><strong>Naviguer entre les sessions tmux</strong></p>
+      <pre>Ctrl+B  puis  S</pre>
+      <p>Un menu s'affiche avec les sessions disponibles. Utilise les fl&egrave;ches pour choisir la tienne, puis Entr&eacute;e.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text">
+      <p><strong>Tu es sur Claude Code</strong></p>
+      <p>Tu vois l'&eacute;cran divis&eacute; (voir section 1). La partie gauche = Claude Code. Tu peux commencer &agrave; discuter.</p>
+    </div>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">08</span> Si Claude Code n'est pas lanc&eacute;</div>
+  <p>Si la partie gauche montre juste un terminal normal (pas de conversation), il faut lancer Claude Code :</p>
+  <pre>cd /run/media/lazrossi/KINGSTON/code/yann/AMA
+claude</pre>
+  <div class="note">Le dossier o&ugrave; tu lances <code>claude</code> est important &mdash; c'est son &laquo; contexte &raquo;. Il voit les fichiers de ce dossier. Toujours lancer depuis le dossier AMA.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 3. PARLER A CLAUDE                        -->
+<!-- ========================================= -->
+<h2 id="parler">3. Parler &agrave; Claude &mdash; les bases</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">09</span> Comment je lui parle ?</div>
+  <p>Tu &eacute;cris en fran&ccedil;ais, comme un message &agrave; un coll&egrave;gue. Pas besoin de code, pas besoin de syntaxe sp&eacute;ciale.</p>
+  <pre>&laquo; salut, on met &agrave; jour la conciergerie &raquo;
+&laquo; cr&eacute;e-moi une fiche pour Rougerie &raquo;
+&laquo; uploade le dashboard sur 0x0.st &raquo;</pre>
+  <div class="tip">Plus tu es <strong>pr&eacute;cis</strong>, mieux &ccedil;a marche. &laquo; mets &agrave; jour la conciergerie : m&eacute;nage S1 fait, serviettes S2 manquent &raquo; &gt; &laquo; mets &agrave; jour le truc &raquo;</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">10</span> Les permissions &mdash; quand Claude te demande &laquo; OK ? &raquo;</div>
+  <p>Avant de faire quelque chose d'important, Claude te demande la permission :</p>
+  <ul>
+    <li><strong>Modifier un fichier</strong> &rarr; il te montre ce qui va changer (en vert/rouge)</li>
+    <li><strong>Lancer une commande</strong> &rarr; il te montre la commande avant de l'ex&eacute;cuter</li>
+  </ul>
+  <p>Tu peux :</p>
+  <ul>
+    <li><strong>Accepter</strong> (Entr&eacute;e ou &laquo; y &raquo;) &rarr; il fait l'action</li>
+    <li><strong>Refuser</strong> (n) &rarr; il ne fait rien et te propose autre chose</li>
+  </ul>
+  <div class="warning">Prends l'habitude de <strong>lire</strong> ce que Claude propose avant de dire oui. Surtout pour les commandes <code>git push</code>, <code>rm</code>, ou tout ce qui envoie des donn&eacute;es quelque part.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">11</span> Les commandes sp&eacute;ciales (avec /)</div>
+  <p>Ce sont les seules &laquo; commandes &raquo; &agrave; conna&icirc;tre. Tu les tapes directement dans Claude Code :</p>
+  <pre>/clear     &rarr; Recommencer une conversation fra&icirc;che
+              (utile si tu changes de sujet)
+
+/compact   &rarr; Compresser la conversation
+              (quand elle devient tr&egrave;s longue)
+
+/cost      &rarr; Voir combien la session a co&ucirc;t&eacute;
+
+/help      &rarr; Aide g&eacute;n&eacute;rale</pre>
+  <div class="tip"><code>/clear</code> est ton meilleur ami. Quand tu sens que Claude m&eacute;lange les sujets ou que la session devient confuse &rarr; <code>/clear</code> et on repart propre.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">12</span> Les raccourcis clavier essentiels</div>
+  <table>
+    <tr><th>Raccourci</th><th>Ce que &ccedil;a fait</th><th>Quand l'utiliser</th></tr>
+    <tr><td><code>Ctrl+C</code></td><td>Interrompre Claude</td><td>Quand il part dans la mauvaise direction</td></tr>
+    <tr><td><code>Escape</code></td><td>Effacer ce que tu tapes</td><td>Quand tu veux recommencer ton message</td></tr>
+    <tr><td><code>Fl&egrave;che haut</code></td><td>Rappeler le dernier message</td><td>Pour r&eacute;envoyer un message similaire</td></tr>
+  </table>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 4. CE QUE JE FAIS AU QUOTIDIEN            -->
+<!-- ========================================= -->
+<h2 id="quotidien">4. Ce que je fais au quotidien</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">13</span> En d&eacute;but de session &mdash; se remettre dans le bain</div>
+  <p>Quand tu te connectes apr&egrave;s quelques jours, commence par donner le contexte :</p>
+  <pre>&laquo; salut, je suis Yann. Aujourd'hui je veux :
+- mettre &agrave; jour la conciergerie (m&eacute;nage fait S1+S2)
+- uploader sur 0x0.st
+- pas toucher au code de Laz &raquo;</pre>
+  <p>Tu peux aussi me demander un r&eacute;cap :</p>
+  <pre>&laquo; qu'est-ce qu'on a fait la derni&egrave;re fois ? &raquo;
+&laquo; montre-moi le dashboard &raquo;
+&laquo; lis les liens 0x0.st &raquo;</pre>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">14</span> Mes t&acirc;ches type</div>
+  <table>
+    <tr><th>Ce que tu veux faire</th><th>Ce que tu dis &agrave; Claude</th></tr>
+    <tr><td>Mettre &agrave; jour la conciergerie</td><td>&laquo; mets &agrave; jour la conciergerie : [tes infos] &raquo;</td></tr>
+    <tr><td>Cr&eacute;er une fiche contact</td><td>&laquo; cr&eacute;e une fiche pour [nom] avec [infos] &raquo;</td></tr>
+    <tr><td>Modifier le dashboard</td><td>&laquo; ajoute [X] dans le dashboard &raquo;</td></tr>
+    <tr><td>Uploader un fichier</td><td>&laquo; uploade [fichier] sur 0x0.st &raquo;</td></tr>
+    <tr><td>Mettre &agrave; jour les liens</td><td>&laquo; mets &agrave; jour LIENS-0x0.md &raquo;</td></tr>
+    <tr><td>Faire un backup</td><td>&laquo; lance bash backup.sh &raquo;</td></tr>
+    <tr><td>Organiser mes id&eacute;es</td><td>&laquo; j'ai des id&eacute;es pour [X], aide-moi &agrave; structurer &raquo;</td></tr>
+    <tr><td>Chercher un fichier</td><td>&laquo; trouve les fichiers qui parlent de KLIMA &raquo;</td></tr>
+    <tr><td>Lire un doc</td><td>&laquo; lis la Bible section 14 &raquo;</td></tr>
+  </table>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">15</span> Le cycle classique : modifier &rarr; uploader &rarr; liens</div>
+  <p>Quand tu modifies un fichier HTML, il faut souvent 3 &eacute;tapes :</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <p><strong>Modifier le fichier</strong></p>
+      <pre>&laquo; mets &agrave; jour la conciergerie : m&eacute;nage S1+S2 fait &raquo;</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <p><strong>Uploader sur 0x0.st</strong></p>
+      <pre>&laquo; uploade la conciergerie sur 0x0.st &raquo;</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <p><strong>Mettre &agrave; jour les liens</strong></p>
+      <pre>&laquo; mets &agrave; jour LIENS-0x0.md et le dashboard &raquo;</pre>
+    </div>
+  </div>
+
+  <div class="schema" style="font-size: 0.7rem; text-align: center;">
+      TON FICHIER                    0x0.st                     LIENS
+   (conciergerie.html)         (lien public)            (LIENS-0x0.md)
+
+  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+  &#9474;  1. Modifier    &#9474; &rarr;&rarr; &#9474;  2. Uploader   &#9474; &rarr;&rarr; &#9474; 3. Maj liens   &#9474;
+  &#9474;  le contenu     &#9474;    &#9474;  sur 0x0.st    &#9474;    &#9474; + dashboard    &#9474;
+  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+  <div class="tip">Raccourci : tu peux tout faire en une seule phrase &rarr; &laquo; uploade [fichier] sur 0x0.st et mets &agrave; jour les liens &raquo;</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">16</span> Backup &mdash; sauvegarder avant de bosser</div>
+  <p>Les fichiers HTML d'AMA ne sont <strong>pas sauv&eacute;s automatiquement</strong> (pas de git). Bonne habitude :</p>
+  <pre>&laquo; fais un backup &raquo;</pre>
+  <p>Claude lance <code>backup.sh</code> qui cr&eacute;e une archive de tout AMA et la copie en lieu s&ucirc;r.</p>
+  <div class="warning">Si tu fais une erreur et que la session est ferm&eacute;e, sans backup c'est perdu. Fais-le au moins avant les grosses sessions.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 5. CE QUE JE NE TOUCHE PAS                -->
+<!-- ========================================= -->
+<h2 id="perimetre">5. Ce que je ne touche pas</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">17</span> La r&egrave;gle simple</div>
+  <p>Tout ce qui est <strong>contenu</strong> (HTML, docs, fiches, portfolios) = <strong>Yann</strong>.</p>
+  <p>Tout ce qui est <strong>code</strong> (Go, Svelte, Nix, scripts de d&eacute;ploiement) = <strong>Laz</strong>.</p>
+
+  <table>
+    <tr><th style="color: #22c55e;">Yann peut toucher</th><th style="color: #ef4444;">Yann ne touche PAS</th></tr>
+    <tr><td>Fichiers <code>.html</code> (fiches, dashboard, Bible...)</td><td>Dossier <code>INDEX/</code> (code Go, Svelte...)</td></tr>
+    <tr><td>Dossier <code>Docs/</code> (documentation)</td><td>Dossier <code>deploy/</code> (serveur)</td></tr>
+    <tr><td>Dossier <code>Portfolios/</code></td><td>Fichiers <code>.env</code>, <code>secrets.nix</code></td></tr>
+    <tr><td>Dossier <code>Site/</code> (landing pages)</td><td>Fichiers <code>.go .ts .svelte .nix</code></td></tr>
+    <tr><td><code>backup.sh</code>, <code>start.sh</code></td><td><code>git commit</code>, <code>git push</code></td></tr>
+  </table>
+
+  <div class="schema" style="font-size: 0.7rem;">
+  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+  &#9474;                          AMA/                                      &#9474;
+  &#9474;                                                                     &#9474;
+  &#9474;   YANN (contenu)                     LAZ (code)                   &#9474;
+  &#9474;   &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;       &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9474;
+  &#9474;   &#9474; *.html (fiches, dash...)  &#9474;       &#9474; INDEX/ (Go, Svelte)   &#9474;  &#9474;
+  &#9474;   &#9474; Docs/ (documentation)    &#9474;       &#9474; deploy/ (NixOS)       &#9474;  &#9474;
+  &#9474;   &#9474; Portfolios/              &#9474;       &#9474; .env, secrets.nix     &#9474;  &#9474;
+  &#9474;   &#9474; Site/ (landing pages)    &#9474;       &#9474; git commit / push     &#9474;  &#9474;
+  &#9474;   &#9474; backup.sh, start.sh      &#9474;       &#9474;                       &#9474;  &#9474;
+  &#9474;   &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;       &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9474;
+  &#9474;                                                                     &#9474;
+  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+  <div class="warning">Si Claude propose de modifier un fichier dans <code>INDEX/</code> ou <code>deploy/</code>, dis &laquo; non, c'est le p&eacute;rim&egrave;tre de Laz &raquo;.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">18</span> Les commandes git &mdash; lecture seule pour Yann</div>
+  <p>Git, c'est l'outil qui sauvegarde le code (comme un historique). Pour toi, c'est <strong>lecture seule</strong> :</p>
+  <table>
+    <tr><th>OK pour Yann</th><th>Laz uniquement</th></tr>
+    <tr><td><code>git status</code> (voir l'&eacute;tat)</td><td><code>git commit</code> (sauver des changements)</td></tr>
+    <tr><td><code>git log</code> (voir l'historique)</td><td><code>git push</code> (envoyer sur internet)</td></tr>
+    <tr><td><code>git diff</code> (voir les diff&eacute;rences)</td><td><code>git checkout</code> (changer de branche)</td></tr>
+  </table>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 6. APPRENDRE PETIT A PETIT                -->
+<!-- ========================================= -->
+<h2 id="apprendre">6. Apprendre petit &agrave; petit</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">19</span> Tu n'as pas besoin de tout savoir</div>
+  <p>Claude Code fait le travail technique pour toi. Ton r&ocirc;le c'est de :</p>
+  <ul>
+    <li><strong>Savoir ce que tu veux</strong> (mettre &agrave; jour X, cr&eacute;er Y)</li>
+    <li><strong>V&eacute;rifier</strong> ce que Claude propose (lire les diffs)</li>
+    <li><strong>Dire non</strong> quand c'est pas ce que tu veux</li>
+  </ul>
+  <p>Le reste, tu l'apprends au fil des sessions. Pas besoin de cours th&eacute;oriques.</p>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">20</span> Niveau 1 &mdash; Discuter et organiser</div>
+  <p>C'est l&agrave; o&ugrave; tu en es, et c'est d&eacute;j&agrave; &eacute;norme. Tu peux :</p>
+  <ul>
+    <li>Demander &agrave; Claude de lire, modifier, cr&eacute;er des fichiers</li>
+    <li>Organiser tes id&eacute;es et structurer tes projets</li>
+    <li>Uploader et partager des fichiers</li>
+    <li>Tenir &agrave; jour tes docs (conciergerie, fiches, liens...)</li>
+  </ul>
+  <div class="tip">C'est exactement ce qu'on fait depuis 2-3 semaines. Tu n'as pas besoin de &laquo; coder &raquo; pour &ecirc;tre productif.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">21</span> Niveau 2 &mdash; Comprendre ce que Claude fait</div>
+  <p>Au fil des sessions, tu commences &agrave; reconna&icirc;tre des patterns :</p>
+  <ul>
+    <li>Les commandes <code>curl</code> pour uploader</li>
+    <li>La structure HTML (<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a href=&quot;...&quot;&gt;</code>)</li>
+    <li>Les fichiers Markdown (<code>.md</code>) pour la doc</li>
+    <li>Le diff vert/rouge quand Claude modifie un fichier</li>
+  </ul>
+  <p>Tu peux demander &agrave; Claude d'expliquer :</p>
+  <pre>&laquo; explique-moi ce que tu viens de faire &raquo;
+&laquo; c'est quoi cette commande curl ? &raquo;
+&laquo; pourquoi tu as ajout&eacute; cette ligne ? &raquo;</pre>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">22</span> Niveau 3 &mdash; Prendre la main</div>
+  <p>&Agrave; terme, tu pourras :</p>
+  <ul>
+    <li>Avoir ton propre compte Anthropic (Claude Code)</li>
+    <li>Lancer Claude Code toi-m&ecirc;me depuis ton propre terminal</li>
+    <li>G&eacute;rer tes fichiers sans passer par la machine de Laz</li>
+    <li>Utiliser les scripts (backup, start) en autonomie</li>
+  </ul>
+  <div class="note">Pas de pression &mdash; c'est un objectif, pas un pr&eacute;requis. Chaque session t'apprend un peu plus.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 7. QUAND CA MERDE                         -->
+<!-- ========================================= -->
+<h2 id="merde">7. Quand &ccedil;a merde</h2>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">23</span> Claude part dans la mauvaise direction</div>
+  <ul>
+    <li><strong><code>Ctrl+C</code></strong> pour l'arr&ecirc;ter net</li>
+    <li>Dire &laquo; stop, c'est pas ce que je veux &raquo;</li>
+    <li>Si c'est le chaos : taper <code>/clear</code> et recommencer</li>
+  </ul>
+  <div class="tip">C'est normal et &ccedil;a arrive. Claude ne se vexe pas. Tu peux dire &laquo; non &raquo;, &laquo; annule &raquo;, &laquo; recommence autrement &raquo;.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">24</span> Claude a modifi&eacute; un fichier par erreur</div>
+  <ul>
+    <li><strong>Pendant la session</strong> : dis &laquo; remets le fichier comme avant &raquo; (il s'en souvient)</li>
+    <li><strong>Session termin&eacute;e</strong> : restaurer depuis le dernier backup</li>
+  </ul>
+  <div class="warning">C'est pour &ccedil;a qu'on fait un backup en d&eacute;but de session !</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">25</span> Erreur 451 sur 0x0.st</div>
+  <p>Le site 0x0.st bloque parfois les uploads (fichier d&eacute;j&agrave; connu).</p>
+  <pre>&laquo; ajoute un commentaire pour changer le hash et re-uploade &raquo;</pre>
+  <p>Claude sait g&eacute;rer &mdash; il ajoute un petit texte invisible dans le fichier et retente.</p>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">26</span> L'&eacute;cran a l'air bug ou gel&eacute;</div>
+  <ul>
+    <li><strong>Claude r&eacute;fl&eacute;chit</strong> : parfois il met du temps (surtout pour les gros fichiers). Attends quelques secondes.</li>
+    <li><strong>Tmux a gel&eacute;</strong> : tape <code>Ctrl+C</code>. Si rien ne se passe, essaie <code>Ctrl+B</code> puis <code>:</code> puis tape <code>kill-pane</code> (attention : &ccedil;a ferme le panneau)</li>
+    <li><strong>Connexion coup&eacute;e</strong> : reconnecte-toi (SSH + <code>tmux attach</code>). Ta session tmux est toujours l&agrave;, elle ne se perd pas.</li>
+  </ul>
+  <div class="tip">Tmux garde ta session m&ecirc;me si tu perds la connexion internet. Quand tu te reconnectes, tout est toujours l&agrave;.</div>
+</div>
+
+<div class="qa">
+  <div class="qa-q"><span class="qa-num">27</span> La cl&eacute; USB n'est pas d&eacute;tect&eacute;e</div>
+  <p>Si erreur &laquo; no such file or directory &raquo; pour <code>/run/media/lazrossi/KINGSTON/</code> :</p>
+  <ul>
+    <li>La cl&eacute; USB KINGSTON n'est pas branch&eacute;e sur la machine de Laz</li>
+    <li>Pr&eacute;venir Laz pour qu'il la branche</li>
+  </ul>
+  <div class="note">Tout AMA vit sur la cl&eacute; USB. C'est branch&eacute; sur la machine de Laz, pas sur ton Beelink. Si elle n'est pas l&agrave;, il faut que Laz la branche.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 8. PHRASES PRETES A COLLER                -->
+<!-- ========================================= -->
+<h2 id="phrases">8. Phrases pr&ecirc;tes &agrave; coller</h2>
+
+<h3>Quand je me connecte</h3>
+<pre>salut, je suis Yann. Aujourd'hui je veux [objectif].
+Pas toucher au code de Laz.</pre>
+
+<pre>qu'est-ce qu'on a fait la derni&egrave;re fois ?</pre>
+
+<pre>montre-moi le dashboard</pre>
+
+<pre>fais un backup avant qu'on commence</pre>
+
+<h3>Quand je bosse sur les fichiers</h3>
+<pre>mets &agrave; jour la conciergerie : [tes infos du jour]</pre>
+
+<pre>cr&eacute;e une fiche pour [nom] avec les infos suivantes : [description]</pre>
+
+<pre>ajoute [lien/section] dans le dashboard</pre>
+
+<pre>uploade [fichier] sur 0x0.st et mets &agrave; jour les liens</pre>
+
+<h3>Quand je veux comprendre</h3>
+<pre>explique-moi ce que tu viens de faire</pre>
+
+<pre>c'est quoi ce fichier ?</pre>
+
+<pre>montre-moi la structure du projet</pre>
+
+<h3>Quand &ccedil;a va pas</h3>
+<pre>stop, c'est pas ce que je veux</pre>
+
+<pre>annule ce que tu viens de faire</pre>
+
+<pre>c'est le p&eacute;rim&egrave;tre de Laz, on n'y touche pas</pre>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<footer>
+  Guide Claude Code pour Yann &mdash; AMA &middot; 12/02/2026 &middot; 27 fiches
+</footer>
+
+</div>
+</body>
+</html>

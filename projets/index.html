@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet — INDEX</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:700px;margin:0 auto;line-height:1.5}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem;color:#818cf8;text-decoration:none}.back:hover{text-decoration:underline}
+        h1{font-size:1.5rem;margin-bottom:2px;color:#818cf8}
+        .tagline{color:#888;font-size:.85rem;margin-bottom:16px}
+        .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600}
+        .b-purple{background:rgba(129,140,248,.2);color:#818cf8}
+        .b-green{background:rgba(34,197,94,.2);color:#22c55e}
+        .b-orange{background:rgba(245,158,11,.2);color:#f59e0b}
+        .b-blue{background:rgba(56,189,248,.2);color:#38bdf8}
+        .section{margin-bottom:20px}
+        .section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-bottom:8px}
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+        .card-text{font-size:.8rem;color:#999}.card-text strong{color:#ccc}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+        .highlight{border-color:rgba(129,140,248,.3);background:linear-gradient(135deg,#12121a,rgba(129,140,248,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        ul{list-style:none;padding:0}ul li{font-size:.8rem;color:#999;padding:4px 0;padding-left:16px;position:relative}ul li::before{content:"›";position:absolute;left:2px;color:#555}
+        .module{text-align:center;padding:14px 8px}
+        .module-icon{font-size:1.3rem;margin-bottom:4px}
+        .module-name{font-size:.78rem;font-weight:600}
+        .module-sub{font-size:.65rem;color:#666}
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+        @media(max-width:500px){.grid2,.grid3{grid-template-columns:1fr 1fr}}
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/PApD.html" class="back">&larr; Fiches Infos</a>
+
+<h1>INDEX</h1>
+<p class="tagline">Hub central &amp; plateforme digitale de l'&eacute;cosyst&egrave;me AMA</p>
+
+<div class="meta">
+    <span class="badge b-purple">Pilier AMA</span>
+    <span class="badge b-blue">Tech / Plateforme</span>
+    <span class="badge b-orange">En d&eacute;veloppement</span>
+    <span class="badge b-green">MVP Q1 2026</span>
+</div>
+
+<div class="section">
+    <div class="section-title">En bref</div>
+    <div class="card">
+        <div class="card-text">
+            Plateforme microservices qui centralise <strong>contacts, t&acirc;ches, messaging, calendrier et ressources</strong> pour tout l'&eacute;cosyst&egrave;me AMA. Le "cerveau" qui coordonne les 4 piliers. Objectif : <strong>automatiser 80% des t&acirc;ches admin</strong> &agrave; terme.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">6 modules</div>
+    <div class="grid3">
+        <div class="card module">
+            <div class="module-icon">💬</div>
+            <div class="module-name">Messaging</div>
+            <div class="module-sub">WhatsApp / Signal / Telegram</div>
+        </div>
+        <div class="card module">
+            <div class="module-icon">📊</div>
+            <div class="module-name">Dashboard</div>
+            <div class="module-sub">Vue d'ensemble</div>
+        </div>
+        <div class="card module">
+            <div class="module-icon">📁</div>
+            <div class="module-name">Resources</div>
+            <div class="module-sub">Fichiers &amp; m&eacute;dias</div>
+        </div>
+        <div class="card module">
+            <div class="module-icon">🔗</div>
+            <div class="module-name">Shared</div>
+            <div class="module-sub">Libs communes</div>
+        </div>
+        <div class="card module">
+            <div class="module-icon">✅</div>
+            <div class="module-name">Tasks</div>
+            <div class="module-sub">Gestion t&acirc;ches</div>
+        </div>
+        <div class="card module">
+            <div class="module-icon">👤</div>
+            <div class="module-name">Users</div>
+            <div class="module-sub">Profils &amp; contacts</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Stack technique</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Backend</div>
+            <div class="card-text">Go (microservices)</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Frontend</div>
+            <div class="card-text">Svelte (dashboard)</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Base de donn&eacute;es</div>
+            <div class="card-text">PostgreSQL</div>
+        </div>
+        <div class="card">
+            <div class="card-title">API</div>
+            <div class="card-text">OpenAPI auto-g&eacute;n&eacute;r&eacute;e (swaggo)</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Ce qui existe</div>
+    <div class="card">
+        <ul>
+            <li>6 repos GitHub actifs</li>
+            <li>Specs compl&egrave;tes (INDEX_SPECS.md &mdash; 82K+, v0.2.0)</li>
+            <li>Module messaging : sync WhatsApp/Signal, attachments</li>
+            <li>Int&eacute;gration PostgreSQL document&eacute;e</li>
+            <li>Syst&egrave;me RSVP &eacute;v&eacute;nements (smart matcher, rappels auto, +1)</li>
+            <li>OpenAPI spec auto-g&eacute;n&eacute;r&eacute;e</li>
+            <li>Chat flow document&eacute; (INDEX-CHAT-FLOW.md)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Besoins actuels</div>
+    <div class="card warn">
+        <ul>
+            <li><strong>D&eacute;ployer v1 fonctionnelle</strong> &mdash; MVP Q1 2026</li>
+            <li><strong>D&eacute;finir scope MVP</strong> &mdash; Messaging + contacts minimum</li>
+            <li><strong>Dashboard UI</strong> &mdash; Interface Svelte &agrave; construire</li>
+            <li><strong>Unifier messaging</strong> &mdash; WhatsApp + Signal + Telegram + iMessage</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Objectifs</div>
+    <div class="card highlight">
+        <div class="card-text">
+            <strong>Court terme :</strong> 100 profils INDEX &agrave; Paris (fin 2026)<br>
+            <strong>Moyen terme :</strong> Automatisation 80% admin AMA<br>
+            <strong>Long terme :</strong> Plateforme ouverte pour d'autres &eacute;cosyst&egrave;mes cr&eacute;atifs
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Personnes cl&eacute;s</div>
+    <div class="grid2">
+        <div class="card">
+            <div class="card-title">Yann CARIO</div>
+            <div class="card-text">Direction, specs</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Laz</div>
+            <div class="card-text">Support technique &amp; infra</div>
+        </div>
+    </div>
+</div>
+
+<footer>Fiche projet &mdash; 10/02/2026</footer>
+</body>
+</html>

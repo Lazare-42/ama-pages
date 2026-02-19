@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA &mdash; Dossier Institutionnel | Yann CARIO</title>
+    <meta name="description" content="AMA : dossier de pr&eacute;sentation institutionnel. Art, Musique, Architecture au service de la transition &eacute;cologique. Yann CARIO, fondateur.">
+    <meta property="og:title" content="AMA &mdash; Dossier Institutionnel | Yann CARIO">
+    <meta property="og:description" content="Dossier de pr&eacute;sentation institutionnel &mdash; &eacute;coles, fondations, fablabs, entreprises. Voici pourquoi collaborer avec moi.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            border-bottom: 1px solid #222;
+            position: relative;
+        }
+
+        .slide-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta {
+            display: inline-block;
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            color: var(--accent);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Grid layouts */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #2a2a3a;
+        }
+
+        .card-accent {
+            border-left: 4px solid var(--accent);
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-light);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pillar styles */
+        .pillar {
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid #2a2a3a;
+        }
+
+        .pillar.pinlab { border-top: 4px solid var(--pink); }
+        .pillar.float { border-top: 4px solid var(--orange); }
+        .pillar.hubjam { border-top: 4px solid var(--green); }
+        .pillar.index { border-top: 4px solid var(--accent); }
+
+        .pillar h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar .desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar ul {
+            list-style: none;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .pillar li {
+            padding: 4px 0;
+            color: var(--text-secondary);
+        }
+
+        .pillar li::before {
+            content: "\2022";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--bg-card);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        tr:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .status-deployed {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .status-dev {
+            color: var(--orange);
+        }
+
+        .status-proto {
+            color: var(--pink);
+        }
+
+        /* Formation list */
+        .formation-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a2a;
+        }
+
+        .formation-item .year-badge {
+            background: var(--bg-card);
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .formation-item .formation-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .formation-item .formation-text strong {
+            color: var(--text-primary);
+        }
+
+        .formation-item .formation-detail {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .highlight-box li {
+            color: var(--text-secondary);
+        }
+
+        /* Stat cards */
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid #2a2a3a;
+        }
+
+        .stat-card .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            line-height: 1;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Note */
+        .note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact */
+        .contact-box {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-box .url {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin: 2rem 0;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
+
+        .contact-box .info {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin: 1rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 16px 48px;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-light);
+            transition: background 0.2s;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 12px 36px;
+            background: transparent;
+            color: var(--accent-light);
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            border: 2px solid var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transition: background 0.2s;
+        }
+
+        /* Hamburger menu */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid #2a2a3a;
+            color: var(--text-secondary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: #1e1e2e;
+            color: var(--text-primary);
+        }
+
+        .sommaire-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: rgba(10, 10, 15, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .sommaire-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sommaire-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .sommaire-close:hover {
+            color: var(--text-primary);
+        }
+
+        .sommaire-content {
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .sommaire-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .sommaire-block {
+            margin-bottom: 1.8rem;
+        }
+
+        .sommaire-block-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 4px;
+        }
+
+        .sommaire-block a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.15s;
+        }
+
+        .sommaire-block a:hover {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-light);
+        }
+
+        .sommaire-block a::before {
+            content: "\2192";
+            margin-right: 10px;
+            color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* Language switcher */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2a2a3a;
+        }
+
+        .lang-switch a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .lang-switch a.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .lang-switch a:hover:not(.active) {
+            background: #1e1e2e;
+        }
+
+        /* Nav dots */
+        .nav-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-dots::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #1a1a2a;
+            transform: translateX(-50%);
+            border-radius: 1px;
+            z-index: -1;
+        }
+
+        .nav-dots a {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2a2a3a;
+            display: block;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-dots a:hover,
+        .nav-dots a.active {
+            background: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+        }
+
+        .nav-dots a::after {
+            content: attr(title);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            border: 1px solid #2a2a3a;
+        }
+
+        .nav-dots a:hover::after {
+            opacity: 1;
+        }
+
+        .nav-progress {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-light));
+            transform: translateX(-50%);
+            border-radius: 1px;
+            z-index: -1;
+            transition: height 0.15s ease-out;
+        }
+
+        /* AMA Title hover effect */
+        .ama-hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.3rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.6rem;
+            user-select: none;
+        }
+
+        .ama-group {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .ama-group:hover {
+            color: var(--accent-light);
+        }
+
+        .ama-expand {
+            display: inline-block;
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: max-width 0.5s ease, opacity 0.3s ease;
+            font-size: 0.55em;
+            letter-spacing: 0.2rem;
+            vertical-align: baseline;
+            font-weight: 400;
+        }
+
+        .ama-group:hover .ama-expand {
+            max-width: 500px;
+            opacity: 0.7;
+        }
+
+        .ama-kanji {
+            position: absolute;
+            bottom: -1.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.3em;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.15s;
+            color: var(--accent-light);
+            white-space: nowrap;
+            font-weight: 400;
+        }
+
+        .ama-group:hover .ama-kanji {
+            opacity: 0.7;
+        }
+
+        .ama-sep {
+            opacity: 0.3;
+            font-weight: 300;
+        }
+
+        .ama-yc {
+            letter-spacing: 0.02rem;
+            margin-left: -0.2rem;
+        }
+
+        .ama-smile {
+            font-size: 0.35em;
+            opacity: 0.4;
+            align-self: center;
+            margin-left: 0.3rem;
+            transition: opacity 0.3s;
+        }
+
+        .ama-hero-title:hover .ama-smile {
+            opacity: 0.8;
+        }
+
+        /* Competency cards with colored borders */
+        .comp-card-pink { border-left: 4px solid var(--pink); }
+        .comp-card-green { border-left: 4px solid var(--green); }
+        .comp-card-orange { border-left: 4px solid var(--orange); }
+        .comp-card-accent { border-left: 4px solid var(--accent); }
+
+        /* Project cards with colored top borders */
+        .proj-card-pink { border-top: 4px solid var(--pink); }
+        .proj-card-green { border-top: 4px solid var(--green); }
+        .proj-card-accent { border-top: 4px solid var(--accent); }
+
+        /* Proposition cards */
+        .prop-card-orange { border-left: 4px solid var(--orange); }
+        .prop-card-green { border-left: 4px solid var(--green); }
+
+        /* Vision card */
+        .vision-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #2a2a3a;
+            margin: 2rem 0;
+        }
+
+        .vision-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        .vision-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Dossier badge */
+        .dossier-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15rem;
+            margin-bottom: 1rem;
+            padding: 6px 16px;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            background: var(--bg-card);
+        }
+
+        /* Print styles */
+        @media print {
+            .slide {
+                min-height: 100vh;
+                page-break-after: always;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .nav-dots, .lang-switch, .menu-btn, .sommaire-overlay { display: none; }
+            .slide { padding: 40px 50px; }
+            .ama-hero-title { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            .highlight-box { break-inside: avoid; }
+            .card, .pillar, .vision-card { break-inside: avoid; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .ama-hero-title { font-size: 3rem; }
+            .slide { padding: 50px 50px; }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 40px 24px; }
+            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; letter-spacing: 0.2rem; }
+            .ama-hero-title { font-size: 2.5rem; gap: 0.4rem; }
+            .ama-kanji { bottom: -1.2rem; }
+            h2 { font-size: 1.8rem; }
+            .tagline { font-size: 1.2rem; }
+            .highlight-box ul { flex-direction: column; gap: 12px; }
+            .nav-dots { display: none; }
+            .lang-switch { top: 10px; right: 10px; }
+            .lang-switch a { padding: 6px 12px; font-size: 0.8rem; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 10px 8px; }
+            .formation-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
+
+        @media (max-width: 480px) {
+            .slide { padding: 30px 16px; }
+            h1 { font-size: 2rem; letter-spacing: 0.1rem; }
+            .ama-hero-title { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .stat-card .stat-number { font-size: 2rem; }
+            .tagline { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger menu -->
+<button class="menu-btn" id="menuBtn" aria-label="Sommaire">&#9776;</button>
+
+<!-- Sommaire overlay -->
+<div class="sommaire-overlay" id="sommaireOverlay">
+    <button class="sommaire-close" id="sommaireClose">&times;</button>
+    <div class="sommaire-content">
+        <h2>Sommaire</h2>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Pr&eacute;sentation</div>
+            <a href="#accroche">Accroche</a>
+            <a href="#parcours">Parcours</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Le Projet</div>
+            <a href="#projet">Projet AMA</a>
+            <a href="#competences">Comp&eacute;tences</a>
+            <a href="#projets">Projets Concrets</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Vision</div>
+            <a href="#vision">Vision Long Terme</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Collaboration</div>
+            <a href="#proposition">Proposition</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+</div>
+
+<!-- Language switcher -->
+<div class="lang-switch">
+    <a href="portfolio-ama-institutional.html" class="active">FR</a>
+    <a href="portfolio-ama-institutional-en.html">EN</a>
+</div>
+
+<!-- Navigation dots -->
+<nav class="nav-dots" id="navDots">
+    <div class="nav-progress" id="navProgress"></div>
+    <a href="#accroche" title="Accroche"></a>
+    <a href="#parcours" title="Parcours"></a>
+    <a href="#projet" title="Projet AMA"></a>
+    <a href="#competences" title="Comp&eacute;tences"></a>
+    <a href="#projets" title="Projets"></a>
+    <a href="#vision" title="Vision"></a>
+    <a href="#proposition" title="Proposition"></a>
+    <a href="#contact" title="Contact"></a>
+</nav>
+
+<!-- SLIDE 1: ACCROCHE -->
+<section class="slide slide-hero" id="accroche">
+    <span class="dossier-badge">Dossier institutionnel</span>
+
+    <div class="ama-hero-title">
+        <div class="ama-group">
+            A<span class="ama-expand">&thinsp;R T</span>
+            <span class="ama-kanji">&#12450;&#12540;&#12488;</span>
+        </div>
+        <span class="ama-sep">&middot;</span>
+        <div class="ama-group">
+            M<span class="ama-expand">&thinsp;U S I Q U E</span>
+            <span class="ama-kanji">&#38899;&#27005;</span>
+        </div>
+        <span class="ama-sep">&middot;</span>
+        <div class="ama-group">
+            A<span class="ama-expand">&thinsp;R C H I</span>
+            <span class="ama-kanji">&#24314;&#31689;</span>
+        </div>
+    </div>
+
+    <p class="tagline">Art &middot; Musique &middot; Architecture au service de la transition &eacute;cologique</p>
+
+    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Dossier de pr&eacute;sentation &mdash; <strong style="color: var(--text-primary);">Yann CARIO</strong>, fondateur
+    </p>
+
+    <span class="cta">&darr; D&eacute;couvrir</span>
+</section>
+
+<!-- SLIDE 2: PARCOURS -->
+<section class="slide" id="parcours">
+    <h2>Parcours</h2>
+    <p class="subtitle">Un profil unique au croisement de la logistique, du design et de la durabilit&eacute;</p>
+
+    <div class="formation-item">
+        <span class="year-badge">2018-2021</span>
+        <span class="formation-text">
+            <strong>BSc (Hons) Maritime Business</strong> &mdash; Solent University, UK <span style="color: var(--green); font-size: 0.85rem;">(Dipl&ocirc;m&eacute;)</span>
+            <span class="formation-detail">&rarr; Commerce international, flux logistiques</span>
+        </span>
+    </div>
+    <div class="formation-item">
+        <span class="year-badge">2021-2022</span>
+        <span class="formation-text">
+            <strong>Master Sustainable Business &amp; Innovation</strong> &mdash; EADA, Barcelone <span style="color: var(--orange); font-size: 0.85rem;">(Participant)</span>
+            <span class="formation-detail">&rarr; &Eacute;conomie circulaire, pens&eacute;e syst&eacute;mique, innovation sociale (Autofabricantes)</span>
+        </span>
+    </div>
+    <div class="formation-item">
+        <span class="year-badge">2022-2023</span>
+        <span class="formation-text">
+            <strong>Architecture Int&eacute;rieure</strong> &mdash; LISAA, Paris <span style="color: var(--orange); font-size: 0.85rem;">(Participant)</span>
+            <span class="formation-detail">&rarr; Design d'espaces, modularit&eacute;</span>
+        </span>
+    </div>
+    <div class="formation-item" style="border-bottom: none;">
+        <span class="year-badge">2024-2025</span>
+        <span class="formation-text">
+            <strong>GOTRM Transport &amp; Logistique</strong> &mdash; ISTELI/AFTRAL + H-K, Pau <span style="color: var(--orange); font-size: 0.85rem;">(Alternance)</span>
+            <span class="formation-detail">&rarr; Gestion op&eacute;rationnelle, dispatching, calcul co&ucirc;ts (CRK, bin&ocirc;me, trin&ocirc;me)</span>
+        </span>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 3rem;">
+        <h3 style="font-size: 1.3rem; color: var(--accent-light);">Un parcours atypique, une vision transversale.</h3>
+        <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.05rem;">
+            4 formations, 3 pays, 4 langues (FR, EN, ES, AR), 25 ans
+        </p>
+    </div>
+</section>
+
+<!-- SLIDE 3: LE PROJET AMA -->
+<section class="slide" id="projet">
+    <h2>Le Projet AMA</h2>
+
+    <div class="highlight-box" style="border-color: var(--accent); text-align: left; max-width: 800px; margin: 0 auto 2rem;">
+        <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8;">
+            AMA relie art, musique et architecture autour de la transition &eacute;cologique.
+            Concr&egrave;tement : espaces modulaires &eacute;co-con&ccedil;us (<strong style="color: var(--pink);">PIN-LAB</strong>),
+            mat&eacute;riel audio low-tech con&ccedil;u pour durer (<strong style="color: var(--green);">HUBJAM</strong>),
+            documentation audiovisuelle (<strong style="color: var(--orange);">FLOAT</strong>).
+            Chaque participant d&eacute;clare ses comp&eacute;tences (niveau 1 &agrave; 3) et re&ccedil;oit des r&ocirc;les adapt&eacute;s.
+            L'objectif : prouver que cr&eacute;ation et sobri&eacute;t&eacute; peuvent coexister, en valorisant les ressources existantes.
+        </p>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <div class="pillar index" style="display: inline-block; width: 400px; max-width: 100%; margin-bottom: 1rem;">
+            <h4>INDEX</h4>
+            <p class="desc">Le c&oelig;ur d'AMA &mdash; Infrastructure collaborative</p>
+            <ul>
+                <li>Contacts &amp; mise en relation</li>
+                <li>Communication unifi&eacute;e</li>
+                <li>Calendrier &amp; ressources</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 2rem; color: var(--accent);">|</span><br>
+        <span style="color: var(--text-secondary);">connecte et alimente</span><br>
+        <span style="font-size: 1.5rem; color: var(--accent);">&darr;</span>
+    </div>
+
+    <div class="grid-3">
+        <div class="pillar pinlab">
+            <h4>PIN-LAB</h4>
+            <p class="desc">Design &amp; Espaces Modulaires</p>
+            <ul>
+                <li>Prototypage modulaire</li>
+                <li>Sc&eacute;nographie</li>
+                <li>Mobilier &eacute;co-con&ccedil;u</li>
+            </ul>
+        </div>
+        <div class="pillar float">
+            <h4>FLOAT</h4>
+            <p class="desc">Documentation &amp; Captation Audiovisuelle</p>
+            <ul>
+                <li>Captation vid&eacute;o &amp; photo</li>
+                <li>Documentation des prototypes</li>
+                <li>Logistique &amp; coordination technique</li>
+            </ul>
+        </div>
+        <div class="pillar hubjam">
+            <h4>HUBJAM</h4>
+            <p class="desc">Musique &amp; Ing&eacute;nierie Son (cofond&eacute; avec Lo&iuml;c)</p>
+            <ul>
+                <li>Bo&icirc;tier technique V1&ndash;V5</li>
+                <li>Jams &amp; sessions</li>
+                <li>Ateliers r&eacute;paration &amp; r&eacute;emploi</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4: COMP&Eacute;TENCES -->
+<section class="slide" id="competences">
+    <h2>Comp&eacute;tences Transf&eacute;rables</h2>
+    <p class="subtitle">Ce que j'apporte &agrave; une collaboration</p>
+
+    <div class="grid-2">
+        <div class="card comp-card-pink">
+            <h4 style="color: var(--pink);">Logistique Op&eacute;rationnelle</h4>
+            <p style="margin-bottom: 0.8rem;">
+                <strong style="color: var(--text-primary);">GOTRM + H-K :</strong> CRK, bin&ocirc;me, trin&ocirc;me, dispatching, gestion flux.
+            </p>
+            <p style="color: var(--accent-light); font-size: 0.9rem; font-style: italic;">
+                Application : coordination &eacute;v&eacute;nements, supply chain AMA
+            </p>
+        </div>
+        <div class="card comp-card-green">
+            <h4 style="color: var(--green);">&Eacute;co-conception &amp; Durabilit&eacute;</h4>
+            <p style="margin-bottom: 0.8rem;">
+                <strong style="color: var(--text-primary);">EADA :</strong> &eacute;conomie circulaire, th&eacute;orie du changement, matrice de valeur.
+            </p>
+            <p style="color: var(--accent-light); font-size: 0.9rem; font-style: italic;">
+                Application : PIN-LAB, mod&egrave;le &eacute;conomique durable
+            </p>
+        </div>
+        <div class="card comp-card-orange">
+            <h4 style="color: var(--orange);">Design &amp; Prototypage</h4>
+            <p style="margin-bottom: 0.8rem;">
+                <strong style="color: var(--text-primary);">LISAA + PIN-LAB :</strong> architecture int&eacute;rieure, modularit&eacute;, espace.
+            </p>
+            <p style="color: var(--accent-light); font-size: 0.9rem; font-style: italic;">
+                Application : espaces modulaires, sc&eacute;nographie, mobilier
+            </p>
+        </div>
+        <div class="card comp-card-accent">
+            <h4>Coordination Internationale</h4>
+            <p style="margin-bottom: 0.8rem;">
+                <strong style="color: var(--text-primary);">Solent + AGORA + 8 pays :</strong> 4 langues, gestion multi-parties, commerce international.
+            </p>
+            <p style="color: var(--accent-light); font-size: 0.9rem; font-style: italic;">
+                Application : INDEX, partenariats internationaux
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5: PROJETS CONCRETS -->
+<section class="slide" id="projets">
+    <h2>Projets Concrets</h2>
+    <p class="subtitle">Ce qui existe d&eacute;j&agrave;</p>
+
+    <div class="grid-3">
+        <div class="card proj-card-pink">
+            <h4 style="color: var(--pink);">PIN-LAB</h4>
+            <ul style="list-style: none; margin: 1rem 0;">
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; HW Organizer</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; Po_Russes</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; MID</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; HS Setup</li>
+            </ul>
+            <p style="font-style: italic; margin-bottom: 0.8rem;">"HS Setup &mdash; &eacute;chafaudage modulaire (en prototypage)"</p>
+            <p class="status-dev">Statut : En d&eacute;veloppement</p>
+        </div>
+        <div class="card proj-card-green">
+            <h4 style="color: var(--green);">HUBJAM</h4>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">Cofond&eacute; avec Lo&iuml;c (ing. son/lumi&egrave;re, Larmor-Baden)</p>
+            <ul style="list-style: none; margin: 1rem 0;">
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; V1 : 25&times;17 cm, 6 jacks + 4 XLR</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; V3 : 2 bo&icirc;tiers (sc&egrave;ne + r&eacute;gie)</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; V5 : relais 5G int&eacute;gr&eacute;</li>
+            </ul>
+            <p style="font-style: italic; margin-bottom: 0.5rem;">"5 versions (V1&ndash;V5), test&eacute; en live (Bretagne + Paris), con&ccedil;u r&eacute;parable"</p>
+            <p class="status-dev">Statut : Test&eacute; en live</p>
+        </div>
+        <div class="card proj-card-accent">
+            <h4>INDEX</h4>
+            <ul style="list-style: none; margin: 1rem 0;">
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; 6 repos GitHub</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; Gestion 30 contacts</li>
+                <li style="padding: 4px 0; color: var(--text-secondary);">&bull; Messagerie WhatsApp + Signal (en conception)</li>
+            </ul>
+            <p class="status-proto">Statut : En conception</p>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 3rem;">Vue d'ensemble &mdash; 8 projets</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Projet</th>
+                <th>Pilier</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>HW Organizer</td>
+                <td>PIN-LAB</td>
+                <td class="status-dev">En d&eacute;veloppement</td>
+            </tr>
+            <tr>
+                <td>Po_Russes</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Prototypage</td>
+            </tr>
+            <tr>
+                <td>MID</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Conception</td>
+            </tr>
+            <tr>
+                <td>HS Setup</td>
+                <td>PIN-LAB + FLOAT</td>
+                <td class="status-proto">En prototypage</td>
+            </tr>
+            <tr>
+                <td>Ondes &Eacute;ph&eacute;m&egrave;res</td>
+                <td>FLOAT + HUBJAM</td>
+                <td class="status-dev">En pr&eacute;paration</td>
+            </tr>
+            <tr>
+                <td>Bo&icirc;tier HUBJAM (V1&ndash;V5)</td>
+                <td>HUBJAM</td>
+                <td class="status-dev">Test&eacute; en live</td>
+            </tr>
+            <tr>
+                <td>Small Scale Shipping</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Conception</td>
+            </tr>
+            <tr>
+                <td>INDEX</td>
+                <td>INDEX</td>
+                <td class="status-proto">En conception</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- SLIDE 6: VISION LONG TERME -->
+<section class="slide" id="vision">
+    <h2>Vision Long Terme</h2>
+    <p class="subtitle">METR H2O &mdash; R&eacute;seau d'&icirc;les logistiques flottantes</p>
+
+    <div class="vision-card" style="max-width: 800px; margin: 2rem auto;">
+        <p style="line-height: 1.8; font-size: 1.05rem;">
+            &Agrave; long terme, l'expertise modulaire et logistique d'AMA alimente
+            <strong style="color: var(--accent-light);">METR H2O</strong> : un r&eacute;seau d'&icirc;les logistiques flottantes autonomes.
+            Structure hexagonale de 500m, 5 zones fonctionnelles (Z1-Z5),
+            syst&egrave;me Water Web de connectivit&eacute; inter-&icirc;les.
+        </p>
+    </div>
+
+    <div class="card" style="max-width: 800px; margin: 2rem auto; border-left: 4px solid var(--accent);">
+        <h4 style="font-size: 1.2rem; margin-bottom: 1rem;">Partenariats vis&eacute;s</h4>
+        <ul style="list-style: none; margin: 1rem 0;">
+            <li style="padding: 8px 0; color: var(--text-secondary);">
+                <span style="color: var(--accent); margin-right: 8px;">&bull;</span>
+                <strong style="color: var(--text-primary);">Fondations engag&eacute;es dans l'innovation maritime et durable</strong>
+            </li>
+            <li style="padding: 8px 0; color: var(--text-secondary);">
+                <span style="color: var(--accent); margin-right: 8px;">&bull;</span>
+                Acteurs de l'architecture flottante et des infrastructures modulaires
+            </li>
+        </ul>
+        <div class="highlight-box" style="margin-top: 1.5rem; margin-bottom: 0; padding: 20px;">
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
+                La logistique maritime (<strong style="color: var(--text-primary);">BSc Solent</strong>)
+                + le design modulaire (<strong style="color: var(--text-primary);">LISAA/PIN-LAB</strong>)
+                + la gestion op&eacute;rationnelle (<strong style="color: var(--text-primary);">GOTRM</strong>)
+                = <strong style="color: var(--accent-light);">cr&eacute;dibilit&eacute; unique</strong> pour ce projet
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 7: PROPOSITION -->
+<section class="slide" id="proposition">
+    <h2>Proposition de Collaboration</h2>
+    <p class="subtitle">Ce que je cherche &mdash; Ce que j'apporte</p>
+
+    <div class="grid-2">
+        <div>
+            <h3 style="color: var(--orange); margin-bottom: 1.5rem;">Ce que je cherche</h3>
+
+            <div class="card prop-card-orange" style="margin-bottom: 16px;">
+                <h4 style="color: var(--orange);">Formation en alternance</h4>
+                <p>Master &eacute;co-conception, RSE, design</p>
+            </div>
+            <div class="card prop-card-orange" style="margin-bottom: 16px;">
+                <h4 style="color: var(--orange);">Incubation / accompagnement</h4>
+                <p>Structurer AMA, mod&egrave;le &eacute;conomique</p>
+            </div>
+            <div class="card prop-card-orange">
+                <h4 style="color: var(--orange);">Partenariat recherche</h4>
+                <p>METR H2O, innovation modulaire</p>
+            </div>
+        </div>
+
+        <div>
+            <h3 style="color: var(--green); margin-bottom: 1.5rem;">Ce que j'apporte</h3>
+
+            <div class="card prop-card-green" style="margin-bottom: 16px;">
+                <h4 style="color: var(--green);">AMA comme business case study</h4>
+                <p>Projet concret, multi-piliers</p>
+            </div>
+            <div class="card prop-card-green" style="margin-bottom: 16px;">
+                <h4 style="color: var(--green);">Profil hybride rare</h4>
+                <p>Logistique + design + durabilit&eacute;</p>
+            </div>
+            <div class="card prop-card-green" style="margin-bottom: 16px;">
+                <h4 style="color: var(--green);">R&eacute;seau actif &amp; ancr&eacute;</h4>
+                <p>30+ contacts, Paris + Bretagne, 5 villes, international</p>
+            </div>
+            <div class="card prop-card-green">
+                <h4 style="color: var(--green);">Intervention / atelier</h4>
+                <p>&Eacute;co-conception, logistique cr&eacute;ative, sobri&eacute;t&eacute; mat&eacute;rielle</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8: CONTACT -->
+<section class="slide slide-hero" id="contact">
+    <h2>Collaborons</h2>
+
+    <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; text-align: center;">
+        Int&eacute;ress&eacute;(e) par une collaboration ? Contactez-moi.
+    </p>
+
+    <div class="grid-3" style="max-width: 800px; margin: 0 auto 2rem;">
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20%E2%80%94%20Candidature%20Alternance" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 2rem; margin-bottom: 0.8rem;">&#127891;</div>
+            <h4 style="font-size: 1rem;">&Eacute;cole / Formation</h4>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">Candidature Alternance</p>
+        </a>
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20%E2%80%94%20Partenariat" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 2rem; margin-bottom: 0.8rem;">&#127942;</div>
+            <h4 style="font-size: 1rem;">Fondation / Incubateur</h4>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">Partenariat</p>
+        </a>
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20%E2%80%94%20Collaboration" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 2rem; margin-bottom: 0.8rem;">&#128736;</div>
+            <h4 style="font-size: 1rem;">Entreprise / FabLab</h4>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">Collaboration</p>
+        </a>
+    </div>
+
+    <div class="contact-box">
+        <p class="info">&#9993; contact@ama-workspace.gmail.com</p>
+        <div class="url">www.ama-workspace.com</div>
+
+        <div style="margin-top: 2rem;">
+            <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20%E2%80%94%20Collaboration" class="btn">Proposer une collaboration</a>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    var dots = document.querySelectorAll('.nav-dots a');
+    var slides = document.querySelectorAll('.slide');
+    var progress = document.getElementById('navProgress');
+
+    function updateActive() {
+        var current = 0;
+        slides.forEach(function(slide, i) {
+            var rect = slide.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2) {
+                current = i;
+            }
+        });
+        dots.forEach(function(dot, i) {
+            dot.classList.toggle('active', i === current);
+        });
+        if (dots.length > 0 && progress) {
+            var pct = (current / (dots.length - 1)) * 100;
+            progress.style.height = pct + '%';
+        }
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Sommaire menu
+    var menuBtn = document.getElementById('menuBtn');
+    var overlay = document.getElementById('sommaireOverlay');
+    var closeBtn = document.getElementById('sommaireClose');
+
+    menuBtn.addEventListener('click', function() {
+        overlay.classList.add('open');
+    });
+
+    closeBtn.addEventListener('click', function() {
+        overlay.classList.remove('open');
+    });
+
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.classList.remove('open');
+        }
+    });
+
+    var sommaireLinks = overlay.querySelectorAll('a');
+    sommaireLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            overlay.classList.remove('open');
+        });
+    });
+})();
+</script>
+
+</body>
+</html><\!-- AMA v2 -->

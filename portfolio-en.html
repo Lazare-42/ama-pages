@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio AMA — Yann CARIO</title>
+    <meta name="description" content="AMA: creative ecosystem connecting Art, Music and Architecture. Founded by Yann CARIO.">
+    <meta property="og:title" content="Portfolio AMA — Yann CARIO">
+    <meta property="og:description" content="Creative ecosystem connecting Art, Music and Architecture. Infrastructure, collaboration, events.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --pink: #ec4899;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; }
+        .slide { min-height: 100vh; padding: 60px 80px; display: flex; flex-direction: column; justify-content: center; page-break-after: always; border-bottom: 1px solid #222; position: relative; }
+        .slide-hero { text-align: center; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); }
+        h1 { font-size: 4rem; font-weight: 700; letter-spacing: 0.5rem; margin-bottom: 2rem; }
+        h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 2rem; color: var(--accent-light); }
+        h3 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--text-primary); }
+        .tagline { font-size: 1.5rem; font-style: italic; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem; }
+        .subtitle { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .cta { display: inline-block; margin-top: 3rem; font-size: 1.2rem; color: var(--accent); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 2rem 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 2rem 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 2rem 0; }
+        .card { background: var(--bg-card); border-radius: 12px; padding: 24px; border: 1px solid #2a2a3a; }
+        .card-accent { border-left: 4px solid var(--accent); }
+        .card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-light); }
+        .card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        .problem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; margin: 3rem 0; }
+        .problem-item { padding: 30px 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid #2a2a3a; }
+        .problem-item .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .problem-item .label { font-weight: 600; margin-bottom: 0.5rem; }
+        .problem-item .issue { color: #ef4444; font-size: 0.9rem; }
+
+        .pillar { text-align: center; padding: 30px; background: var(--bg-card); border-radius: 16px; border: 1px solid #2a2a3a; }
+        .pillar.pinlab { border-top: 4px solid var(--pink); }
+        .pillar.float { border-top: 4px solid var(--orange); }
+        .pillar.hubjam { border-top: 4px solid var(--green); }
+        .pillar.index { border-top: 4px solid var(--accent); }
+        .pillar h4 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .pillar .desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+        .pillar ul { list-style: none; text-align: left; font-size: 0.9rem; }
+        .pillar li { padding: 4px 0; color: var(--text-secondary); }
+        .pillar li::before { content: "\2022"; color: var(--accent); margin-right: 8px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.95rem; }
+        th { background: var(--bg-card); padding: 16px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--accent); }
+        td { padding: 14px 16px; border-bottom: 1px solid #2a2a3a; }
+        tr:hover { background: rgba(99, 102, 241, 0.1); }
+        .status-deployed { color: var(--green); font-weight: 600; }
+        .status-dev { color: var(--orange); }
+        .status-proto { color: var(--pink); }
+
+        .timeline { display: flex; justify-content: space-between; margin: 3rem 0; position: relative; }
+        .timeline::before { content: ""; position: absolute; top: 60px; left: 10%; right: 10%; height: 4px; background: linear-gradient(to right, var(--accent), var(--green)); border-radius: 2px; }
+        .timeline-phase { text-align: center; width: 30%; position: relative; }
+        .timeline-phase .year { font-size: 2rem; font-weight: 700; color: var(--accent-light); margin-bottom: 1rem; }
+        .timeline-phase .dot { width: 20px; height: 20px; background: var(--accent); border-radius: 50%; margin: 0 auto 1.5rem; position: relative; z-index: 1; }
+        .timeline-phase .content { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: left; }
+        .timeline-phase .content h4 { color: var(--accent-light); margin-bottom: 0.5rem; }
+        .timeline-phase .content li { color: var(--text-secondary); font-size: 0.9rem; margin: 4px 0; }
+
+        .partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 2rem 0; }
+        .partner-category { background: var(--bg-card); padding: 24px; border-radius: 12px; border: 1px solid #2a2a3a; }
+        .partner-category h4 { color: var(--accent-light); font-size: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #2a2a3a; }
+        .partner-category li { list-style: none; padding: 4px 0; font-size: 0.9rem; color: var(--text-secondary); }
+
+        .contact-box { text-align: center; max-width: 500px; margin: 0 auto; }
+        .contact-box .url { font-size: 1.5rem; font-weight: 600; color: var(--accent-light); margin: 2rem 0; padding: 20px; background: var(--bg-card); border-radius: 12px; }
+        .contact-box .info { font-size: 1.1rem; color: var(--text-secondary); margin: 1rem 0; }
+        .btn { display: inline-block; margin-top: 2rem; padding: 16px 48px; background: var(--accent); color: white; font-weight: 600; border-radius: 8px; text-decoration: none; font-size: 1.1rem; }
+        .btn:hover { background: var(--accent-light); transition: background 0.2s; }
+        .btn-outline { display: inline-block; margin-top: 1rem; padding: 12px 36px; background: transparent; color: var(--accent-light); font-weight: 600; border-radius: 8px; text-decoration: none; font-size: 1rem; border: 2px solid var(--accent); }
+        .btn-outline:hover { background: rgba(99, 102, 241, 0.15); transition: background 0.2s; }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.1)); border: 1px solid var(--accent); border-radius: 16px; padding: 30px; text-align: center; margin: 2rem 0; }
+        .highlight-box h3 { color: var(--text-primary); margin-bottom: 1rem; }
+        .highlight-box ul { list-style: none; display: flex; justify-content: center; gap: 40px; }
+        .highlight-box li { color: var(--text-secondary); }
+
+        .bullet-list { list-style: none; margin: 1rem 0; }
+        .bullet-list li { padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary); }
+        .bullet-list li::before { content: "\00d7"; position: absolute; left: 0; color: #ef4444; font-weight: bold; }
+
+        /* Language switcher */
+        .lang-switch { position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid #2a2a3a; }
+        .lang-switch a { padding: 8px 16px; text-decoration: none; font-size: 0.85rem; font-weight: 600; background: var(--bg-card); color: var(--text-secondary); transition: all 0.2s; }
+        .lang-switch a.active { background: var(--accent); color: white; }
+        .lang-switch a:hover:not(.active) { background: #1e1e2e; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 10px; }
+        .nav-dots::before { content: ""; position: absolute; left: 50%; top: 0; width: 2px; height: 100%; background: #1a1a2a; transform: translateX(-50%); border-radius: 1px; z-index: -1; }
+        .nav-dots a { width: 10px; height: 10px; border-radius: 50%; background: #2a2a3a; display: block; transition: all 0.3s; position: relative; }
+        .nav-dots a:hover, .nav-dots a.active { background: var(--accent); transform: scale(1.3); box-shadow: 0 0 8px rgba(99, 102, 241, 0.6); }
+        .nav-dots a::after { content: attr(title); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: var(--bg-card); color: var(--text-secondary); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid #2a2a3a; }
+        .nav-dots a:hover::after { opacity: 1; }
+        .nav-progress { position: absolute; left: 50%; top: 0; width: 2px; height: 0%; background: linear-gradient(to bottom, var(--accent), var(--accent-light)); transform: translateX(-50%); border-radius: 1px; z-index: -1; transition: height 0.15s ease-out; }
+
+        /* Stat cards */
+        .stat-card { text-align: center; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid #2a2a3a; }
+        .stat-card .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-light); line-height: 1; }
+        .stat-card .stat-label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; }
+
+        /* Formation list */
+        .formation-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #1a1a2a; }
+        .formation-item .year-badge { background: var(--bg-card); border: 1px solid #2a2a3a; border-radius: 8px; padding: 6px 12px; font-size: 0.8rem; color: var(--accent-light); white-space: nowrap; font-weight: 600; }
+        .formation-item .formation-text { color: var(--text-secondary); font-size: 0.95rem; }
+        .formation-item .formation-text strong { color: var(--text-primary); }
+
+        .note { font-size: 0.85rem; color: var(--text-secondary); font-style: italic; margin-top: 0.5rem; }
+
+        /* AMA Title hover effect */
+        .ama-hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.3rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.6rem;
+            user-select: none;
+        }
+
+        .ama-group {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .ama-group:hover { color: var(--accent-light); }
+
+        .ama-expand {
+            display: inline-block;
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: max-width 0.5s ease, opacity 0.3s ease;
+            font-size: 0.55em;
+            letter-spacing: 0.2rem;
+            vertical-align: baseline;
+            font-weight: 400;
+        }
+
+        .ama-group:hover .ama-expand { max-width: 500px; opacity: 0.7; }
+
+        .ama-kanji {
+            position: absolute;
+            bottom: -1.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.3em;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.15s;
+            color: var(--accent-light);
+            white-space: nowrap;
+            font-weight: 400;
+        }
+
+        .ama-group:hover .ama-kanji { opacity: 0.7; }
+
+        .ama-sep { opacity: 0.3; font-weight: 300; }
+        .ama-yc { letter-spacing: 0.02rem; margin-left: -0.2rem; }
+        .ama-smile { font-size: 0.35em; opacity: 0.4; align-self: center; margin-left: 0.3rem; transition: opacity 0.3s; }
+        .ama-hero-title:hover .ama-smile { opacity: 0.8; }
+
+        /* Hamburger menu */
+        .menu-btn { position: fixed; top: 20px; left: 20px; z-index: 200; width: 44px; height: 44px; border-radius: 10px; background: var(--bg-card); border: 1px solid #2a2a3a; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .menu-btn:hover { background: #1e1e2e; color: var(--text-primary); }
+        .sommaire-overlay { position: fixed; inset: 0; z-index: 150; background: rgba(10, 10, 15, 0.95); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .sommaire-overlay.open { opacity: 1; pointer-events: auto; }
+        .sommaire-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--text-secondary); font-size: 2rem; cursor: pointer; transition: color 0.2s; }
+        .sommaire-close:hover { color: var(--text-primary); }
+        .sommaire-content { max-width: 500px; width: 90%; }
+        .sommaire-content h2 { font-size: 1.8rem; margin-bottom: 2rem; text-align: center; }
+        .sommaire-block { margin-bottom: 1.8rem; }
+        .sommaire-block-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.5rem; padding-left: 4px; }
+        .sommaire-block a { display: block; padding: 8px 12px; color: var(--text-primary); text-decoration: none; font-size: 1rem; border-radius: 8px; transition: all 0.15s; }
+        .sommaire-block a:hover { background: rgba(99, 102, 241, 0.15); color: var(--accent-light); }
+        .sommaire-block a::before { content: "\2192"; margin-right: 10px; color: var(--accent); opacity: 0.5; }
+
+        @media print {
+            .slide { min-height: 100vh; page-break-after: always; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .nav-dots, .lang-switch, .menu-btn, .sommaire-overlay { display: none; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .ama-hero-title { font-size: 3rem; }
+            .slide { padding: 50px 50px; }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .problem-grid { grid-template-columns: repeat(2, 1fr); }
+            .partners-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 40px 24px; }
+            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .problem-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .partners-grid { grid-template-columns: 1fr; }
+            .timeline { flex-direction: column; gap: 24px; }
+            .timeline::before { display: none; }
+            .timeline-phase { width: 100%; }
+            h1 { font-size: 2.5rem; letter-spacing: 0.2rem; }
+            .ama-hero-title { font-size: 2.5rem; gap: 0.4rem; }
+            .ama-kanji { bottom: -1.2rem; }
+            h2 { font-size: 1.8rem; }
+            .tagline { font-size: 1.2rem; }
+            .highlight-box ul { flex-direction: column; gap: 12px; }
+            .nav-dots { display: none; }
+            .lang-switch { top: 10px; right: 10px; }
+            .lang-switch a { padding: 6px 12px; font-size: 0.8rem; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 10px 8px; }
+        }
+
+        @media (max-width: 480px) {
+            .slide { padding: 30px 16px; }
+            .problem-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; letter-spacing: 0.1rem; }
+            .ama-hero-title { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .stat-card .stat-number { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger menu -->
+<button class="menu-btn" id="menuBtn" aria-label="Table of contents">&#9776;</button>
+
+<!-- Table of contents overlay -->
+<div class="sommaire-overlay" id="sommaireOverlay">
+    <button class="sommaire-close" id="sommaireClose">&times;</button>
+    <div class="sommaire-content">
+        <h2>Contents</h2>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Who</div>
+            <a href="#founder">Founder</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Context</div>
+            <a href="#problem">Situation</a>
+            <a href="#landscape">Landscape</a>
+            <a href="#proposal">Our answer</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">How</div>
+            <a href="#vision">Vision</a>
+            <a href="#ecosystem">Ecosystem</a>
+            <a href="#pinlab">PIN-LAB</a>
+            <a href="#float">FLOAT</a>
+            <a href="#hubjam">HUBJAM</a>
+            <a href="#index">INDEX</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Concrete</div>
+            <a href="#projects">Projects</a>
+            <a href="#network">Network</a>
+            <a href="#roadmap">Roadmap</a>
+        </div>
+        <div class="sommaire-block">
+            <div class="sommaire-block-title">Contact</div>
+            <a href="#contact">Collaborate</a>
+        </div>
+    </div>
+</div>
+
+<!-- Language switcher -->
+<div class="lang-switch">
+    <a href="portfolio-ama.html">FR</a>
+    <a href="portfolio-ama-en.html" class="active">EN</a>
+</div>
+
+<!-- Navigation dots -->
+<nav class="nav-dots" id="navDots">
+    <div class="nav-progress" id="navProgress"></div>
+    <a href="#hook" title="Hook"></a>
+    <a href="#founder" title="Founder"></a>
+    <a href="#problem" title="Situation"></a>
+    <a href="#landscape" title="Landscape"></a>
+    <a href="#proposal" title="Proposal"></a>
+    <a href="#vision" title="Vision"></a>
+    <a href="#ecosystem" title="Ecosystem"></a>
+    <a href="#pinlab" title="PIN-LAB"></a>
+    <a href="#float" title="FLOAT"></a>
+    <a href="#hubjam" title="HUBJAM"></a>
+    <a href="#index" title="INDEX"></a>
+    <a href="#projects" title="Projects"></a>
+    <a href="#network" title="Network"></a>
+    <a href="#roadmap" title="Roadmap"></a>
+    <a href="#contact" title="Contact"></a>
+</nav>
+
+<!-- SLIDE 1: HOOK -->
+<section class="slide slide-hero" id="hook">
+    <p style="font-size: 1.2rem; letter-spacing: 0.3rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 2rem;">Portfolio { :) }</p>
+
+    <div class="ama-hero-title">
+        <div class="ama-group">
+            A<span class="ama-expand">&thinsp;R T</span>
+            <span class="ama-kanji">アート</span>
+        </div>
+        <span class="ama-sep">&middot;</span>
+        <div class="ama-group">
+            M<span class="ama-expand">&thinsp;U S I C</span>
+            <span class="ama-kanji">音楽</span>
+        </div>
+        <span class="ama-sep">&middot;</span>
+        <div class="ama-group">
+            A<span class="ama-expand">&thinsp;R C H I</span>
+            <span class="ama-kanji">建築</span>
+        </div>
+    </div>
+    <p class="tagline">"The power of small useful actions,<br>organized and shared."</p>
+    <span class="cta">&darr; Discover</span>
+</section>
+
+<!-- SLIDE 2: THE FOUNDER -->
+<section class="slide" id="founder">
+    <h2>The Founder</h2>
+    <p class="subtitle">Yann CARIO &mdash; Versatile creator, logistics manager, artistic facilitator</p>
+    <p style="color: var(--accent-light); margin-top: -1rem; margin-bottom: 1.5rem; font-size: 1rem;">
+        Artist name: <strong>Youhna</strong>
+    </p>
+    <p style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem; color: var(--text-secondary); font-style: italic;">
+        "My journey taught me to build bridges between worlds &mdash; that's the purpose of AMA."
+    </p>
+
+    <div class="grid-4" style="margin: 2rem 0;">
+        <div class="stat-card">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Countries (childhood + studies)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Languages (FR, EN, ES, AR)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">25</div>
+            <div class="stat-label">Years old</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Fields (logistics, design, coordination)</div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <h3>International background</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Raised in the UAE, South Korea, Jordan and Morocco. Studied in England, Spain and Belgium.</p>
+
+            <h3>Education</h3>
+            <div class="formation-item">
+                <span class="year-badge">2018-2021</span>
+                <span class="formation-text"><strong>BSc (Hons) Maritime Business</strong> &mdash; Solent University, UK <span style="color: var(--green); font-size: 0.85rem;">(Graduated)</span></span>
+            </div>
+            <div class="formation-item">
+                <span class="year-badge">2021-2022</span>
+                <span class="formation-text"><strong>Sustainable Business &amp; Innovation</strong> &mdash; EADA, Barcelona <span style="color: var(--orange); font-size: 0.85rem;">(Participant)</span></span>
+            </div>
+            <div class="formation-item">
+                <span class="year-badge">2022-2023</span>
+                <span class="formation-text"><strong>Interior Architecture</strong> &mdash; LISAA, Paris <span style="color: var(--orange); font-size: 0.85rem;">(Participant)</span></span>
+            </div>
+            <div class="formation-item">
+                <span class="year-badge">2024-2025</span>
+                <span class="formation-text"><strong>Transport &amp; Logistics</strong> &mdash; ISTELI / AFTRAL + H-K, Pau <span style="color: var(--orange); font-size: 0.85rem;">(Work-study)</span></span>
+            </div>
+        </div>
+
+        <div>
+            <h3>Key experience</h3>
+            <div class="card" style="margin-bottom: 12px;">
+                <h4>AGORA Coordination &mdash; Brussels</h4>
+                <p>International school exchanges for AEFE high schools. Calendar, email and inter-school communication coordination.</p>
+            </div>
+            <div class="card" style="margin-bottom: 12px;">
+                <h4>Logistics &mdash; H-K, Pau</h4>
+                <p>Time-constrained operations: loading, space management, stock organization.</p>
+            </div>
+            <div class="card">
+                <h4>Studio management &mdash; Paris</h4>
+                <p>Inventory, checklists, bookings for 3-4 studios. Patterns reused in INDEX.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- SLIDE 3: THE PROBLEM -->
+<section class="slide" id="problem">
+    <h2>The Situation</h2>
+    <p class="subtitle">Creators, musicians, architects &mdash; everyone works in isolation.</p>
+
+    <div class="card" style="max-width: 700px; margin: 0 auto 2rem; border-left: 4px solid var(--orange);">
+        <p style="color: var(--text-secondary); line-height: 1.8; font-style: italic;">
+            Imagine: you want to organize a concert in an unusual venue.
+            You spend three weeks looking for a sound engineer, a videographer, equipment.
+            Every contact is a fresh start. The project happens &mdash;
+            but the network dissolves the very next day. Same story everywhere, from Paris to Berlin, Barcelona to London.
+        </p>
+    </div>
+
+    <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; text-align: center;">
+        Everywhere in the world, thousands of small creative, associative and technical structures share the same needs &mdash; venues, equipment, network, visibility &mdash; but have no way to coordinate.
+    </p>
+
+    <div class="problem-grid">
+        <div class="problem-item" style="border-top: 3px solid var(--pink);">
+            <div class="label">SMEs</div>
+            <div class="issue">No cross-sector network</div>
+        </div>
+        <div class="problem-item" style="border-top: 3px solid var(--orange);">
+            <div class="label">NGOs / Associations</div>
+            <div class="issue">No shared logistics infrastructure</div>
+        </div>
+        <div class="problem-item" style="border-top: 3px solid var(--accent);">
+            <div class="label">Startups</div>
+            <div class="issue">No pooled resources</div>
+        </div>
+        <div class="problem-item" style="border-top: 3px solid var(--green);">
+            <div class="label">Artists</div>
+            <div class="issue">No visibility or shared tools</div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="max-width: 700px; margin: 2rem auto 0;">
+        <div>
+            <h3 style="font-size: 1.1rem; color: #ef4444;">What we observe</h3>
+            <ul class="bullet-list">
+                <li>Every event starts from scratch: contacts, logistics, comms</li>
+                <li>Tools don't communicate with each other</li>
+                <li>Collaborations stay one-off and get lost</li>
+                <li>No collective memory between projects</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="font-size: 1.1rem; color: var(--green);">What's needed</h3>
+            <ul style="list-style: none; margin: 1rem 0;">
+                <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary);">
+                    <span style="position: absolute; left: 0; color: var(--green);">&check;</span> A common foundation across disciplines
+                </li>
+                <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary);">
+                    <span style="position: absolute; left: 0; color: var(--green);">&check;</span> Shared and interconnected tools
+                </li>
+                <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary);">
+                    <span style="position: absolute; left: 0; color: var(--green);">&check;</span> A network that accumulates instead of resetting
+                </li>
+                <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary);">
+                    <span style="position: absolute; left: 0; color: var(--green);">&check;</span> A lasting infrastructure, not a temporary one
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4: THE CURRENT LANDSCAPE -->
+<section class="slide" id="landscape">
+    <h2>What Exists Today</h2>
+    <p class="subtitle">Funding exists, but it doesn't reach small actors.</p>
+
+    <div class="grid-3" style="margin: 2rem 0;">
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">&#127467;&#127479;</div>
+            <h4>France</h4>
+            <ul style="list-style: none; color: var(--text-secondary); font-size: 0.9rem; text-align: left; margin-top: 1rem;">
+                <li style="padding: 4px 0;">&bull; Bpifrance (French Tech, France 2030)</li>
+                <li style="padding: 4px 0;">&bull; DRAC / CNM (arts &amp; culture grants)</li>
+                <li style="padding: 4px 0;">&bull; DLA / PTCE (nonprofit support)</li>
+                <li style="padding: 4px 0;">&bull; Regional incubators</li>
+            </ul>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">&#127466;&#127482;</div>
+            <h4>Europe</h4>
+            <ul style="list-style: none; color: var(--text-secondary); font-size: 0.9rem; text-align: left; margin-top: 1rem;">
+                <li style="padding: 4px 0;">&bull; Creative Europe</li>
+                <li style="padding: 4px 0;">&bull; Horizon Europe / EIC</li>
+                <li style="padding: 4px 0;">&bull; Erasmus+</li>
+                <li style="padding: 4px 0;">&bull; ESF+ (Social Fund)</li>
+            </ul>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">&#128176;</div>
+            <h4>Significant Funding</h4>
+            <ul style="list-style: none; color: var(--text-secondary); font-size: 0.9rem; text-align: left; margin-top: 1rem;">
+                <li style="padding: 4px 0;">&bull; France 2030: &euro;54 Bn</li>
+                <li style="padding: 4px 0;">&bull; Horizon Europe: &euro;14 Bn/yr</li>
+                <li style="padding: 4px 0;">&bull; ESF+: &euro;142 Bn</li>
+                <li style="padding: 4px 0;">&bull; Creative Europe: &euro;380 M/yr</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 style="text-align: center; margin-top: 2rem; color: var(--orange);">Yet small actors can't access them:</h3>
+
+    <div class="grid-4" style="margin-top: 1.5rem;">
+        <div class="card" style="border-top: 3px solid #ef4444; text-align: center;">
+            <h4 style="color: #ef4444;">No common infrastructure</h4>
+            <p>50+ programs, each with its own portal, criteria, and formats</p>
+        </div>
+        <div class="card" style="border-top: 3px solid #ef4444; text-align: center;">
+            <h4 style="color: #ef4444;">Sector silos</h4>
+            <p>Culture, Tech, Social Economy, Education: no bridges between them</p>
+        </div>
+        <div class="card" style="border-top: 3px solid #ef4444; text-align: center;">
+            <h4 style="color: #ef4444;">Temporary support</h4>
+            <p>Projects last 2-4 years max. When funding ends, the network dissolves</p>
+        </div>
+        <div class="card" style="border-top: 3px solid #ef4444; text-align: center;">
+            <h4 style="color: #ef4444;">Access barriers</h4>
+            <p>Complex processes, required consortiums, administrative jargon</p>
+        </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 2rem; border-color: var(--green);">
+        <h3 style="color: var(--green);">Let's overcome these steps together</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Sure, there are silos, no collective memory, and funding can be inaccessible&hellip;
+            but all of this can kill motivation. Let's get past these hurdles together!
+        </p>
+        <div class="grid-4" style="margin: 0; gap: 12px;">
+            <div style="text-align: center;">
+                <div style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">1</div>
+                <div style="font-weight: 600; margin: 0.3rem 0;">Discussion</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">Initial exchange to understand the project</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">2</div>
+                <div style="font-weight: 600; margin: 0.3rem 0;">Preparation</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">Refine ideas and needs</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">3</div>
+                <div style="font-weight: 600; margin: 0.3rem 0;">Call for projects</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">Recruit teams and resources</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">4</div>
+                <div style="font-weight: 600; margin: 0.3rem 0;">Execution</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">Concrete implementation</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5: WHAT AMA PROPOSES -->
+<section class="slide" id="proposal">
+    <h2>What AMA Proposes</h2>
+    <p style="color: var(--text-secondary); max-width: 750px; margin: 0 auto 2rem; text-align: center; font-size: 1.1rem; line-height: 1.8;">
+        Faced with these observations, AMA is building a simple answer:
+        a shared ecosystem where each collaboration strengthens the next,
+        leveraging local expertise and existing resources.
+    </p>
+
+    <div class="highlight-box" style="max-width: 700px; margin: 0 auto;">
+        <h3 style="color: var(--orange);">Phase 1 &mdash; Foundation (2026)</h3>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            I'm laying the groundwork: the tools, the first contacts, the first events.
+            AMA is under construction &mdash; and that's the best time to get involved.
+        </p>
+        <p style="color: var(--accent-light); margin-top: 1.5rem; font-style: italic;">
+            Join me now to build the next phases together!
+        </p>
+    </div>
+</section>
+
+<!-- SLIDE 6: THE VISION -->
+<section class="slide" id="vision">
+    <h2>The AMA Vision</h2>
+    <p class="subtitle">Connecting worlds through action.</p>
+
+    <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; text-align: center;">
+        Yann, Youhna &mdash; different names for the same intention: building bridges.
+        Between disciplines, between cultures, between those who have ideas
+        and those who have the means to make them real.
+    </p>
+
+    <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; text-align: center;">
+        AMA is not just another project &mdash; it's a <strong style="color: var(--text-primary);">backbone</strong>,
+        a permanent infrastructure on which projects plug in, grow, and connect with each other.
+    </p>
+
+    <div class="grid-3" style="margin: 2rem 0;">
+        <div class="card card-accent">
+            <h4>Welcome</h4>
+            <p>Anyone &mdash; artist, SME, NGO, school &mdash; can connect to the network and access shared resources.</p>
+        </div>
+        <div class="card card-accent">
+            <h4>Coordinate</h4>
+            <p>Contacts, equipment, venues, calendar: everything is centralized. No more starting from scratch.</p>
+        </div>
+        <div class="card card-accent">
+            <h4>Amplify</h4>
+            <p>Each project strengthens the network. From Paris to Brittany, connections accumulate and local impact multiplies.</p>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <p style="font-style: italic; color: var(--accent-light); font-size: 1.1rem;">
+            &laquo;&nbsp;Grace in motion, the word that connects, the consciousness that observes and transmits.&nbsp;&raquo;
+        </p>
+    </div>
+</section>
+
+<!-- SLIDE 6: THE ECOSYSTEM -->
+<section class="slide" id="ecosystem">
+    <h2>The AMA Ecosystem</h2>
+    <p class="subtitle">1 technical infrastructure + 3 operational pillars</p>
+
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <div class="pillar index" style="display: inline-block; width: 400px; max-width: 100%; margin-bottom: 1rem;">
+            <h4>INDEX</h4>
+            <p class="desc">The heart of AMA &mdash; Centralized collaborative space</p>
+            <ul>
+                <li>Contacts &amp; connections</li>
+                <li>Unified communication</li>
+                <li>Calendar &amp; reminders</li>
+                <li>Equipment &amp; resources</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 2rem; color: var(--accent);">|</span><br>
+        <span style="color: var(--text-secondary);">connects and powers</span><br>
+        <span style="font-size: 1.5rem; color: var(--accent);">&darr;</span>
+    </div>
+
+    <div class="grid-3">
+        <div class="pillar pinlab">
+            <h4>PIN-LAB</h4>
+            <p class="desc">Design &amp; Artistic Direction</p>
+            <ul>
+                <li>Design laboratory</li>
+                <li>Artistic direction</li>
+                <li>Modular prototyping</li>
+            </ul>
+        </div>
+        <div class="pillar float">
+            <h4>FLOAT</h4>
+            <p class="desc">Documentation &amp; Audiovisual Capture</p>
+            <ul>
+                <li>Video &amp; photo capture of events</li>
+                <li>Prototype documentation</li>
+                <li>Logistics &amp; technical coordination</li>
+            </ul>
+        </div>
+        <div class="pillar hubjam">
+            <h4>HUBJAM</h4>
+            <p class="desc">Music &amp; Sound Engineering (with Lo&iuml;c)</p>
+            <ul>
+                <li>Technical device (V1&ndash;V5)</li>
+                <li>Jams &amp; Sessions</li>
+                <li>Repair &amp; reuse workshops</li>
+            </ul>
+        </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-secondary); font-style: italic; max-width: 700px; margin-left: auto; margin-right: auto;">
+        A project leader submits their request via INDEX, which routes to PIN-LAB, FLOAT or HUBJAM based on needs.
+        Each participant declares their skills (level 1 to 3) based on profession and expertise, and receives adapted roles and instructions.
+    </p>
+
+    <!-- The 3 Phases of AMA -->
+    <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1.5rem;">The 3 Phases of AMA</h3>
+    <div class="grid-3">
+        <div class="card" style="border-top: 4px solid var(--green); text-align: center;">
+            <h4 style="color: var(--green);">Phase 1 &mdash; Foundation (2026)</h4>
+            <p>Laying the groundwork: tools, first contacts, first events.</p>
+            <p style="margin-top: 0.8rem; color: var(--green); font-size: 0.85rem; font-weight: 600;">&#8592; Current</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--orange); text-align: center;">
+            <h4 style="color: var(--orange);">Phase 2 &mdash; Expansion (2027)</h4>
+            <p>Opening to collaborators, data security (GDPR), partnerships.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--accent); text-align: center;">
+            <h4 style="color: var(--accent-light);">Phase 3 &mdash; Impact (2028)</h4>
+            <p>Multi-territorial deployment, measurable impact, international expansion.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 7: PIN-LAB -->
+<section class="slide" id="pinlab">
+    <h2>PIN-LAB</h2>
+    <p class="subtitle">Design Laboratory &amp; Artistic Direction</p>
+
+    <p style="max-width: 700px; color: var(--text-secondary); margin-bottom: 1rem;">
+        PIN-LAB is the creative arm of AMA. You're an artist or creator
+        with an idea? Come in, we'll help you make it happen!
+    </p>
+    <p style="max-width: 700px; color: var(--accent-light); margin-bottom: 2rem; font-size: 0.9rem; font-style: italic;">
+        E.g. Designing the scenography and visual identity of a festival.
+    </p>
+
+    <div class="grid-3" style="margin: 3rem 0;">
+        <div class="card card-accent">
+            <h4>HW Organizer</h4>
+            <p>Modular storage systems for creative spaces</p>
+            <p style="margin-top: 1rem; color: var(--orange);">In development</p>
+        </div>
+        <div class="card card-accent">
+            <h4>Po_Russes</h4>
+            <p>Nested modular concepts for artistic installations</p>
+            <p style="margin-top: 1rem; color: var(--pink);">Prototyping</p>
+        </div>
+        <div class="card card-accent">
+            <h4>MID</h4>
+            <p>Modular Info Desk for events and public spaces</p>
+            <p style="margin-top: 1rem; color: var(--pink);">In design</p>
+        </div>
+    </div>
+
+    <div class="card card-accent" style="max-width: 400px;">
+        <h4>Small Scale Shipping</h4>
+        <p>Lightweight logistics for creative material transport</p>
+        <p style="margin-top: 1rem; color: var(--orange);">Testing</p>
+    </div>
+</section>
+
+<!-- SLIDE 8: FLOAT -->
+<section class="slide" id="float">
+    <h2>FLOAT</h2>
+    <p class="subtitle">Documentation &amp; Audiovisual Capture</p>
+
+    <p style="max-width: 700px; color: var(--text-secondary); margin-bottom: 1rem;">
+        FLOAT documents everything happening within AMA: video and photo capture
+        of events, documentation of HUBJAM device prototyping,
+        and logistical coordination of technical teams.
+    </p>
+    <p style="max-width: 700px; color: var(--accent-light); margin-bottom: 2rem; font-size: 0.9rem; font-style: italic;">
+        Gear: camera + tripod. Collaborates with HUBJAM (sound) and PIN-LAB (artistic direction).
+    </p>
+
+    <div class="grid-3" style="margin: 2rem 0;">
+        <div class="card" style="border-top: 4px solid var(--orange);">
+            <h4>Ondes Ephemeres</h4>
+            <p>Musical performances and ephemeral installations in unique venues.</p>
+            <p style="margin-top: 0.8rem; color: var(--text-secondary); font-size: 0.9rem;">
+                HUBJAM &times; FLOAT collaboration. Independent events in France,
+                riding the cultural momentum of the 2028 Olympics.
+            </p>
+            <p style="margin-top: 1rem; color: var(--orange);">In preparation</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--green);">
+            <h4>HS Setup</h4>
+            <p>Modular scaffolding for artistic installations, concerts and filming.</p>
+            <p style="margin-top: 1rem; color: var(--orange);">Prototyping</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--accent);">
+            <h4>Third Places</h4>
+            <p>Partnerships with hybrid cultural venues:
+               creative spaces, residencies, shared workshops.</p>
+            <p style="margin-top: 0.8rem; color: var(--text-secondary); font-size: 0.9rem;">
+                E.g. Cite Fertile (Paris). Goal: build a network of third places across France and Europe.
+            </p>
+            <p style="margin-top: 1rem; color: var(--accent-light);">Exploring</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 9: HUBJAM -->
+<section class="slide" id="hubjam">
+    <h2>HUBJAM</h2>
+    <p class="subtitle">Music &amp; Sound Engineering</p>
+
+    <p style="max-width: 700px; color: var(--text-secondary); margin-bottom: 1rem;">
+        HUBJAM is AMA's music and sound engineering pillar, co-founded with
+        <strong>Lo&iuml;c</strong> (sound/light engineer, Salle du Cairn, Larmor-Baden).
+        Modular solutions for performances and sound recordings.
+    </p>
+    <p style="max-width: 700px; color: var(--accent-light); margin-bottom: 2rem; font-size: 0.9rem; font-style: italic;">
+        5 device versions (V1&ndash;V5), live-tested in Brittany and Paris.
+    </p>
+
+    <div class="highlight-box" style="max-width: 600px; margin: 2rem auto;">
+        <h3>HUBJAM Device &mdash; 5 Versions</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">V1: 25&times;17 cm &mdash; 6 jacks + 4 XLR in / 2 mini-jacks + 2 jacks + 2 XLR out</p>
+        <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">V3: 2 boxes (stage + control) with sound card and presets</p>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">V5: integrated 5G/6G relay (SIM card + router)</p>
+        <p style="font-style: italic; color: var(--text-secondary);">
+            "Connect anyone, anywhere, instantly"
+        </p>
+    </div>
+
+    <div class="grid-3">
+        <div class="card" style="border-top: 4px solid var(--green);">
+            <h4>HUBJAM Device (V1&ndash;V5)</h4>
+            <p>Modular tool for musicians and sound engineers. Customizable per need.</p>
+            <p style="margin-top: 1rem; color: var(--green);">Live-tested &checkmark;</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--green);">
+            <h4>Repair Workshops</h4>
+            <p>Low-tech workshops: repair, modify and build your own audio gear. Extend equipment lifespan rather than replace. Open to all.</p>
+            <p style="margin-top: 0.5rem; font-weight: 600; color: var(--accent-light); font-size: 0.9rem;">Low-tech &amp; Reuse</p>
+            <p style="margin-top: 0.5rem; color: var(--orange);">In preparation</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--green);">
+            <h4>Jams</h4>
+            <p>Music sessions with adaptable artistic direction</p>
+            <p style="margin-top: 1rem; color: var(--green);">Active &checkmark;</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 10: INDEX -->
+<section class="slide" id="index">
+    <h2>INDEX</h2>
+    <p class="subtitle">The heart of AMA &mdash; What gives the network a memory</p>
+
+    <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; text-align: center;">
+        Without INDEX, every project starts from scratch. With INDEX, the network accumulates:
+        contacts persist, resources are tracked, collaborations have a history.
+    </p>
+
+    <div class="grid-4">
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">&#128100;</div>
+            <h4>Contacts</h4>
+            <p>Find your contacts in one click</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">&#128172;</div>
+            <h4>Messages</h4>
+            <p>Unified communication (WhatsApp, Signal)</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">&#128197;</div>
+            <h4>Calendar</h4>
+            <p>Automatic reminders for your events</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">&#9989;</div>
+            <h4>Equipment</h4>
+            <p>Who owns what, where it's stored</p>
+        </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 2rem;">
+        <h3>Already in production</h3>
+        <p style="color: var(--text-secondary);">Unified WhatsApp + Signal messaging is live, with quick search and message scheduling.</p>
+    </div>
+</section>
+
+<!-- SLIDE 11: ALL PROJECTS -->
+<section class="slide" id="projects">
+    <h2>Project Overview</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Pillar</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>HW Organizer</td>
+                <td>PIN-LAB</td>
+                <td class="status-dev">In development</td>
+            </tr>
+            <tr>
+                <td>Po_Russes</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Prototyping</td>
+            </tr>
+            <tr>
+                <td>MID</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Design phase</td>
+            </tr>
+            <tr>
+                <td>Small Scale Shipping</td>
+                <td>PIN-LAB</td>
+                <td class="status-proto">Design phase</td>
+            </tr>
+            <tr>
+                <td>HS Setup</td>
+                <td>PIN-LAB + FLOAT</td>
+                <td class="status-proto">Prototyping</td>
+            </tr>
+            <tr>
+                <td>Ondes Ephemeres</td>
+                <td>FLOAT + HUBJAM</td>
+                <td class="status-dev">In preparation</td>
+            </tr>
+            <tr>
+                <td>HUBJAM Device (V1&ndash;V5)</td>
+                <td>HUBJAM</td>
+                <td class="status-dev">Live-tested</td>
+            </tr>
+            <tr>
+                <td>INDEX</td>
+                <td>INDEX</td>
+                <td class="status-proto">In design</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- SLIDE 12: NETWORK & SECTORS -->
+<section class="slide" id="network">
+    <h2>Network &amp; Target Sectors</h2>
+    <p class="subtitle">The fields where AMA aims to build bridges.</p>
+
+    <div class="partners-grid">
+        <div class="partner-category">
+            <h4>Art &amp; Design</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Design schools, creative workshops, artist residencies</p>
+        </div>
+        <div class="partner-category">
+            <h4>Music</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Conservatories, music schools, studios, independent labels</p>
+        </div>
+        <div class="partner-category">
+            <h4>Architecture</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Architecture schools, agencies, spatial collectives</p>
+        </div>
+        <div class="partner-category">
+            <h4>Logistics &amp; Transport</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Transport training, event logistics, supply chain</p>
+        </div>
+        <div class="partner-category">
+            <h4>Ecology &amp; Climate</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Environmental research, ecological transition, sustainable development</p>
+        </div>
+        <div class="partner-category">
+            <h4>Social Innovation</h4>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Social entrepreneurship, digital training, collaborative projects</p>
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center; margin-top: 1rem;">
+        <h4>Tech &amp; Digital</h4>
+        <p>Development, open source tools, automation, AI</p>
+    </div>
+
+    <p class="note" style="text-align: center; margin-top: 1rem;">Partnerships in progress &mdash; open to any institution or collective sharing our values.</p>
+</section>
+
+<!-- SLIDE 13: ROADMAP -->
+<section class="slide" id="roadmap">
+    <h2>Roadmap</h2>
+
+    <div class="timeline">
+        <div class="timeline-phase">
+            <div class="year">2026</div>
+            <div class="dot"></div>
+            <div class="content">
+                <h4>PHASE 1: Foundation</h4>
+                <ul>
+                    <li>&bull; Landing page ama-workspace.com</li>
+                    <li>&bull; 100 active profiles</li>
+                    <li>&bull; First Recorded Jam</li>
+                    <li>&bull; HUBJAM device (V1&ndash;V5)</li>
+                    <li>&bull; INDEX messaging (in design)</li>
+                </ul>
+                <p style="margin-top: 8px; color: var(--green); font-size: 0.85rem; font-weight: 600;">&#8592; We are here</p>
+            </div>
+        </div>
+        <div class="timeline-phase">
+            <div class="year">2027</div>
+            <div class="dot" style="background: var(--orange);"></div>
+            <div class="content">
+                <h4>PHASE 2: Expansion</h4>
+                <ul>
+                    <li>&bull; 20+ partner institutions</li>
+                    <li>&bull; 500 profiles</li>
+                    <li>&bull; 50 devices</li>
+                    <li>&bull; 10 Ondes Ephemeres</li>
+                </ul>
+            </div>
+        </div>
+        <div class="timeline-phase">
+            <div class="year">2028</div>
+            <div class="dot" style="background: var(--green);"></div>
+            <div class="content">
+                <h4>PHASE 3: Impact</h4>
+                <ul>
+                    <li>&bull; OnDePhemeres 2028</li>
+                    <li>&bull; 1,000 profiles</li>
+                    <li>&bull; International expansion</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 14: CONTACT -->
+<section class="slide slide-hero" id="contact">
+    <h2>Join AMA</h2>
+
+    <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; text-align: center;">
+        Have a venue or project? Select your activity type,
+        and INDEX will connect you with the right teams.
+    </p>
+
+    <div class="grid-4" style="max-width: 700px; margin: 0 auto 2rem; gap: 12px;">
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Concert" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#127926;</div>
+            <h4 style="font-size: 0.95rem;">Concert</h4>
+        </a>
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Art%20Installation" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#127912;</div>
+            <h4 style="font-size: 0.95rem;">Art installation</h4>
+        </a>
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Residency" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#127969;</div>
+            <h4 style="font-size: 0.95rem;">Residency</h4>
+        </a>
+        <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Other%20Project" class="card" style="text-align: center; text-decoration: none; cursor: pointer; transition: border-color 0.2s;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#128161;</div>
+            <h4 style="font-size: 0.95rem;">Other project</h4>
+        </a>
+    </div>
+
+    <div class="contact-box">
+        <div class="url">www.ama-workspace.com</div>
+
+        <p class="info">&#9993; contact@ama-workspace.gmail.com</p>
+
+        <div style="margin-top: 2rem;">
+            <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Collaboration" class="btn">Propose a collaboration</a>
+        </div>
+        <div>
+            <a href="mailto:contact@ama-workspace.gmail.com?subject=AMA%20-%20Join" class="btn-outline">Join the network</a>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    var dots = document.querySelectorAll('.nav-dots a');
+    var slides = document.querySelectorAll('.slide');
+    var progress = document.getElementById('navProgress');
+
+    function updateActive() {
+        var current = 0;
+        slides.forEach(function(slide, i) {
+            var rect = slide.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2) {
+                current = i;
+            }
+        });
+        dots.forEach(function(dot, i) {
+            dot.classList.toggle('active', i === current);
+        });
+        if (dots.length > 0 && progress) {
+            var pct = (current / (dots.length - 1)) * 100;
+            progress.style.height = pct + '%';
+        }
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Table of contents menu
+    var menuBtn = document.getElementById('menuBtn');
+    var overlay = document.getElementById('sommaireOverlay');
+    var closeBtn = document.getElementById('sommaireClose');
+
+    menuBtn.addEventListener('click', function() {
+        overlay.classList.add('open');
+    });
+
+    closeBtn.addEventListener('click', function() {
+        overlay.classList.remove('open');
+    });
+
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.classList.remove('open');
+        }
+    });
+
+    var sommaireLinks = overlay.querySelectorAll('a');
+    sommaireLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            overlay.classList.remove('open');
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
+<\!-- AMA v2 -->

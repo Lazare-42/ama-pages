@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist BRI 2.0 — Dissertation &rarr; M&eacute;moire</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#fff;min-height:100vh;padding:20px;max-width:720px;margin:0 auto;line-height:1.6}
+        a{color:#818cf8;text-decoration:none}a:hover{text-decoration:underline}
+        .back{display:inline-block;margin-bottom:12px;font-size:.8rem}
+        h1{font-size:1.4rem;margin-bottom:2px;color:#818cf8;text-align:center}
+        .tagline{color:#888;font-size:.82rem;margin-bottom:6px;text-align:center}
+        .origin{color:#555;font-size:.72rem;text-align:center;margin-bottom:20px}
+
+        /* Progress bar */
+        .progress-wrap{margin-bottom:24px}
+        .progress-label{display:flex;justify-content:space-between;font-size:.7rem;color:#666;margin-bottom:4px}
+        .progress-bar{height:8px;background:#1a1a2e;border-radius:4px;overflow:hidden}
+        .progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#818cf8,#38bdf8);transition:width .3s}
+
+        /* Timeline */
+        .timeline{display:flex;gap:4px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px}
+        .tl-item{flex:1;min-width:0;text-align:center;padding:6px 4px;border-radius:8px;background:#12121a;border:1px solid #2a2a3a;cursor:pointer;transition:all .2s}
+        .tl-item:hover,.tl-item.active{border-color:#818cf8}
+        .tl-num{font-size:.65rem;color:#555;font-weight:700}
+        .tl-name{font-size:.55rem;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .tl-time{font-size:.5rem;color:#444}
+        .tl-item.done{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.05)}
+        .tl-item.done .tl-num{color:#22c55e}
+
+        /* Phase sections */
+        .phase{margin-bottom:24px;display:none}
+        .phase.visible{display:block}
+        .phase-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer}
+        .phase-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+        .pn-1{background:rgba(129,140,248,.2);color:#818cf8}
+        .pn-2{background:rgba(56,189,248,.2);color:#38bdf8}
+        .pn-3{background:rgba(236,72,153,.2);color:#ec4899}
+        .pn-4{background:rgba(245,158,11,.2);color:#f59e0b}
+        .pn-5{background:rgba(34,197,94,.2);color:#22c55e}
+        .pn-6{background:rgba(168,85,247,.2);color:#a855f7}
+        .pn-7{background:rgba(251,146,60,.2);color:#fb923c}
+        .phase-info{flex:1}
+        .phase-title{font-size:.95rem;font-weight:600}
+        .phase-dur{font-size:.7rem;color:#555}
+
+        /* Sub-sections */
+        .sub{margin-bottom:14px}
+        .sub-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#555;margin-bottom:6px;padding-left:2px}
+
+        /* Check items */
+        .check-list{list-style:none}
+        .check-item{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;background:#12121a;border:1px solid #1e1e2e;border-radius:8px;margin-bottom:4px;font-size:.78rem;color:#bbb;transition:all .15s;cursor:pointer}
+        .check-item:hover{border-color:#333}
+        .check-item.done{opacity:.5;text-decoration:line-through;color:#555}
+        .check-box{width:16px;height:16px;border:2px solid #333;border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+        .check-item.done .check-box{border-color:#22c55e;background:rgba(34,197,94,.2);color:#22c55e}
+        .check-item.done .check-box::after{content:"\2713";font-size:.65rem}
+        .check-item.has .check-box{border-color:#22c55e;background:rgba(34,197,94,.2);color:#22c55e}
+        .check-item.has .check-box::after{content:"\2713";font-size:.65rem}
+        .check-item.has{color:#666}
+        .check-text{flex:1}
+        .check-text strong{color:#ddd;font-weight:600}
+        .check-text .detail{display:block;font-size:.68rem;color:#555;margin-top:1px}
+
+        /* Cards */
+        .card{background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:14px;margin-bottom:8px}
+        .card-title{font-size:.85rem;font-weight:600;margin-bottom:6px}
+        .card-text{font-size:.78rem;color:#999;line-height:1.5}
+        .card-text strong{color:#ccc}
+        .highlight{border-color:rgba(56,189,248,.3);background:linear-gradient(135deg,#12121a,rgba(56,189,248,.05))}
+        .warn{border-color:rgba(245,158,11,.3);background:linear-gradient(135deg,#12121a,rgba(245,158,11,.05))}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+        /* Angles cards */
+        .angle{background:#12121a;border:1px solid #2a2a3a;border-radius:8px;padding:10px 12px;margin-bottom:6px;font-size:.78rem;color:#bbb}
+        .angle em{color:#818cf8;font-style:normal;font-weight:600}
+        .angle .link{font-size:.68rem;color:#555;margin-top:2px;display:block}
+
+        /* Plan structure */
+        .plan-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a2a;font-size:.78rem}
+        .plan-item:last-child{border:none}
+        .plan-ch{color:#818cf8;font-weight:600;min-width:90px;flex-shrink:0}
+        .plan-desc{color:#999;flex:1}
+        .plan-wc{color:#555;font-size:.7rem;text-align:right;min-width:50px}
+
+        /* Resources */
+        .res-link{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#12121a;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:4px;text-decoration:none;color:#fff;transition:all .15s}
+        .res-link:hover{border-color:#818cf8;transform:translateY(-1px);text-decoration:none}
+        .res-icon{font-size:1rem}
+        .res-info{flex:1}
+        .res-name{font-size:.8rem;font-weight:600}
+        .res-desc{font-size:.65rem;color:#555}
+
+        /* Timeline table */
+        .tl-table{width:100%;border-collapse:collapse}
+        .tl-table th{font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:#555;text-align:left;padding:4px 8px;border-bottom:1px solid #1e1e2e}
+        .tl-table td{font-size:.75rem;color:#999;padding:6px 8px;border-bottom:1px solid #141420}
+        .tl-table td:first-child{color:#818cf8;font-weight:600}
+
+        /* Bilan */
+        .bilan-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .bilan-card{background:#12121a;border:1px solid #2a2a3a;border-radius:8px;padding:10px 12px}
+        .bilan-card h4{font-size:.75rem;margin-bottom:6px}
+        .bilan-card.good h4{color:#22c55e}
+        .bilan-card.improve h4{color:#f59e0b}
+        .bilan-card ul{list-style:none}
+        .bilan-card li{font-size:.72rem;color:#888;padding:2px 0;padding-left:12px;position:relative}
+        .bilan-card li::before{content:"";position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%}
+        .bilan-card.good li::before{background:#22c55e}
+        .bilan-card.improve li::before{background:#f59e0b}
+
+        footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
+
+        @media(max-width:500px){
+            .grid2,.bilan-grid{grid-template-columns:1fr}
+            .timeline{gap:3px}
+            .tl-name{font-size:.5rem}
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://0x0.st/PApD.html" class="back">&larr; Fiches Infos</a>
+
+<h1>Checklist BRI 2.0</h1>
+<p class="tagline">De dissertation BSc &rarr; m&eacute;moire / th&egrave;se</p>
+<p class="origin">Yann CARIO &mdash; Solent University (BSc Maritime Business 2018-2021)</p>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+    <div class="progress-label"><span>Progression globale</span><span id="pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="bar" style="width:0%"></div></div>
+</div>
+
+<!-- TIMELINE NAV -->
+<div class="timeline" id="timeline">
+    <div class="tl-item done" data-phase="0"><div class="tl-num">INV</div><div class="tl-name">Inventaire</div><div class="tl-time">fait</div></div>
+    <div class="tl-item active" data-phase="1"><div class="tl-num">P1</div><div class="tl-name">Audit</div><div class="tl-time">2-3 sem</div></div>
+    <div class="tl-item" data-phase="2"><div class="tl-num">P2</div><div class="tl-name">Veille</div><div class="tl-time">1-2 mois</div></div>
+    <div class="tl-item" data-phase="3"><div class="tl-num">P3</div><div class="tl-name">Probl&eacute;matique</div><div class="tl-time">2-4 sem</div></div>
+    <div class="tl-item" data-phase="4"><div class="tl-num">P4</div><div class="tl-name">Structure</div><div class="tl-time">parall&egrave;le</div></div>
+    <div class="tl-item" data-phase="5"><div class="tl-num">P5</div><div class="tl-name">Donn&eacute;es</div><div class="tl-time">2-3 mois</div></div>
+    <div class="tl-item" data-phase="6"><div class="tl-num">P6</div><div class="tl-name">R&eacute;daction</div><div class="tl-time">3-6 mois</div></div>
+    <div class="tl-item" data-phase="7"><div class="tl-num">P7</div><div class="tl-name">Final</div><div class="tl-time">1-2 mois</div></div>
+</div>
+
+<!-- ==================== INVENTAIRE ==================== -->
+<div class="phase visible" id="phase-0">
+    <div class="phase-header">
+        <div class="phase-num pn-5">&#10003;</div>
+        <div class="phase-info">
+            <div class="phase-title">Inventaire du mat&eacute;riel existant</div>
+            <div class="phase-dur">D&eacute;j&agrave; identifi&eacute; &mdash; 47 &eacute;l&eacute;ments</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">Dissertation originale (MBU 603)</div>
+        <ul class="check-list">
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>AE1</strong> &mdash; Literature review / proposal<span class="detail">Plusieurs versions + reviews Colin &amp; Sonia</span></div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>AE2</strong> &mdash; Dissertation finale<span class="detail">AE2 MBU 603.docx + .pdf (~8.6 Mo)</span></div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>OBOR.txt</strong> &mdash; Notes de recherche d&eacute;taill&eacute;es (33 Ko)</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Methodology MBU603.rtf</strong> &mdash; Cadre m&eacute;thodologique</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>DISSERTATION MATERIAL.xlsx</strong> &mdash; Inventaire des sources</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">Sources acad&eacute;miques (30+ PDFs)</div>
+        <ul class="check-list">
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>CSIS</strong> &mdash; 4 rapports : Maritime Silk Road, Game of Loans, Gwadar Port</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Research Gate</strong> &mdash; 8+ articles : OBOR impact, Saudi Arabia, railway</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Articles individuels</strong> &mdash; 15+ : Green BRI, Djibouti, Pakistan-China, India-China...</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Intermodal reports</strong> &mdash; 4 : Central Asia, Copperbelt, Europe Green, South Africa</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">Mat&eacute;riel visuel &amp; data</div>
+        <ul class="check-list">
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Figures/</strong> &mdash; Cartes MSRI, Africa potential, China's Vision</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>METR-02/Data set</strong> &mdash; Excel + Published research (5 docs)</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>METR-02/Personnal Drawings</strong> &mdash; Dessins originaux &agrave; la main</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>METR-02/THESIS</strong> &mdash; Portfolio + METR O2 Global</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">Nouvelles ressources (fiches AMA)</div>
+        <ul class="check-list">
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>Global South World</strong> &mdash; M&eacute;dia ind&eacute;pendant, voix du Sud global</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>China-Global South Project</strong> &mdash; R&eacute;f&eacute;rence #1 depuis 2010</div></li>
+            <li class="check-item has"><div class="check-box"></div><div class="check-text"><strong>People's Map of Global China</strong> &mdash; Carte interactive UCLA/ANU</div></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== PHASE 1 ==================== -->
+<div class="phase" id="phase-1">
+    <div class="phase-header">
+        <div class="phase-num pn-1">1</div>
+        <div class="phase-info">
+            <div class="phase-title">Audit &amp; relecture</div>
+            <div class="phase-dur">2-3 semaines</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">1.1 &mdash; Relire la dissertation originale</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Relire AE2 MBU 603 int&eacute;gralement, annoter forces et faiblesses</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Identifier la probl&eacute;matique originale exacte (research question)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Cartographier la structure actuelle (chapitres, word count par section)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Identifier les lacunes : o&ugrave; l'analyse reste superficielle ?</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Relire les feedbacks de Colin et Sonia</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Relire le Plan Dissertation.pdf</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">1.2 &mdash; &Eacute;valuer la m&eacute;thodologie</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Qualifier l'approche actuelle : qualitative ? descriptive ? mixte ?</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Donn&eacute;es utilis&eacute;es vs disponibles mais non exploit&eacute;es</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">&Eacute;valuer le niveau : BSc descriptif &rarr; Master analytique / Th&egrave;se contributif</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Noter les limites m&eacute;thodologiques admises</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">1.3 &mdash; Auditer les sources</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Lister toutes les r&eacute;f&eacute;rences cit&eacute;es dans AE2</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Classer par type : acad&eacute;mique, institutionnel, m&eacute;dia, donn&eacute;es brutes</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Identifier les sources obsol&egrave;tes (pre-2020)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Identifier les auteurs cl&eacute;s &agrave; suivre</div></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== PHASE 2 ==================== -->
+<div class="phase" id="phase-2">
+    <div class="phase-header">
+        <div class="phase-num pn-2">2</div>
+        <div class="phase-info">
+            <div class="phase-title">Mise &agrave; jour des connaissances</div>
+            <div class="phase-dur">1-2 mois</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">2.1 &mdash; &Eacute;volutions BRI 2021-2026</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Impact COVID-19</strong> sur la BRI (2020-2022)<span class="detail">Ralentissement, reconfigurations</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>BRI 2.0 / Green BRI</strong><span class="detail">Annonces Xi Jinping, nouvelles orientations</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Chiffres actualis&eacute;s</strong><span class="detail">$800 Mds (2013-2022), record 2025 $123 Mds, 147 pays</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Digital Silk Road</strong><span class="detail">5G, c&acirc;bles sous-marins, data centers</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Health / Polar / Space Silk Road</strong></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Post-Ukraine (2022+)</strong><span class="detail">Impact sanctions, r&eacute;orientation flux</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Comp&eacute;tition US-Chine</strong><span class="detail">B3W &rarr; PGII (Partnership for Global Infrastructure)</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>D&eacute;bat &laquo; debt trap &raquo;</strong><span class="detail">Nouvelles &eacute;tudes qui nuancent (Brautigam, etc.)</span></div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">2.2 &mdash; &Eacute;volutions par r&eacute;gion</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Afrique</strong> &mdash; Nouveaux ports, mines critiques, Kenya SGR bilan</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Moyen-Orient</strong> &mdash; Saudi Vision 2030 + BRI, UAE, Djibouti</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Asie du Sud-Est</strong> &mdash; ASEAN + BRI, Laos-China Railway (2021)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Asie centrale</strong> &mdash; Corridors ferroviaires, Kazakhstan</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Europe</strong> &mdash; Piraeus (COSCO), Trieste, screening investissements</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Am&eacute;rique latine</strong> &mdash; Mines lithium (Argentine, Chili, Bolivie)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Pacifique</strong> &mdash; &Icirc;les Salomon, Fidji, nouvelles adh&eacute;sions</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">2.3 &mdash; Nouvelles sources &agrave; exploiter</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>AidData</strong> (William &amp; Mary) &mdash; Base investissements chinois</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Green Finance Center</strong> (Fudan) &mdash; Suivi BRI green</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Boston Uni</strong> &mdash; China's Overseas Development Finance</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>UNCTAD</strong> &mdash; Review of Maritime Transport 2021-2025</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>IMO</strong> &mdash; &Eacute;volutions r&eacute;glementaires 2021-2026</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Lloyd's List</strong> &mdash; Donn&eacute;es shipping (acc&egrave;s via Solent ?)</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">2.4 &mdash; Auteurs cl&eacute;s &agrave; suivre</div>
+        <div class="grid2">
+            <div class="card"><div class="card-text"><strong>Deborah Brautigam</strong><br>Johns Hopkins SAIS<br>Dette africaine, Chine-Afrique</div></div>
+            <div class="card"><div class="card-text"><strong>Jonathan Hillman</strong><br>CSIS<br>The Emperor's New Road</div></div>
+            <div class="card"><div class="card-text"><strong>Ching Kwan Lee</strong><br>UCLA<br>People's Map</div></div>
+            <div class="card"><div class="card-text"><strong>Eric Olander</strong><br>China-Global South Project<br>15+ ans couverture</div></div>
+            <div class="card"><div class="card-text"><strong>Jean-Marc Blanchard</strong><br>MSRI impacts<br>Afrique &amp; Moyen-Orient</div></div>
+            <div class="card"><div class="card-text"><strong>Eyck Freymann</strong><br>Chinese Power Meets the World</div></div>
+            <div class="card"><div class="card-text"><strong>Anna Gelpern</strong><br>Dette souveraine &amp; BRI</div></div>
+            <div class="card"><div class="card-text"><strong>Jonathan Fulton</strong><br>BRI Moyen-Orient<br>Saudi Arabia focus</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== PHASE 3 ==================== -->
+<div class="phase" id="phase-3">
+    <div class="phase-header">
+        <div class="phase-num pn-3">3</div>
+        <div class="phase-info">
+            <div class="phase-title">Red&eacute;finition de la probl&eacute;matique</div>
+            <div class="phase-dur">2-4 semaines</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">3.1 &mdash; Angles possibles pour le m&eacute;moire</div>
+        <div class="angle"><em>&laquo; Comment la BRI 2.0 reconfigure-t-elle les cha&icirc;nes logistiques maritimes mondiales ? &raquo;</em></div>
+        <div class="angle"><em>&laquo; De la "debt trap" au "green corridor" : &eacute;volution des narratifs et r&eacute;alit&eacute;s de la BRI maritime &raquo;</em></div>
+        <div class="angle"><em>&laquo; BRI et ports : impact sur la gouvernance portuaire dans le Sud global &raquo;</em></div>
+        <div class="angle"><em>&laquo; La BRI comme catalyseur de plateformes logistiques alternatives &raquo;</em><span class="link">&rarr; Pont direct vers METR H2O</span></div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">3.2 &mdash; Cadrage th&eacute;orique</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Th&eacute;orie des r&eacute;gimes internationaux</strong><span class="detail">Krasner, Keohane</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>G&eacute;opolitique critique</strong><span class="detail">Agnew, Tuathail</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>&Eacute;conomie politique internationale</strong></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Supply chain governance</strong><span class="detail">Gereffi</span></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Th&eacute;orie du syst&egrave;me-monde</strong><span class="detail">Wallerstein &mdash; centre/p&eacute;riph&eacute;rie</span></div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">3.3 &mdash; D&eacute;limiter le p&eacute;rim&egrave;tre</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Choisir : couverture mondiale <strong>OU</strong> focus r&eacute;gional approfondi ?</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Choisir : tous secteurs <strong>OU</strong> focus maritime/portuaire ?</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">D&eacute;finir la p&eacute;riode : 2013-2026 (complet) <strong>OU</strong> 2020-2026 (&eacute;volution r&eacute;cente)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Niveau d'analyse : macro (g&eacute;opolitique) / meso (sectoriel) / micro (&eacute;tudes de cas)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Valider avec un directeur de recherche potentiel</div></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== PHASE 4 ==================== -->
+<div class="phase" id="phase-4">
+    <div class="phase-header">
+        <div class="phase-num pn-4">4</div>
+        <div class="phase-info">
+            <div class="phase-title">Structure du m&eacute;moire</div>
+            <div class="phase-dur">En parall&egrave;le de Phase 3</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">Plan type m&eacute;moire</div>
+        <div class="card highlight">
+            <div class="plan-item"><div class="plan-ch">Introduction</div><div class="plan-desc">Contexte, probl&eacute;matique, justification, m&eacute;thodologie</div><div class="plan-wc">~3 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Ch. 1 &mdash; Litt.</div><div class="plan-desc">Cadre th&eacute;orique, historiographie BRI, BRI 2.0, d&eacute;bats, lacunes</div><div class="plan-wc">~8 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Ch. 2 &mdash; M&eacute;tho</div><div class="plan-desc">Approche, design, collecte, analyse, limites &amp; &eacute;thique</div><div class="plan-wc">~3 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Ch. 3 &mdash; Axe 1</div><div class="plan-desc">(Selon probl&eacute;matique choisie)</div><div class="plan-wc">~6 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Ch. 4 &mdash; Axe 2</div><div class="plan-desc">(Selon probl&eacute;matique choisie)</div><div class="plan-wc">~6 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Ch. 5 &mdash; Disc.</div><div class="plan-desc">Synth&egrave;se, perspective th&eacute;orique, implications, lien METR H2O</div><div class="plan-wc">~4 000</div></div>
+            <div class="plan-item"><div class="plan-ch">Conclusion</div><div class="plan-desc">R&eacute;ponse, contributions, limites, pistes futures</div><div class="plan-wc">~2 000</div></div>
+            <div class="plan-item" style="border:none"><div class="plan-ch" style="color:#22c55e">Total</div><div class="plan-desc"></div><div class="plan-wc" style="color:#22c55e;font-weight:700">~32 000</div></div>
+        </div>
+    </div>
+
+    <ul class="check-list">
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">R&eacute;diger le plan d&eacute;taill&eacute; complet</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Ajuster selon le format requis (universit&eacute; cible)</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Viser ~30-40k mots (m&eacute;moire) ou 80k+ (th&egrave;se)</div></li>
+    </ul>
+</div>
+
+<!-- ==================== PHASE 5 ==================== -->
+<div class="phase" id="phase-5">
+    <div class="phase-header">
+        <div class="phase-num pn-5">5</div>
+        <div class="phase-info">
+            <div class="phase-title">Collecte de donn&eacute;es</div>
+            <div class="phase-dur">2-3 mois</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">5.1 &mdash; Donn&eacute;es secondaires</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>AidData</strong> &mdash; Global Chinese Development Finance Dataset</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>People's Map</strong> &mdash; Base de projets interactive (filtrer secteur/r&eacute;gion)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Green BRI tracker</strong> &mdash; Boston Uni / Fudan</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>UNCTAD</strong> &mdash; Statistiques commerce/transport maritime</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>World Bank</strong> &mdash; Logistics Performance Index</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Donn&eacute;es portuaires</strong> &mdash; UNCTAD, Drewry, Lloyd's List</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">5.2 &mdash; Donn&eacute;es primaires (optionnel, pour th&egrave;se)</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>Entretiens</strong> &mdash; Chercheurs BRI, pros maritime, repr&eacute;sentants ports</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text"><strong>&Eacute;tudes de cas terrain</strong><span class="detail">Piraeus (COSCO), Hambantota, Gwadar, Mombasa, Djibouti</span></div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">5.3 &mdash; Organiser le mat&eacute;riel</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Cr&eacute;er dossier <strong>BRI-2.0/Sources-2026/</strong></div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Installer <strong>Zotero ou Mendeley</strong> pour la bibliographie</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Fichier de suivi des sources (qui, quoi, pertinence, statut lecture)</div></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== PHASE 6 ==================== -->
+<div class="phase" id="phase-6">
+    <div class="phase-header">
+        <div class="phase-num pn-6">6</div>
+        <div class="phase-info">
+            <div class="phase-title">R&eacute;daction</div>
+            <div class="phase-dur">3-6 mois</div>
+        </div>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">6.1 &mdash; &Eacute;criture</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">R&eacute;diger chapitre par chapitre (commencer par la revue de litt&eacute;rature)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Recycler les meilleurs passages de AE2 (en les am&eacute;liorant)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Harvard referencing, style acad&eacute;mique rigoureux</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Int&eacute;grer tableaux, graphiques, cartes</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Maintenir un journal de bord de r&eacute;daction</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">6.2 &mdash; Qualit&eacute; acad&eacute;mique</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Ton analytique (pas journalistique)</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Chaque affirmation sourc&eacute;e</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Distinguer faits / analyses / opinions</div></li>
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Critical thinking : pr&eacute;senter les contre-arguments</div></li>
+        </ul>
+    </div>
+
+    <div class="sub">
+        <div class="sub-title">6.3 &mdash; Le pont METR H2O</div>
+        <ul class="check-list">
+            <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">D&eacute;cider : lien BRI &rarr; METR H2O dans le m&eacute;moire <strong>ou</strong> s&eacute;par&eacute; ?</div></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== PHASE 7 ==================== -->
+<div class="phase" id="phase-7">
+    <div class="phase-header">
+        <div class="phase-num pn-7">7</div>
+        <div class="phase-info">
+            <div class="phase-title">Relecture &amp; finalisation</div>
+            <div class="phase-dur">1-2 mois</div>
+        </div>
+    </div>
+
+    <ul class="check-list">
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Relecture personnelle compl&egrave;te</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Relecture par un pair (autre &eacute;tudiant / chercheur)</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">V&eacute;rification de toutes les r&eacute;f&eacute;rences</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Mise en forme selon normes</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Abstract en anglais + fran&ccedil;ais</div></li>
+        <li class="check-item" onclick="toggle(this)"><div class="check-box"></div><div class="check-text">Soumission ou archivage</div></li>
+    </ul>
+</div>
+
+<!-- ==================== RESSOURCES ==================== -->
+<div class="phase visible" id="phase-res" style="display:block">
+    <div class="sub" style="margin-top:8px">
+        <div class="sub-title">Ressources &amp; liens rapides</div>
+        <a href="https://0x0.st/PA9F.html" class="res-link" target="_blank"><div class="res-icon">&#9875;</div><div class="res-info"><div class="res-name">Fiche Solent University</div><div class="res-desc">BSc Maritime Business 2018-2021</div></div></a>
+        <a href="https://0x0.st/PA99.html" class="res-link" target="_blank"><div class="res-icon">&#127754;</div><div class="res-info"><div class="res-name">Fiche METR H2O</div><div class="res-desc">Plateformes logistiques flottantes</div></div></a>
+        <a href="https://0x0.st/PApV.html" class="res-link" target="_blank"><div class="res-icon">&#127758;</div><div class="res-info"><div class="res-name">Global South World</div><div class="res-desc">M&eacute;dia ind&eacute;pendant, voix du Sud global</div></div></a>
+        <a href="https://0x0.st/PApW.html" class="res-link" target="_blank"><div class="res-icon">&#127464;&#127475;</div><div class="res-info"><div class="res-name">China-Global South Project</div><div class="res-desc">R&eacute;f&eacute;rence #1 Chine-Sud global</div></div></a>
+        <a href="https://0x0.st/PAp4.html" class="res-link" target="_blank"><div class="res-icon">&#128506;</div><div class="res-info"><div class="res-name">People's Map of Global China</div><div class="res-desc">Carte interactive UCLA/ANU</div></div></a>
+    </div>
+</div>
+
+<!-- ==================== BILAN ==================== -->
+<div class="phase visible" id="phase-bilan" style="display:block">
+    <div class="sub" style="margin-top:8px">
+        <div class="sub-title">Bilan</div>
+        <div class="bilan-grid">
+            <div class="bilan-card good">
+                <h4>Forces</h4>
+                <ul>
+                    <li>Sujet ambitieux et bien choisi</li>
+                    <li>Bon corpus de sources (30+ PDFs)</li>
+                    <li>Vision multi-r&eacute;gionale</li>
+                    <li>Lien personnel fort (METR H2O)</li>
+                    <li>5 langues : FR, EN, ES, AR, CH</li>
+                </ul>
+            </div>
+            <div class="bilan-card improve">
+                <h4>&Agrave; am&eacute;liorer</h4>
+                <ul>
+                    <li>Passer du descriptif &agrave; l'analytique</li>
+                    <li>Renforcer le cadre th&eacute;orique</li>
+                    <li>Actualiser les donn&eacute;es (5 ans)</li>
+                    <li>M&eacute;thodologie plus rigoureuse</li>
+                    <li>Perspectives du Sud global</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== TIMELINE TABLE ==================== -->
+<div class="phase visible" id="phase-tl" style="display:block">
+    <div class="sub" style="margin-top:8px">
+        <div class="sub-title">Timeline sugg&eacute;r&eacute;e (~12 mois)</div>
+        <div class="card">
+            <table class="tl-table">
+                <tr><th>Mois</th><th>Phase</th><th>Objectif</th></tr>
+                <tr><td>1</td><td>Phase 1</td><td>Audit complet</td></tr>
+                <tr><td>2</td><td>Phase 2</td><td>Veille sources</td></tr>
+                <tr><td>3</td><td>Phase 3</td><td>Probl&eacute;matique d&eacute;finie</td></tr>
+                <tr><td>3-4</td><td>Phase 4</td><td>Plan d&eacute;taill&eacute; valid&eacute;</td></tr>
+                <tr><td>4-6</td><td>Phase 5</td><td>Collecte de donn&eacute;es</td></tr>
+                <tr><td>6-10</td><td>Phase 6</td><td>R&eacute;daction</td></tr>
+                <tr><td>11-12</td><td>Phase 7</td><td>Relecture, finalisation</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>Checklist BRI 2.0 &mdash; 10/02/2026</footer>
+
+<script>
+// Phase navigation
+document.querySelectorAll('.tl-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const p = item.dataset.phase;
+        document.querySelectorAll('.phase').forEach(el => {
+            el.classList.remove('visible');
+            el.style.display = 'none';
+        });
+        document.getElementById('phase-' + p).style.display = 'block';
+        document.getElementById('phase-' + p).classList.add('visible');
+        // Always show resources, bilan, timeline
+        ['phase-res','phase-bilan','phase-tl'].forEach(id => {
+            document.getElementById(id).style.display = 'block';
+        });
+        document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+    });
+});
+
+// Toggle check items
+function toggle(el) {
+    el.classList.toggle('done');
+    updateProgress();
+    saveState();
+}
+
+// Progress
+function updateProgress() {
+    const all = document.querySelectorAll('.check-item[onclick]');
+    const done = document.querySelectorAll('.check-item[onclick].done');
+    const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('bar').style.width = pct + '%';
+}
+
+// Persist state in localStorage
+function saveState() {
+    const state = [];
+    document.querySelectorAll('.check-item[onclick]').forEach((el, i) => {
+        if (el.classList.contains('done')) state.push(i);
+    });
+    try { localStorage.setItem('bri-checklist', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadState() {
+    try {
+        const state = JSON.parse(localStorage.getItem('bri-checklist'));
+        if (state && state.length) {
+            const items = document.querySelectorAll('.check-item[onclick]');
+            state.forEach(i => { if (items[i]) items[i].classList.add('done'); });
+        }
+    } catch(e) {}
+    updateProgress();
+}
+
+loadState();
+</script>
+
+</body>
+</html>

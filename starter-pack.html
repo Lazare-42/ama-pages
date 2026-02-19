@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMA &mdash; Starter Pack Cr&eacute;ateur</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0f; color: #fff; padding: 20px;
+  line-height: 1.6;
+}
+.container { max-width: 740px; margin: 0 auto; }
+h1 { text-align: center; font-size: 1.6rem; color: #818cf8; margin-bottom: 4px; }
+.subtitle { text-align: center; color: #666; font-size: 0.85rem; margin-bottom: 8px; }
+.intro { text-align: center; color: #9ca3af; font-size: 0.82rem; margin-bottom: 28px; max-width: 540px; margin-left: auto; margin-right: auto; }
+h2 {
+  font-size: 1.1rem; color: #818cf8; margin: 36px 0 16px;
+  padding-bottom: 8px; border-bottom: 1px solid #1a1a2a;
+}
+h3 { font-size: 0.95rem; color: #a5b4fc; margin: 20px 0 8px; }
+p { margin: 6px 0; color: #ccc; font-size: 0.85rem; }
+ul { padding-left: 20px; margin: 6px 0; }
+li { margin-bottom: 4px; color: #ccc; font-size: 0.85rem; }
+strong { color: #fff; }
+code {
+  background: #1a1a2e; padding: 2px 6px; border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem;
+  color: #818cf8;
+}
+pre {
+  background: #0d0d14; border: 1px solid #1a1a2a; border-radius: 8px;
+  padding: 12px 14px; margin: 10px 0; overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem;
+  color: #a5b4fc; line-height: 1.5;
+}
+.tip {
+  background: rgba(34,197,94,0.08); border-left: 3px solid #22c55e;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+.warning {
+  background: rgba(239,68,68,0.08); border-left: 3px solid #ef4444;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+.note {
+  background: rgba(129,140,248,0.08); border-left: 3px solid #818cf8;
+  padding: 8px 12px; margin: 10px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.8rem; color: #9ca3af;
+}
+
+/* Sommaire */
+.sommaire {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 12px;
+  padding: 16px 20px; margin-bottom: 24px;
+}
+.sommaire h3 { margin: 0 0 10px; color: #818cf8; font-size: 0.85rem; }
+.sommaire ol { padding-left: 20px; }
+.sommaire li { margin-bottom: 4px; }
+.sommaire a { color: #a5b4fc; text-decoration: none; font-size: 0.82rem; }
+.sommaire a:hover { color: #818cf8; text-decoration: underline; }
+
+/* Card */
+.card {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px;
+}
+.card-title { font-weight: 600; font-size: 0.88rem; color: #fff; margin-bottom: 8px; }
+
+/* Schema */
+.schema {
+  background: #0d0d14; border: 1px solid #1a1a2a; border-radius: 10px;
+  padding: 16px; margin: 12px 0; font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.7rem; line-height: 1.4; color: #a5b4fc; overflow-x: auto;
+  white-space: pre;
+}
+
+/* Steps */
+.step {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid #111118;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  background: #818cf8; color: #0a0a0f; width: 24px; height: 24px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+}
+.step-text { flex: 1; }
+.step-text strong { color: #fff; }
+.step-text p { margin: 2px 0; }
+
+/* Example block */
+.example {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 10px;
+  padding: 16px; margin: 14px 0;
+}
+.example-label {
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: #f59e0b; margin-bottom: 8px;
+}
+.example p { font-size: 0.82rem; }
+
+/* Checklist materiel */
+.checklist {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 12px;
+  padding: 16px 20px; margin: 12px 0;
+}
+.checklist h3 { margin: 0 0 10px; color: #22c55e; font-size: 0.9rem; }
+.checklist ul { list-style: none; padding: 0; }
+.checklist li { padding: 4px 0; font-size: 0.82rem; color: #ccc; }
+.checklist li::before { content: "&#9744; "; color: #555; }
+
+/* Gallery */
+.gallery {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  margin: 12px 0;
+}
+.gallery-item {
+  background: #12121a; border: 1px solid #2a2a3a; border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.gallery-item .emoji { font-size: 1.5rem; margin-bottom: 6px; }
+.gallery-item .label { font-size: 0.82rem; font-weight: 600; color: #fff; }
+.gallery-item .desc { font-size: 0.72rem; color: #666; margin-top: 2px; }
+.gallery-item.purple { border-color: rgba(129,140,248,0.3); }
+.gallery-item.green { border-color: rgba(34,197,94,0.3); }
+.gallery-item.orange { border-color: rgba(245,158,11,0.3); }
+.gallery-item.pink { border-color: rgba(236,72,153,0.3); }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.8rem; }
+th { background: #12121a; color: #818cf8; padding: 8px 10px; text-align: left; border: 1px solid #2a2a3a; }
+td { padding: 8px 10px; border: 1px solid #1a1a2a; color: #ccc; }
+
+/* Back to top */
+.top-link { display: inline-block; margin-top: 8px; color: #555; font-size: 0.7rem; text-decoration: none; }
+.top-link:hover { color: #818cf8; }
+
+footer {
+  text-align: center; margin-top: 32px; padding-top: 12px;
+  border-top: 1px solid #1a1a2a; color: #444; font-size: 0.7rem;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1 id="top">AMA &mdash; Starter Pack Cr&eacute;ateur</h1>
+<p class="subtitle">De tes id&eacute;es &agrave; tes premiers outils &mdash; en une session</p>
+<p class="intro">Tu as un projet cr&eacute;atif ? Tu arrives avec tes fichiers, tes id&eacute;es, tes contacts. On te donne un assistant IA et en 30 minutes tu repars avec tes premiers outils : une fiche projet, des fiches contacts, un brief &mdash; tout en HTML, lisible partout, partageable imm&eacute;diatement.</p>
+
+<!-- SOMMAIRE -->
+<div class="sommaire">
+  <h3>Sommaire</h3>
+  <ol>
+    <li><a href="#concept">Le concept &mdash; comment &ccedil;a marche ?</a></li>
+    <li><a href="#materiel">Ce que tu am&egrave;nes</a></li>
+    <li><a href="#premiere">Ta premi&egrave;re session</a></li>
+    <li><a href="#brief">Cr&eacute;er ton brief projet</a></li>
+    <li><a href="#fiches">Cr&eacute;er tes fiches contacts</a></li>
+    <li><a href="#partager">Partager ton travail</a></li>
+    <li><a href="#catalogue">Ce que tu peux cr&eacute;er</a></li>
+    <li><a href="#suite">Et apr&egrave;s ?</a></li>
+  </ol>
+</div>
+
+<!-- ========================================= -->
+<!-- 1. LE CONCEPT                             -->
+<!-- ========================================= -->
+<h2 id="concept">1. Le concept &mdash; comment &ccedil;a marche ?</h2>
+
+<div class="card">
+  <div class="card-title">L'id&eacute;e</div>
+  <p>AMA met &agrave; disposition des <strong>postes de travail</strong> avec un assistant IA (Claude Code). Tu arrives avec ton projet, tu lui expliques en fran&ccedil;ais ce que tu fais, et il t'aide &agrave; cr&eacute;er tes premiers outils de travail.</p>
+  <p>Pas besoin de savoir coder. Pas besoin d'&ecirc;tre technique. Tu parles, il fait.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">Le processus</div>
+  <div class="schema" style="text-align: center; font-size: 0.7rem;">
+  TES FICHIERS              L'ASSISTANT                  TES OUTILS
+  (cl&eacute; USB)              (Claude Code)                (fichiers HTML)
+
+ &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+ &#9474; Tes id&eacute;es       &#9474;    &#9474; Il lit, il     &#9474;    &#9474; Brief projet   &#9474;
+ &#9474; Tes contacts    &#9474; &rarr;&rarr; &#9474; comprend, il   &#9474; &rarr;&rarr; &#9474; Fiches contacts&#9474;
+ &#9474; Tes notes       &#9474;    &#9474; cr&eacute;e pour toi  &#9474;    &#9474; Pages partage  &#9474;
+ &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Pourquoi du HTML ?</div>
+  <ul>
+    <li><strong>Universel</strong> &mdash; s'ouvre sur n'importe quel ordinateur, t&eacute;l&eacute;phone, tablette</li>
+    <li><strong>L&eacute;ger</strong> &mdash; un seul fichier, pas besoin d'internet pour le lire</li>
+    <li><strong>Partageable</strong> &mdash; envoie le fichier ou un lien, c'est tout</li>
+    <li><strong>Beau</strong> &mdash; l'assistant cr&eacute;e des pages propres avec un vrai design</li>
+    <li><strong>Modifiable</strong> &mdash; tu peux toujours revenir et faire des changements</li>
+  </ul>
+  <div class="tip">Tu n'as pas besoin de comprendre le HTML. L'assistant le g&egrave;re pour toi. Toi tu te concentres sur le contenu.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 2. CE QUE TU AMENES                       -->
+<!-- ========================================= -->
+<h2 id="materiel">2. Ce que tu am&egrave;nes</h2>
+
+<div class="checklist">
+  <h3>Mat&eacute;riel n&eacute;cessaire</h3>
+  <ul>
+    <li>Une <strong>cl&eacute; USB ou disque dur</strong> avec tes fichiers</li>
+    <li>Tes <strong>id&eacute;es de projet</strong> (m&ecirc;me en vrac, c'est OK)</li>
+    <li>Tes <strong>contacts</strong> (noms, r&ocirc;les, coordonn&eacute;es)</li>
+    <li>30 minutes minimum de temps</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">Tes fichiers peuvent &ecirc;tre n'importe quoi</div>
+  <p>L'assistant sait lire et comprendre :</p>
+  <ul>
+    <li>Des notes (texte, Word, PDF...)</li>
+    <li>Des listes de contacts (Excel, CSV, texte...)</li>
+    <li>Des descriptions de projets</li>
+    <li>Des briefs, des mails, des conversations</li>
+    <li>Des images de r&eacute;f&eacute;rence</li>
+  </ul>
+  <div class="note">M&ecirc;me si tes fichiers sont en vrac ou mal organis&eacute;s &mdash; l'assistant t'aide justement &agrave; mettre de l'ordre.</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Structure sugg&eacute;r&eacute;e (pas obligatoire)</div>
+  <p>Si tu veux pr&eacute;parer ta cl&eacute; USB avant de venir :</p>
+  <div class="schema" style="font-size: 0.7rem;">TA-CLE-USB/
+&#9474;
+&#9500;&#9472;&#9472; mon-projet/              &larr; un dossier par projet
+&#9474;   &#9500;&#9472;&#9472; notes.txt            &larr; tes id&eacute;es, m&ecirc;me en vrac
+&#9474;   &#9500;&#9472;&#9472; contacts.txt         &larr; liste de contacts
+&#9474;   &#9500;&#9472;&#9472; brief.txt            &larr; description du projet
+&#9474;   &#9492;&#9472;&#9472; references/          &larr; images, liens, docs
+&#9474;
+&#9492;&#9472;&#9472; (autres projets...)
+</div>
+  <div class="tip">Mais m&ecirc;me si tu arrives avec juste un dossier en vrac, &ccedil;a marche. L'assistant s'adapte.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 3. TA PREMIERE SESSION                    -->
+<!-- ========================================= -->
+<h2 id="premiere">3. Ta premi&egrave;re session</h2>
+
+<div class="card">
+  <div class="card-title">Qu'est-ce qui se passe ?</div>
+  <p>Tu t'assois devant un poste AMA. L'&eacute;cran affiche Claude Code &mdash; un assistant IA dans un terminal. Tu lui parles en fran&ccedil;ais, il r&eacute;pond et agit.</p>
+  <div class="schema">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+&#9474;                                                                         &#9474;
+&#9474;   &gt; salut, je m'appelle Marie. Je suis architecte                      &#9474;
+&#9474;     et j'ai un projet de mobilier &eacute;co-con&ccedil;u.                             &#9474;
+&#9474;     Voici mes fichiers sur la cl&eacute; USB.                                  &#9474;
+&#9474;                                                                         &#9474;
+&#9474;   Claude : Bonjour Marie ! Je vois tes fichiers.                       &#9474;
+&#9474;   Tu as des notes, des contacts et des r&eacute;f&eacute;rences.                     &#9474;
+&#9474;   On commence par quoi ? Un brief projet ?                              &#9474;
+&#9474;   Des fiches contacts ? Un planning ?                                   &#9474;
+&#9474;                                                                         &#9474;
+&#9474;   &gt; oui un brief projet pour commencer _                               &#9474;
+&#9474;                                                                         &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Les &eacute;tapes de ta premi&egrave;re session</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <p><strong>Se pr&eacute;senter</strong></p>
+      <pre>salut, je m'appelle [pr&eacute;nom]. Je suis [m&eacute;tier/passion].
+Mon projet c'est [description courte].</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <p><strong>Montrer ses fichiers</strong></p>
+      <pre>regarde les fichiers sur ma cl&eacute; USB et dis-moi ce que tu vois</pre>
+      <p>L'assistant explore tes fichiers et te fait un r&eacute;sum&eacute;.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <p><strong>Choisir ce qu'on cr&eacute;e</strong></p>
+      <pre>cr&eacute;e-moi un brief projet avec les infos que tu as trouv&eacute;es</pre>
+      <p>L'assistant cr&eacute;e un fichier HTML propre &agrave; partir de tes notes.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <p><strong>Relire et ajuster</strong></p>
+      <pre>c'est bien mais change le titre et ajoute la partie budget</pre>
+      <p>Tu corriges, tu ajoutes, tu affines &mdash; c'est un dialogue.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text">
+      <p><strong>R&eacute;cup&eacute;rer et partager</strong></p>
+      <p>Ton fichier HTML est sur ta cl&eacute; USB. Tu peux aussi le mettre en ligne en une commande pour le partager par lien.</p>
+    </div>
+  </div>
+</div>
+
+<div class="tip">Tout se passe en conversation. Tu n'as rien &agrave; installer, rien &agrave; configurer. Tu parles, l'assistant fait.</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 4. CREER TON BRIEF PROJET                 -->
+<!-- ========================================= -->
+<h2 id="brief">4. Cr&eacute;er ton brief projet</h2>
+
+<div class="card">
+  <div class="card-title">Qu'est-ce qu'un brief projet ?</div>
+  <p>Une page HTML qui pr&eacute;sente ton projet de mani&egrave;re claire et pro. Elle contient :</p>
+  <ul>
+    <li>Le nom et la description du projet</li>
+    <li>Le contexte (pourquoi, pour qui)</li>
+    <li>Les objectifs</li>
+    <li>Les partenaires / collaborateurs</li>
+    <li>Le planning ou les prochaines &eacute;tapes</li>
+    <li>Les coordonn&eacute;es</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">Comment le cr&eacute;er ?</div>
+  <p>Tu donnes les infos &agrave; l'assistant, m&ecirc;me en vrac :</p>
+  <pre>cr&eacute;e un brief pour mon projet. Voici les infos :
+- nom : Mobilier Modulaire &Eacute;co
+- c'est du mobilier fabriqu&eacute; &agrave; partir de mat&eacute;riaux r&eacute;cup&eacute;r&eacute;s
+- on vise les &eacute;v&eacute;nements culturels et les espaces de coworking
+- partenaires : R&eacute;serve des Arts, Cit&eacute; Fertile
+- budget &agrave; d&eacute;finir
+- premi&egrave;re expo pr&eacute;vue en juin</pre>
+  <p>L'assistant cr&eacute;e une page compl&egrave;te avec un design propre.</p>
+</div>
+
+<div class="example">
+  <div class="example-label">Exemple de r&eacute;sultat</div>
+  <p>L'assistant g&eacute;n&egrave;re un fichier <code>brief-mobilier-eco.html</code> avec :</p>
+  <ul>
+    <li>Un header avec le nom du projet</li>
+    <li>Des sections claires (Contexte, Objectifs, Partenaires, Planning)</li>
+    <li>Un design sombre et moderne (style AMA)</li>
+    <li>Les coordonn&eacute;es de contact en bas</li>
+  </ul>
+  <p>Tu peux l'ouvrir dans un navigateur, l'imprimer, ou l'envoyer par mail.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">Affiner le brief</div>
+  <pre>ajoute une section &laquo; Valeurs &raquo; avec : &eacute;co-conception, r&eacute;emploi, local</pre>
+  <pre>change les couleurs pour du vert au lieu du violet</pre>
+  <pre>mets le logo en haut (il est dans mon dossier references/)</pre>
+  <div class="tip">Tu peux faire autant d'aller-retours que tu veux. L'assistant modifie en direct.</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 5. CREER TES FICHES CONTACTS              -->
+<!-- ========================================= -->
+<h2 id="fiches">5. Cr&eacute;er tes fiches contacts</h2>
+
+<div class="card">
+  <div class="card-title">Qu'est-ce qu'une fiche contact ?</div>
+  <p>Une page HTML pour chaque partenaire, institution ou contact important. Elle contient :</p>
+  <ul>
+    <li>Nom de la structure / personne</li>
+    <li>Ce qu'ils font</li>
+    <li>Pourquoi c'est pertinent pour ton projet</li>
+    <li>Coordonn&eacute;es (site, mail, t&eacute;l&eacute;phone)</li>
+    <li>Notes personnelles (o&ugrave; tu en es avec eux)</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">Comment les cr&eacute;er ?</div>
+  <pre>cr&eacute;e une fiche contact pour R&eacute;serve des Arts :
+- association de r&eacute;emploi de mat&eacute;riaux culturels
+- 43 rue de Galli&eacute;ni, Pantin
+- contact : info@lareservedesarts.org
+- int&eacute;r&ecirc;t : fournisseur de mat&eacute;riaux pour le mobilier
+- on a un premier RDV pr&eacute;vu en mars</pre>
+</div>
+
+<div class="card">
+  <div class="card-title">Cr&eacute;er un hub de fiches</div>
+  <p>Quand tu as plusieurs fiches, l'assistant peut cr&eacute;er un <strong>hub</strong> &mdash; une page qui les regroupe toutes avec des liens :</p>
+  <pre>cr&eacute;e une page hub qui liste toutes mes fiches contacts</pre>
+  <div class="schema" style="font-size: 0.7rem; text-align: center;">
+                    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+                    &#9474;   HUB CONTACTS    &#9474;
+                    &#9474;   (page centrale)  &#9474;
+                    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+                             &#9474;
+            &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+            &#9474;             &#9474;             &#9474;
+   &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+   &#9474; Fiche A  &#9474;  &#9474; Fiche B  &#9474;  &#9474; Fiche C  &#9474;
+   &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 6. PARTAGER TON TRAVAIL                   -->
+<!-- ========================================= -->
+<h2 id="partager">6. Partager ton travail</h2>
+
+<div class="card">
+  <div class="card-title">3 fa&ccedil;ons de partager</div>
+  <table>
+    <tr><th>M&eacute;thode</th><th>Comment</th><th>Id&eacute;al pour</th></tr>
+    <tr><td><strong>Fichier direct</strong></td><td>Envoie le .html par mail, WeTransfer, cl&eacute; USB</td><td>Partage priv&eacute;, collaborateurs proches</td></tr>
+    <tr><td><strong>Lien 0x0.st</strong></td><td>L'assistant uploade et te donne un lien</td><td>Partage rapide, liens temporaires</td></tr>
+    <tr><td><strong>Site web</strong></td><td>Publication sur un domaine AMA (futur)</td><td>Pr&eacute;sence en ligne permanente</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">Partager par lien (le plus simple)</div>
+  <pre>uploade mon brief projet en ligne et donne-moi le lien</pre>
+  <p>L'assistant uploade le fichier et te donne un lien que tu peux envoyer &agrave; n'importe qui. La personne clique et voit ta page directement dans son navigateur.</p>
+  <div class="tip">Tu peux copier le lien et l'envoyer par SMS, WhatsApp, mail &mdash; tout marche.</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Garder une trace de tes liens</div>
+  <pre>cr&eacute;e un fichier avec tous mes liens partag&eacute;s</pre>
+  <p>L'assistant cr&eacute;e un fichier <code>mes-liens.md</code> avec la liste de tous tes fichiers et leurs liens. Comme un carnet d'adresses pour tes documents.</p>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 7. CE QUE TU PEUX CREER                   -->
+<!-- ========================================= -->
+<h2 id="catalogue">7. Ce que tu peux cr&eacute;er</h2>
+
+<p>Voici les types de fichiers que l'assistant peut cr&eacute;er pour toi d&egrave;s la premi&egrave;re session :</p>
+
+<div class="gallery">
+  <div class="gallery-item purple">
+    <div class="emoji">&#128196;</div>
+    <div class="label">Brief projet</div>
+    <div class="desc">Description compl&egrave;te de ton projet</div>
+  </div>
+  <div class="gallery-item green">
+    <div class="emoji">&#128101;</div>
+    <div class="label">Fiches contacts</div>
+    <div class="desc">Une page par partenaire/contact</div>
+  </div>
+  <div class="gallery-item orange">
+    <div class="emoji">&#128203;</div>
+    <div class="label">Dashboard</div>
+    <div class="desc">Tableau de bord avec liens rapides</div>
+  </div>
+  <div class="gallery-item pink">
+    <div class="emoji">&#127912;</div>
+    <div class="label">Portfolio</div>
+    <div class="desc">Pr&eacute;sentation de tes travaux</div>
+  </div>
+  <div class="gallery-item purple">
+    <div class="emoji">&#128197;</div>
+    <div class="label">Planning</div>
+    <div class="desc">Calendrier visuel de ton projet</div>
+  </div>
+  <div class="gallery-item green">
+    <div class="emoji">&#9745;</div>
+    <div class="label">Checklist</div>
+    <div class="desc">Liste de t&acirc;ches &agrave; suivre</div>
+  </div>
+  <div class="gallery-item orange">
+    <div class="emoji">&#128200;</div>
+    <div class="label">Infographie</div>
+    <div class="desc">Sch&eacute;mas et diagrammes visuels</div>
+  </div>
+  <div class="gallery-item pink">
+    <div class="emoji">&#128231;</div>
+    <div class="label">Page de contact</div>
+    <div class="desc">Landing page avec tes coordonn&eacute;es</div>
+  </div>
+</div>
+
+<div class="example">
+  <div class="example-label">Ce qu'AMA a cr&eacute;&eacute; avec cet outil</div>
+  <p>Le projet AMA utilise Claude Code au quotidien. Voici ce qui a &eacute;t&eacute; cr&eacute;&eacute; :</p>
+  <ul>
+    <li><strong>40+ fichiers HTML</strong> &mdash; fiches contacts, projets, portfolios</li>
+    <li><strong>4 portfolios</strong> &mdash; FR/EN, artistique et institutionnel</li>
+    <li><strong>2 landing pages</strong> &mdash; pr&eacute;sentation du projet FR/EN</li>
+    <li><strong>1 dashboard</strong> &mdash; tableau de bord avec tous les liens</li>
+    <li><strong>1 Bible projet</strong> &mdash; document ma&icirc;tre de 17 sections</li>
+    <li><strong>1 conciergerie</strong> &mdash; gestion de studios avec calendrier</li>
+    <li><strong>1 matrice d'acc&egrave;s</strong> &mdash; qui a acc&egrave;s &agrave; quoi</li>
+  </ul>
+  <p>Tout &ccedil;a a &eacute;t&eacute; cr&eacute;&eacute; en <strong>conversation</strong>, sans &eacute;crire une seule ligne de code.</p>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<!-- ========================================= -->
+<!-- 8. ET APRES ?                             -->
+<!-- ========================================= -->
+<h2 id="suite">8. Et apr&egrave;s ?</h2>
+
+<div class="card">
+  <div class="card-title">Apr&egrave;s ta premi&egrave;re session</div>
+  <p>Tu repars avec :</p>
+  <ul>
+    <li>Tes fichiers HTML sur ta cl&eacute; USB</li>
+    <li>Des liens partageables pour tes documents</li>
+    <li>Une base propre pour continuer &agrave; construire</li>
+  </ul>
+  <p>Tu peux revenir quand tu veux pour :</p>
+  <ul>
+    <li>Mettre &agrave; jour tes documents</li>
+    <li>Cr&eacute;er de nouveaux fichiers</li>
+    <li>Affiner ton projet</li>
+    <li>Pr&eacute;parer un pitch, un dossier, un &eacute;v&eacute;nement</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">La progression AMA</div>
+  <div class="schema" style="font-size: 0.7rem; text-align: center;">
+  Session 1             Session 2-3           Session 4+
+  DECOUVRIR             CONSTRUIRE            AUTONOMIE
+
+ &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+ &#9474; Brief projet   &#9474;  &#9474; Portfolio      &#9474;  &#9474; Ton propre     &#9474;
+ &#9474; Fiches contacts&#9474;  &#9474; Landing page   &#9474;  &#9474; compte Claude  &#9474;
+ &#9474; Dashboard      &#9474;  &#9474; Dossier complet&#9474;  &#9474; Tes outils     &#9474;
+ &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+</div>
+
+<div class="card">
+  <div class="card-title">Rejoindre l'&eacute;cosyst&egrave;me AMA</div>
+  <p>Tes fiches et tes projets peuvent rejoindre l'INDEX AMA &mdash; notre outil de coordination central. Tes contacts, tes comp&eacute;tences et tes projets deviennent visibles par les autres cr&eacute;ateurs du r&eacute;seau.</p>
+  <div class="schema" style="font-size: 0.7rem; text-align: center;">
+    TON PROJET              INDEX AMA              AUTRES PROJETS
+
+   &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;     &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;     &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+   &#9474; Tes fiches &#9474; &larr;&rarr; &#9474;  CONTACTS   &#9474; &larr;&rarr; &#9474; PIN-LAB    &#9474;
+   &#9474; Ton brief  &#9474;     &#9474;  RESSOURCES &#9474;     &#9474; FLOAT      &#9474;
+   &#9474; Tes liens  &#9474;     &#9474;  PROJETS    &#9474;     &#9474; HUBJAM     &#9474;
+   &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;     &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;     &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</div>
+  <p>Contact : <strong>contact@ama-workspace.com</strong></p>
+</div>
+
+<a href="#top" class="top-link">&uarr; Retour au sommaire</a>
+
+<footer>
+  AMA Starter Pack Cr&eacute;ateur &mdash; 12/02/2026 &middot; ama-workspace.com
+</footer>
+
+</div>
+</body>
+</html>
