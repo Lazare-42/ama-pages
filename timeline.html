@@ -471,6 +471,116 @@
         }
         .back-link:hover { opacity: 1; }
 
+        /* === WORLD MAP SECTION === */
+        .world-section {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding: 0 24px;
+        }
+        .world-title {
+            text-align: center;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #e0e0e8;
+            margin-bottom: 6px;
+        }
+        .world-subtitle {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #555;
+            margin-bottom: 28px;
+            letter-spacing: 0.05em;
+        }
+        .world-map {
+            position: relative;
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 32px 24px 24px;
+            margin-bottom: 24px;
+        }
+        .world-route {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+        .world-stop {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 14px;
+            background: rgba(129,140,248,0.06);
+            border: 1px solid rgba(129,140,248,0.12);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        .world-stop:hover {
+            border-color: #818cf8;
+            background: rgba(129,140,248,0.1);
+            transform: translateY(-2px);
+        }
+        .world-stop .flag { font-size: 1.4rem; }
+        .world-stop .country {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #d0d0e0;
+        }
+        .world-stop .duration {
+            font-size: 0.58rem;
+            color: #666;
+        }
+        .world-stop .age {
+            font-size: 0.55rem;
+            color: #818cf8;
+            font-weight: 500;
+        }
+        .world-arrow {
+            color: #333;
+            font-size: 1rem;
+        }
+        .world-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .world-stat {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(129,140,248,0.04);
+            border-radius: 8px;
+        }
+        .world-stat .big {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .world-stat .label {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 2px;
+        }
+        .world-phase-label {
+            display: inline-block;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .phase-childhood { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .phase-studies { background: rgba(129,140,248,0.15); color: #818cf8; }
+
         /* === RESPONSIVE === */
         @media (max-width: 700px) {
             .tategaki { display: none; }
@@ -496,6 +606,9 @@
                 right: auto !important;
             }
             .year-marker .year { font-size: 1.5rem; }
+            .world-stats { grid-template-columns: repeat(2, 1fr); }
+            .world-stop { min-width: 60px; padding: 8px 10px; }
+            .world-stop .flag { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -509,7 +622,7 @@
     <div class="hero-title">AMA</div>
     <p class="hero-sub">La gen&egrave;se d'un &eacute;cosyst&egrave;me</p>
     <p class="hero-sub" style="font-size:0.82rem; color:#666;">Art, Musique, Architecture &mdash; Yann CARIO</p>
-    <p class="hero-years">2018 &mdash; 2026</p>
+    <p class="hero-years">2000 &mdash; 2026</p>
     <div class="hero-scroll">&darr; D&eacute;filez pour explorer &darr;</div>
 </section>
 
@@ -522,8 +635,136 @@
     <div class="legend-item"><div class="legend-dot red"></div> Vision long terme</div>
 </div>
 
+<!-- =================== WORLD MAP — ENFANCE =================== -->
+<div class="world-section">
+    <div class="world-title">&Eacute;lev&eacute; entre 5 pays, form&eacute; dans 3 autres</div>
+    <div class="world-subtitle">N&eacute; le 9 ao&ucirc;t 2000 &mdash; Une enfance internationale</div>
+
+    <div class="world-map">
+        <!-- Enfance -->
+        <div style="text-align:center; margin-bottom: 12px;">
+            <span class="world-phase-label phase-childhood">Enfance &amp; Adolescence (2000-2018)</span>
+        </div>
+        <div class="world-route">
+            <div class="world-stop">
+                <span class="flag">&#x1F1E6;&#x1F1EA;</span>
+                <span class="country">&Eacute;AU</span>
+                <span class="duration">1 an</span>
+                <span class="age">naissance</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop">
+                <span class="flag">&#x1F1F0;&#x1F1F7;</span>
+                <span class="country">Cor&eacute;e</span>
+                <span class="duration">5 ans</span>
+                <span class="age">~1-6 ans</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop">
+                <span class="flag">&#x1F1EF;&#x1F1F4;</span>
+                <span class="country">Jordanie</span>
+                <span class="duration">6 ans</span>
+                <span class="age">~6-12 ans</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop">
+                <span class="flag">&#x1F1F2;&#x1F1E6;</span>
+                <span class="country">Maroc</span>
+                <span class="duration">3 ans</span>
+                <span class="age">~12-15 ans</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop">
+                <span class="flag">&#x1F1E6;&#x1F1EA;</span>
+                <span class="country">&Eacute;AU</span>
+                <span class="duration">3 ans</span>
+                <span class="age">~15-18 ans</span>
+            </div>
+        </div>
+
+        <!-- Études -->
+        <div style="text-align:center; margin-bottom: 12px;">
+            <span class="world-phase-label phase-studies">&Eacute;tudes &amp; Volontariat (2018-2025)</span>
+        </div>
+        <div class="world-route">
+            <div class="world-stop" style="border-color: rgba(129,140,248,0.25);">
+                <span class="flag">&#x1F1EC;&#x1F1E7;</span>
+                <span class="country">UK</span>
+                <span class="duration">3 ans</span>
+                <span class="age">Solent</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop" style="border-color: rgba(129,140,248,0.25);">
+                <span class="flag">&#x1F1EA;&#x1F1F8;</span>
+                <span class="country">Espagne</span>
+                <span class="duration">1 an</span>
+                <span class="age">EADA</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop" style="border-color: rgba(129,140,248,0.25);">
+                <span class="flag">&#x1F1EB;&#x1F1F7;</span>
+                <span class="country">France</span>
+                <span class="duration">3 ans</span>
+                <span class="age">LISAA &bull; ISTELI</span>
+            </div>
+            <span class="world-arrow">&rarr;</span>
+            <div class="world-stop" style="border-color: rgba(129,140,248,0.25);">
+                <span class="flag">&#x1F1E7;&#x1F1EA;</span>
+                <span class="country">Belgique</span>
+                <span class="duration">8 mois</span>
+                <span class="age">AGORA</span>
+            </div>
+        </div>
+
+        <div class="brush-divider" style="margin: 20px auto 16px;"></div>
+
+        <!-- Stats -->
+        <div class="world-stats">
+            <div class="world-stat">
+                <div class="big">8</div>
+                <div class="label">pays<br>v&eacute;cus</div>
+            </div>
+            <div class="world-stat">
+                <div class="big">4</div>
+                <div class="label">langues</div>
+            </div>
+            <div class="world-stat">
+                <div class="big">3</div>
+                <div class="label">continents</div>
+            </div>
+            <div class="world-stat">
+                <div class="big">25</div>
+                <div class="label">ans</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- =================== TIMELINE =================== -->
 <div class="timeline-container">
+
+    <!-- ========== 2015 — Stage Maroc ========== -->
+    <div class="year-marker">
+        <span class="year">2015
+            <span class="year-context">Rabat, Maroc &mdash; Premi&egrave;re exp&eacute;rience</span>
+        </span>
+    </div>
+
+    <div class="tl-entry right c-orange">
+        <div class="tl-card">
+            <div class="period">Mai 2015</div>
+            <div class="title">Stage Architecture</div>
+            <div class="location">Agence Leila Ramdani &mdash; Rabat, Maroc</div>
+            <div class="desc">
+                Dessins architecturaux, croquis, observation des processus de conception.
+                <strong>Premi&egrave;re graine d'int&eacute;r&ecirc;t pour l'architecture et le design spatial.</strong>
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag orange">STAGE</span>
+                <span class="tl-tag green">GEN&Egrave;SE PIN-LAB</span>
+            </div>
+        </div>
+    </div>
 
     <!-- ========== 2018 ========== -->
     <div class="year-marker">
