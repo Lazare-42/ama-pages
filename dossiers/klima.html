@@ -3,46 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dossier KLIMA School — AMA</title>
+    <title>Dossier KLIMA School &mdash; AMA</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; padding: 40px; max-width: 900px; margin: 0 auto; font-size: 14px; }
-        h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-        h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.8rem; color: #2d5016; border-bottom: 2px solid #2d5016; padding-bottom: 4px; }
-        h3 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.5rem; color: #444; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            line-height: 1.6;
+            padding: 32px 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #818cf8;
+            margin: 28px 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(129,140,248,0.15);
+            font-weight: 600;
+        }
+        h3 { font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.5rem; color: #a0a0b0; }
         p { margin-bottom: 0.6rem; }
         .date { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
         table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.85rem; }
-        th { background: #f0f4ec; padding: 8px 10px; text-align: left; font-weight: 600; border: 1px solid #ddd; }
-        td { padding: 7px 10px; border: 1px solid #ddd; }
-        tr:nth-child(even) { background: #fafafa; }
-        .highlight { background: #f0f4ec; }
-        .bold { font-weight: 700; }
-        blockquote { background: #f7f7f7; border-left: 4px solid #2d5016; padding: 12px 16px; margin: 1rem 0; font-style: italic; color: #333; }
+        th { background: #1a1a2a; padding: 8px 10px; text-align: left; font-weight: 600; border: 1px solid #2a2a3a; color: #c0c0d0; }
+        td { padding: 7px 10px; border: 1px solid #2a2a3a; }
+        tr:nth-child(even) { background: rgba(18,18,26,0.5); }
+        .highlight { background: rgba(129,140,248,0.08); }
+        .bold { font-weight: 700; color: #e8e8f0; }
+        blockquote {
+            background: #12121a;
+            border-left: 4px solid #818cf8;
+            padding: 12px 16px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #c8c8d8;
+            border-radius: 0 8px 8px 0;
+        }
         ul { margin: 0.5rem 0 0.5rem 1.5rem; }
         li { margin-bottom: 4px; }
-        .tag { display: inline-block; background: #2d5016; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
-        .tag-orange { background: #c47a0a; }
+        .tag { display: inline-block; background: #818cf8; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .tag-orange { background: #f59e0b; }
         .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 1rem 0; }
-        .box { background: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px; }
-        .box h4 { font-size: 0.9rem; margin-bottom: 0.4rem; color: #2d5016; }
-        .box p { font-size: 0.85rem; color: #555; margin: 0; }
+        .box {
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .box h4 { font-size: 0.9rem; margin-bottom: 0.4rem; color: #818cf8; }
+        .box p { font-size: 0.85rem; color: #a0a0b0; margin: 0; }
         .checklist { list-style: none; margin-left: 0; }
-        .checklist li::before { content: "\2610"; margin-right: 8px; }
-        .cr-box { background: #fffbe6; border: 1px solid #e6d98a; border-radius: 8px; padding: 16px; margin-top: 1rem; }
-        .cr-box p { color: #777; font-style: italic; }
-        hr { border: none; border-top: 1px solid #ddd; margin: 1.5rem 0; }
+        .checklist li::before { content: "\2610"; margin-right: 8px; color: #818cf8; }
+        .cr-box {
+            background: linear-gradient(135deg, #12121a, #1a1a2a);
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 1rem;
+        }
+        .cr-box p { color: #888; font-style: italic; }
+        hr { border: none; border-top: 1px solid #2a2a3a; margin: 1.5rem 0; }
+        a { color: #818cf8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Brush divider */
+        .brush-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #818cf8, #ec4899, transparent);
+            border-radius: 2px;
+            margin: 24px auto;
+            max-width: 200px;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        .ama-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .ama-footer .enso-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            opacity: 0.06;
+        }
+        .ama-watermark {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            letter-spacing: 0.1em;
+        }
+        .ama-signature {
+            font-size: 0.65rem;
+            color: #2a2a3a;
+            margin-top: 4px;
+        }
+        .ama-date {
+            font-size: 0.6rem;
+            color: #1a1a2a;
+            margin-top: 2px;
+        }
+
         @media print {
-            body { padding: 20px; font-size: 12px; }
+            body { padding: 20px; font-size: 12px; background: #fff; color: #1a1a1a; }
             h2 { page-break-after: avoid; }
             table { page-break-inside: avoid; }
+        }
+        @media (max-width: 500px) {
+            body { padding: 16px; }
+            .section-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+<a href="https://lazare-42.github.io/ama-pages/" style="display:inline-block;margin-bottom:12px;font-size:.8rem;color:#818cf8;text-decoration:none">&larr; Dashboard</a>
+
 <h1>Dossier KLIMA School &mdash; AMA</h1>
 <p class="date">Pr&eacute;par&eacute; le 2 f&eacute;vrier 2026 &mdash; Rencontre pr&eacute;vue le m&ecirc;me jour</p>
+
+<div class="brush-divider"></div>
 
 <h2>1. Fiche &Eacute;cole</h2>
 
@@ -68,6 +171,8 @@
     <tr><td>&mdash;</td><td>Admissions (g&eacute;n&eacute;ral)</td><td>admissions@klimaschool.com</td></tr>
     <tr><td>&mdash;</td><td>T&eacute;l&eacute;phone</td><td><em>contact via AMA-INDEX</em></td></tr>
 </table>
+
+<div class="brush-divider"></div>
 
 <h2>2. Programmes</h2>
 
@@ -130,6 +235,8 @@
     <tr><td class="bold">Business</td><td>Management, marketing digital, business dev</td><td>Croissance AMA</td></tr>
 </table>
 
+<div class="brush-divider"></div>
+
 <h2>3. Mon positionnement</h2>
 
 <div class="section-grid">
@@ -148,6 +255,8 @@
     &laquo; Je d&eacute;veloppe AMA, un &eacute;cosyst&egrave;me qui relie art, musique et architecture avec une logique durable. J'ai un parcours en commerce maritime, logistique et design. Je cherche des partenaires &mdash; pas un dipl&ocirc;me. Si KLIMA veut collaborer, on peut imaginer des choses ensemble : ateliers, projets &eacute;tudiants, incubation. Je suis ouvert. &raquo;
 </blockquote>
 
+<div class="brush-divider"></div>
+
 <h2>4. Ce que je peux apporter &agrave; KLIMA</h2>
 
 <table>
@@ -161,6 +270,8 @@
     <tr><td class="bold">Bureau Climat & RSE</td><td>Collaboration avec leur asso &eacute;tudiante</td></tr>
 </table>
 
+<div class="brush-divider"></div>
+
 <h2>5. Ce que KLIMA peut m'apporter</h2>
 
 <table>
@@ -173,6 +284,8 @@
     <tr><td>Comp&eacute;tences manquantes</td><td>Bilan carbone, finance durable, &eacute;co-conception</td></tr>
 </table>
 
+<div class="brush-divider"></div>
+
 <h2>6. Questions &agrave; poser</h2>
 
 <ol>
@@ -184,6 +297,8 @@
     <li><strong>&Eacute;v&eacute;nements</strong> &mdash; FLOAT/HUBJAM peuvent-ils participer ?</li>
     <li><strong>Rentr&eacute;e</strong> &mdash; Prochaine date d'admission possible ?</li>
 </ol>
+
+<div class="brush-divider"></div>
 
 <h2>7. Prochaines &eacute;tapes</h2>
 
@@ -207,6 +322,8 @@
     </div>
 </div>
 
+<div class="brush-divider"></div>
+
 <h2>8. Compte-rendu de la rencontre</h2>
 
 <div class="cr-box">
@@ -224,8 +341,14 @@
     <p>&Agrave; compl&eacute;ter</p>
 </div>
 
-<hr>
-<p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 2rem;">Dossier AMA &times; KLIMA School &mdash; Yann CARIO</p>
+<footer class="ama-footer">
+    <svg class="enso-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C75 5 95 25 95 50 C95 75 75 95 50 95 C25 95 5 75 5 50 C5 25 25 5 48 8" stroke="#818cf8" stroke-width="4" fill="none" stroke-linecap="round" opacity="1"/>
+    </svg>
+    <div class="ama-watermark">AMA-Workspace</div>
+    <div class="ama-signature">Y.C &mdash; Art, Musique, Architecture</div>
+    <div class="ama-date">2026</div>
+</footer>
 
 </body>
 </html>

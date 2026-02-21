@@ -29,7 +29,43 @@
         .stat-label{font-size:.68rem;color:#666;margin-top:2px}
         footer{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;color:#444;font-size:.7rem}
         @media(max-width:500px){.grid2{grid-template-columns:1fr}}
+    
+        /* AMA Footer */
+        .ama-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .ama-footer .enso-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            opacity: 0.06;
+        }
+        .ama-watermark {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            letter-spacing: 0.1em;
+        }
+        .ama-signature {
+            font-size: 0.65rem;
+            color: #2a2a3a;
+            margin-top: 4px;
+        }
+        .ama-date {
+            font-size: 0.6rem;
+            color: #1a1a2a;
+            margin-top: 2px;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -125,6 +161,13 @@
     </div>
 </div>
 
-<footer>Fiche institution &mdash; 10/02/2026</footer>
+<footer class="ama-footer">
+    <svg class="enso-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C75 5 95 25 95 50 C95 75 75 95 50 95 C25 95 5 75 5 50 C5 25 25 5 48 8" stroke="#818cf8" stroke-width="4" fill="none" stroke-linecap="round" opacity="1"/>
+    </svg>
+    <div class="ama-watermark">AMA-Workspace</div>
+    <div class="ama-signature">Y.C &mdash; Art, Musique, Architecture</div>
+    <div class="ama-date">2026</div>
+</footer>
 </body>
 </html>
