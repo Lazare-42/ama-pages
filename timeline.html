@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA Timeline &mdash; Y.C 2018-2026</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #818cf8);
+        }
+        .hero-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
+        }
+        .hero-sub {
+            font-size: 1rem;
+            color: #a0a0b0;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .hero-years {
+            font-size: 0.75rem;
+            color: #555;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 16px;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 100px;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 0.1em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* === TATEGAKI === */
+        .tategaki {
+            writing-mode: vertical-rl;
+            position: fixed;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.7rem;
+            color: rgba(129,140,248,0.12);
+            letter-spacing: 0.3em;
+            z-index: 100;
+        }
+
+        /* === TIMELINE CONTAINER === */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            position: relative;
+        }
+
+        /* === CENTRAL LINE === */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                #818cf8 0%,
+                #6366f1 20%,
+                #818cf8 40%,
+                #ec4899 60%,
+                #818cf8 80%,
+                #22c55e 100%
+            );
+            transform: translateX(-50%);
+            opacity: 0.4;
+        }
+
+        /* === YEAR MARKER === */
+        .year-marker {
+            position: relative;
+            text-align: center;
+            padding: 40px 0 20px;
+            z-index: 2;
+        }
+        .year-marker .year {
+            display: inline-block;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .year-marker .year::before,
+        .year-marker .year::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(129,140,248,0.3));
+        }
+        .year-marker .year::before { right: 100%; margin-right: 12px; }
+        .year-marker .year::after { left: 100%; margin-left: 12px; background: linear-gradient(90deg, rgba(129,140,248,0.3), transparent); }
+
+        .year-marker .year-context {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            color: #555;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* === TIMELINE ENTRY === */
+        .tl-entry {
+            position: relative;
+            width: 45%;
+            padding: 0 0 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .tl-entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tl-entry.left {
+            margin-left: 0;
+            padding-right: 32px;
+            text-align: right;
+        }
+        .tl-entry.right {
+            margin-left: 55%;
+            padding-left: 32px;
+            text-align: left;
+        }
+
+        /* Dot on the line */
+        .tl-entry::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #818cf8;
+            border: 2px solid #0a0a0f;
+            z-index: 3;
+            box-shadow: 0 0 12px rgba(129,140,248,0.4);
+        }
+        .tl-entry.left::before { right: -6px; margin-right: -1px; }
+        .tl-entry.right::before { left: -6px; margin-left: -1px; }
+
+        /* Connector line */
+        .tl-entry::after {
+            content: '';
+            position: absolute;
+            top: 23px;
+            width: 20px;
+            height: 1px;
+            background: rgba(129,140,248,0.2);
+        }
+        .tl-entry.left::after { right: 4px; }
+        .tl-entry.right::after { left: 4px; }
+
+        /* Color variants */
+        .tl-entry.c-green::before { background: #22c55e; box-shadow: 0 0 12px rgba(34,197,94,0.4); }
+        .tl-entry.c-orange::before { background: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,0.4); }
+        .tl-entry.c-pink::before { background: #ec4899; box-shadow: 0 0 12px rgba(236,72,153,0.4); }
+        .tl-entry.c-red::before { background: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,0.4); }
+
+        /* === CARD === */
+        .tl-card {
+            background: linear-gradient(135deg, #12121a, #16162a);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 16px 18px;
+            transition: all 0.3s ease;
+        }
+        .tl-card:hover {
+            border-color: #818cf8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(129,140,248,0.08);
+        }
+        .tl-entry.c-green .tl-card:hover { border-color: #22c55e; box-shadow: 0 8px 24px rgba(34,197,94,0.08); }
+        .tl-entry.c-orange .tl-card:hover { border-color: #f59e0b; box-shadow: 0 8px 24px rgba(245,158,11,0.08); }
+        .tl-entry.c-pink .tl-card:hover { border-color: #ec4899; box-shadow: 0 8px 24px rgba(236,72,153,0.08); }
+
+        .tl-card .period {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #818cf8;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .tl-entry.c-green .tl-card .period { color: #22c55e; }
+        .tl-entry.c-orange .tl-card .period { color: #f59e0b; }
+        .tl-entry.c-pink .tl-card .period { color: #ec4899; }
+
+        .tl-card .title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #f0f0f8;
+        }
+        .tl-card .location {
+            font-size: 0.72rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .tl-card .desc {
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.6;
+        }
+        .tl-card .desc strong {
+            color: #c0c0d0;
+        }
+
+        /* Tags */
+        .tl-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        .tl-entry.left .tl-tags { justify-content: flex-end; }
+        .tl-tag {
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .tl-tag.purple { background: rgba(129,140,248,0.15); color: #818cf8; }
+        .tl-tag.green { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .tl-tag.orange { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .tl-tag.pink { background: rgba(236,72,153,0.15); color: #ec4899; }
+        .tl-tag.red { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+        /* Expandable details */
+        .tl-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .tl-card.expanded .tl-details {
+            max-height: 500px;
+        }
+        .tl-details-content {
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: 1px solid #2a2a3a;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.7;
+        }
+        .tl-details-content ul {
+            margin: 4px 0 4px 16px;
+        }
+        .tl-details-content li {
+            margin-bottom: 2px;
+        }
+        .tl-expand {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.65rem;
+            color: #555;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        .tl-expand:hover { color: #818cf8; }
+
+        /* === PHASE BANNER === */
+        .phase-banner {
+            text-align: center;
+            padding: 32px 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+        .phase-label {
+            display: inline-block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #0a0a0f;
+            background: linear-gradient(135deg, #818cf8, #ec4899);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* === BRUSH DIVIDER === */
+        .brush-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #818cf8, #ec4899, transparent);
+            border-radius: 2px;
+            margin: 8px auto;
+            max-width: 200px;
+            opacity: 0.5;
+        }
+
+        /* === LEGEND === */
+        .legend {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            padding: 16px;
+            background: #12121a;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #888;
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .legend-dot.purple { background: #818cf8; }
+        .legend-dot.green { background: #22c55e; }
+        .legend-dot.orange { background: #f59e0b; }
+        .legend-dot.pink { background: #ec4899; }
+        .legend-dot.red { background: #ef4444; }
+
+        /* === NOW MARKER === */
+        .now-marker {
+            position: relative;
+            text-align: center;
+            padding: 24px 0;
+            z-index: 2;
+        }
+        .now-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #22c55e;
+        }
+        .now-pulse::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: nowpulse 1.5s ease-in-out infinite;
+        }
+        @keyframes nowpulse {
+            0%, 100% { box-shadow: 0 0 4px #22c55e; }
+            50% { box-shadow: 0 0 16px #22c55e, 0 0 32px rgba(34,197,94,0.3); }
+        }
+
+        /* === FUTURE SECTION === */
+        .future-entry .tl-card {
+            border-style: dashed;
+            opacity: 0.7;
+        }
+        .future-entry .tl-card:hover {
+            opacity: 1;
+        }
+
+        /* === FOOTER === */
+        .ama-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .ama-footer .enso-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            opacity: 0.06;
+        }
+        .ama-watermark {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            letter-spacing: 0.1em;
+        }
+        .ama-signature {
+            font-size: 0.65rem;
+            color: #2a2a3a;
+            margin-top: 4px;
+        }
+        .ama-date {
+            font-size: 0.6rem;
+            color: #1a1a2a;
+            margin-top: 2px;
+        }
+
+        /* === BACK LINK === */
+        .back-link {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 0.8rem;
+            color: #818cf8;
+            text-decoration: none;
+            z-index: 200;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 1; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 700px) {
+            .tategaki { display: none; }
+            .hero-title { font-size: 2.5rem; }
+
+            .timeline-container::before {
+                left: 20px;
+            }
+            .tl-entry {
+                width: calc(100% - 40px);
+                margin-left: 40px !important;
+                padding-left: 20px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+            .tl-entry.left .tl-tags { justify-content: flex-start; }
+            .tl-entry::before {
+                left: -26px !important;
+                right: auto !important;
+            }
+            .tl-entry::after {
+                left: -14px !important;
+                right: auto !important;
+            }
+            .year-marker .year { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://lazare-42.github.io/ama-pages/" class="back-link">&larr; Dashboard</a>
+<div class="tategaki">AMA</div>
+
+<!-- =================== HERO =================== -->
+<section class="hero">
+    <div class="hero-title">AMA</div>
+    <p class="hero-sub">La gen&egrave;se d'un &eacute;cosyst&egrave;me</p>
+    <p class="hero-sub" style="font-size:0.82rem; color:#666;">Art, Musique, Architecture &mdash; Yann CARIO</p>
+    <p class="hero-years">2018 &mdash; 2026</p>
+    <div class="hero-scroll">&darr; D&eacute;filez pour explorer &darr;</div>
+</section>
+
+<!-- =================== LEGEND =================== -->
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot purple"></div> Formation</div>
+    <div class="legend-item"><div class="legend-dot green"></div> Projet AMA</div>
+    <div class="legend-item"><div class="legend-dot orange"></div> Exp&eacute;rience terrain</div>
+    <div class="legend-item"><div class="legend-dot pink"></div> &Eacute;v&eacute;nement cl&eacute;</div>
+    <div class="legend-item"><div class="legend-dot red"></div> Vision long terme</div>
+</div>
+
+<!-- =================== TIMELINE =================== -->
+<div class="timeline-container">
+
+    <!-- ========== 2018 ========== -->
+    <div class="year-marker">
+        <span class="year">2018
+            <span class="year-context">Southampton, UK &mdash; Le d&eacute;but</span>
+        </span>
+    </div>
+
+    <div class="tl-entry left">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2018 &mdash; 2021 &bull; 3 ans</div>
+            <div class="title">BSc Maritime Business</div>
+            <div class="location">Solent University &mdash; Warsash Maritime School, Southampton, UK</div>
+            <div class="desc">
+                Commerce international, supply chain maritime, &eacute;conomie du shipping.
+                <strong>Seul dipl&ocirc;me valid&eacute;</strong> (mention 2e classe).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag purple">FORMATION</span>
+                <span class="tl-tag orange">DIPL&Ocirc;M&Eacute;</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>Financial Management &amp; Maritime Economics</li>
+                        <li>Global Trades &amp; Supply Chain</li>
+                        <li>Maritime Sustainability &amp; Regulations</li>
+                        <li>Shipping Economics &amp; Port Operations</li>
+                        <li>Visites : Southampton, Antwerp, Rotterdam</li>
+                    </ul>
+                    &rarr; Fondation logistique de METR H2O et de l'approche syst&eacute;mique AMA
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2019-2020 ========== -->
+    <div class="year-marker">
+        <span class="year">2020
+            <span class="year-context">Les routes de la soie</span>
+        </span>
+    </div>
+
+    <div class="tl-entry right c-pink">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2019 &mdash; 2020</div>
+            <div class="title">Dissertation BRI</div>
+            <div class="location">Solent &mdash; Module MBU 603</div>
+            <div class="desc">
+                <em>&laquo; China New Maritime Silk Road: A New Era in Transportation? &raquo;</em><br>
+                Analyse g&eacute;opolitique des 6 corridors &eacute;conomiques, 68 pays, routes maritimes.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag pink">RECHERCHE</span>
+                <span class="tl-tag red">METR H2O</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>Analyse PESTEL/SWOT de la Belt and Road Initiative</li>
+                        <li>6 corridors &eacute;conomiques d&eacute;taill&eacute;s</li>
+                        <li>Enjeux maritimes, ports strat&eacute;giques (Mombasa, Gwadar)</li>
+                        <li>Phase 2 pr&eacute;vue : mise &agrave; jour 2020-2026, traduction 5 langues</li>
+                    </ul>
+                    &rarr; Graine de METR H2O : les infrastructures maritimes comme levier de d&eacute;veloppement
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2021 ========== -->
+    <div class="year-marker">
+        <span class="year">2021
+            <span class="year-context">Barcelone &mdash; &Eacute;conomie circulaire</span>
+        </span>
+    </div>
+
+    <div class="tl-entry left">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2021 &mdash; 2022 &bull; 10 mois</div>
+            <div class="title">Master SBI &mdash; Sustainable Business &amp; Innovation</div>
+            <div class="location">EADA Business School &mdash; Barcelone, Espagne</div>
+            <div class="desc">
+                &Eacute;conomie circulaire, design thinking, finance durable, innovation sociale.
+                <strong>Participant</strong> (non termin&eacute;).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag purple">FORMATION</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>Circular Economy &amp; Eco-design</li>
+                        <li>Climate Change &amp; CSR Strategy</li>
+                        <li>Impact Investment &amp; Sustainable Finance</li>
+                        <li>Systems Thinking &amp; Leadership (Montserrat)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-green">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2021 &mdash; 2022</div>
+            <div class="title">Autofabricantes</div>
+            <div class="location">Projet EADA &mdash; Barcelone</div>
+            <div class="desc">
+                Premier projet modulaire : proth&egrave;ses personnalis&eacute;es via conteneurs modulaires.
+                <strong>Pr&eacute;curseur direct de PIN-LAB.</strong>
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">GEN&Egrave;SE PIN-LAB</span>
+                <span class="tl-tag purple">&Eacute;CO-DESIGN</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2022 ========== -->
+    <div class="year-marker">
+        <span class="year">2022
+            <span class="year-context">Paris &mdash; Architecture &amp; design</span>
+        </span>
+    </div>
+
+    <div class="tl-entry left">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">Oct 2022 &mdash; F&eacute;v 2023 &bull; 4 mois</div>
+            <div class="title">AD1 Architecture d'Int&eacute;rieur</div>
+            <div class="location">LISAA &mdash; Paris 13e</div>
+            <div class="desc">
+                Dessin architectural, sc&eacute;nographie, design modulaire, mat&eacute;riaux.
+                <strong>Participant</strong> (non termin&eacute;).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag purple">FORMATION</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>Perspective et repr&eacute;sentation spatiale</li>
+                        <li>M&eacute;thodologie de projet design</li>
+                        <li>Biomim&eacute;tisme (CEEBIOS)</li>
+                        <li>Sc&eacute;nographie et espaces &eacute;ph&eacute;m&egrave;res</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-green">
+        <div class="tl-card">
+            <div class="period">2022 &mdash; 2023</div>
+            <div class="title">Projets LISAA &rarr; PIN-LAB</div>
+            <div class="location">Paris</div>
+            <div class="desc">
+                <strong>HW Organizer</strong> (rangement modulaire), <strong>Po_Russes</strong> (poup&eacute;es russes artistiques), <strong>MID</strong> (Modular Info Desk). Ces projets deviennent les briques de PIN-LAB.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">PIN-LAB</span>
+                <span class="tl-tag purple">MODULAIRE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2023 ========== -->
+    <div class="year-marker">
+        <span class="year">2023
+            <span class="year-context">Bruxelles &amp; Pau &mdash; Terrain</span>
+        </span>
+    </div>
+
+    <div class="tl-entry left c-orange">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">Oct 2023 &mdash; Mai 2024 &bull; 8 mois</div>
+            <div class="title">AGORA &mdash; Service Civique</div>
+            <div class="location">Lyc&eacute;e Fran&ccedil;ais Jean Monnet &mdash; Bruxelles, Belgique</div>
+            <div class="desc">
+                Coordination des &eacute;changes &eacute;tudiants sur la plateforme AGORA (r&eacute;seau AEFE, 15 nationalit&eacute;s). Gestion calendrier, emails, communication.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag orange">COORDINATION</span>
+                <span class="tl-tag green">GEN&Egrave;SE INDEX</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    &rarr; Exp&eacute;rience fondatrice pour INDEX : coordonner des acteurs multiples, g&eacute;rer des flux d'information, faciliter les mises en relation. La logique "m&eacute;diateur de connexions" na&icirc;t ici.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-orange">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2023 &mdash; 2024</div>
+            <div class="title">H-K Courses</div>
+            <div class="location">Pau, France</div>
+            <div class="desc">
+                Agent logistique : dispatching, chargement camions, achat/vente d'espace fret.
+                <strong>Terrain pur.</strong>
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag orange">LOGISTIQUE</span>
+                <span class="tl-tag red">METR H2O</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>S&eacute;quences de chargement camions</li>
+                        <li>Gestion stocks &amp; espaces</li>
+                        <li>Logiciel dispatching (raccourcis F2-F10)</li>
+                        <li>Codes sous-traitants, classification fret</li>
+                    </ul>
+                    &rarr; Comp&eacute;tences directement transf&eacute;rables &agrave; FLOAT (logistique &eacute;v&eacute;nementielle) et METR H2O (flux maritimes)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2024 ========== -->
+    <div class="year-marker">
+        <span class="year">2024
+            <span class="year-context">Convergence &mdash; Tout se connecte</span>
+        </span>
+    </div>
+
+    <div class="phase-banner">
+        <span class="phase-label">Naissance d'AMA</span>
+    </div>
+    <div class="brush-divider"></div>
+
+    <div class="tl-entry left">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2024 &mdash; 2025</div>
+            <div class="title">GOTRM &mdash; Transport &amp; Logistique</div>
+            <div class="location">ISTELI/AFTRAL &mdash; Pau (alternance)</div>
+            <div class="desc">
+                Gestion op&eacute;rationnelle des transports. Co&ucirc;t de revient (CRK), bin&ocirc;me, trin&ocirc;me, segmentation march&eacute;.
+                <strong>Participant</strong> (non termin&eacute;).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag purple">FORMATION</span>
+                <span class="tl-tag orange">ALTERNANCE</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>M&eacute;thodes CRK, bin&ocirc;me, trin&ocirc;me</li>
+                        <li>Seuil de rentabilit&eacute;</li>
+                        <li>Segmentation : LTL, groupage, express, FCL, ADR</li>
+                        <li>R&eacute;glementation transport</li>
+                    </ul>
+                    &rarr; Outils directement applicables au mod&egrave;le &eacute;conomique AMA
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-green">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">Q4 2024 &mdash; Q1 2025</div>
+            <div class="title">HUBJAM &mdash; Gen&egrave;se</div>
+            <div class="location">Avec Lo&iuml;c &mdash; Larmor-Baden, Bretagne</div>
+            <div class="desc">
+                Bo&icirc;tier audio modulaire low-tech pour jams et &eacute;v&eacute;nements live.
+                <strong>5 versions (V1&rarr;V5)</strong> con&ccedil;ues et test&eacute;es.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">HUBJAM</span>
+                <span class="tl-tag pink">MUSIQUE</span>
+            </div>
+            <span class="tl-expand">+ versions</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li><strong>V1</strong> : 6 jacks + 4 XLR in / 2 mini-jacks + 2 jacks + 2 XLR out</li>
+                        <li><strong>V2</strong> : + Direct Injection (DI)</li>
+                        <li><strong>V3</strong> : Carte son + s&eacute;paration 2 bo&icirc;tiers (sc&egrave;ne + mixage)</li>
+                        <li><strong>V4</strong> : Am&eacute;liorations techniques</li>
+                        <li><strong>V5</strong> : Relais 5G/6G int&eacute;gr&eacute; (en conception)</li>
+                    </ul>
+                    Test&eacute; en live en Bretagne + Paris. Objectif : 50 unit&eacute;s en production.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-orange">
+        <div class="tl-card">
+            <div class="period">Q4 2024</div>
+            <div class="title">Conciergerie RPN</div>
+            <div class="location">31 rue du Pont Neuf &mdash; Paris 1er</div>
+            <div class="desc">
+                Gestion de 3 studios Airbnb. Logistique quotidienne : linge, m&eacute;nage, check-in/out, inventaire.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag orange">TERRAIN</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2025 ========== -->
+    <div class="year-marker">
+        <span class="year">2025
+            <span class="year-context">Structuration &mdash; Les 4 piliers</span>
+        </span>
+    </div>
+
+    <div class="tl-entry right c-green">
+        <div class="tl-card">
+            <div class="period">Q1 2025</div>
+            <div class="title">PIN-LAB</div>
+            <div class="location">Paris + Bretagne</div>
+            <div class="desc">
+                &Eacute;co-conception &amp; design modulaire. Prototypage, sc&eacute;nographie, mobilier r&eacute;employable.
+                Inclut : HW Organizer, Po_Russes, MID, HS Setup.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">PIN-LAB</span>
+                <span class="tl-tag purple">MODULAIRE</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-green">
+        <div class="tl-card">
+            <div class="period">Q1 2025</div>
+            <div class="title">FLOAT</div>
+            <div class="location">Paris</div>
+            <div class="desc">
+                Documentation audiovisuelle. Captation &eacute;v&eacute;nements, logistique terrain.
+                Projet phare : <strong>Ondes &Eacute;ph&eacute;m&egrave;res</strong> (10 events vis&eacute;s, JO 2028).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">FLOAT</span>
+                <span class="tl-tag pink">VID&Eacute;O</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-green">
+        <div class="tl-card">
+            <div class="period">Q1 2025</div>
+            <div class="title">INDEX</div>
+            <div class="location">6 repos GitHub &mdash; Stack Svelte/Go</div>
+            <div class="desc">
+                Hub central : contacts, mises en relation, calendrier partag&eacute;, messagerie, inventaire.
+                <strong>M&eacute;diateur anti-sollicitation.</strong>
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">INDEX</span>
+                <span class="tl-tag purple">TECH</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-red">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">2025 &mdash; 2050+</div>
+            <div class="title">METR H2O</div>
+            <div class="location">Vision globale</div>
+            <div class="desc">
+                R&eacute;seau d'&icirc;les logistiques flottantes autonomes. Plateformes hexagonales modulaires (500m).
+                <strong>Le projet le plus ambitieux.</strong>
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag red">VISION</span>
+                <span class="tl-tag purple">MARITIME</span>
+                <span class="tl-tag green">MODULAIRE</span>
+            </div>
+            <span class="tl-expand">+ phases</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li><strong>2025-2028</strong> : Prototypes (Am&eacute;riques, Afrique de l'Ouest, M&eacute;diterran&eacute;e)</li>
+                        <li><strong>2028-2035</strong> : D&eacute;ploiement r&eacute;gional</li>
+                        <li><strong>2035-2045</strong> : Automatisation &amp; r&eacute;silience</li>
+                        <li><strong>2050+</strong> : Standardisation globale</li>
+                    </ul>
+                    Nourri par la dissertation BRI, le BSc Solent, les contacts Deep Blue Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2026 ========== -->
+    <div class="year-marker">
+        <span class="year">2026
+            <span class="year-context">Fondations &mdash; Phase 1 AMA</span>
+        </span>
+    </div>
+
+    <div class="phase-banner">
+        <span class="phase-label">Phase 1 &mdash; AMA Fondation</span>
+    </div>
+    <div class="brush-divider"></div>
+
+    <div class="tl-entry right c-pink">
+        <div class="tl-card">
+            <div class="period">F&eacute;vrier 2026</div>
+            <div class="title">Admis KLIMA School &mdash; M1</div>
+            <div class="location">La D&eacute;fense, Puteaux</div>
+            <div class="desc">
+                <strong>M1 Business &amp; Transition Climatique</strong> (rentr&eacute;e sept 2026).
+                8/10 logique, 7.5/10 synth&egrave;se. Titre RNCP niveau 7 (Manager RSE &amp; DD).
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag pink">&Eacute;V&Eacute;NEMENT CL&Eacute;</span>
+                <span class="tl-tag purple">FORMATION</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-green">
+        <div class="tl-card" onclick="this.classList.toggle('expanded')">
+            <div class="period">F&eacute;vrier 2026</div>
+            <div class="title">AMA-Workspace.com &mdash; Structuration</div>
+            <div class="location">Paris</div>
+            <div class="desc">
+                Vision formalis&eacute;e : 4 phases projet, triptyque, chatbot, INDEX, charte &eacute;thique.
+                <strong>44+ pages web</strong> structur&eacute;es, design unifi&eacute;.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">AMA</span>
+                <span class="tl-tag purple">STRUCTURATION</span>
+            </div>
+            <span class="tl-expand">+ d&eacute;tails</span>
+            <div class="tl-details">
+                <div class="tl-details-content">
+                    <ul>
+                        <li>4 phases : Discussion &rarr; Structuration &rarr; Juridique &rarr; Lancement</li>
+                        <li>Triptyque projet : Description | R&eacute;f&eacute;rences | D&eacute;tails</li>
+                        <li>Chatbot arbre de d&eacute;cision (front-end, low-cost)</li>
+                        <li>36 fiches contacts/institutions</li>
+                        <li>6 portfolios (FR/EN &times; artiste/institutionnel/one-pager)</li>
+                        <li>Design system : dark mode, calligraphie japonaise, Noto Serif JP</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== NOW ========== -->
+    <div class="now-marker">
+        <div class="now-pulse">F&eacute;vrier 2026 &mdash; Vous &ecirc;tes ici</div>
+    </div>
+
+    <!-- ========== FUTURE ========== -->
+    <div class="year-marker">
+        <span class="year" style="opacity: 0.5;">2026+
+            <span class="year-context">Ce qui arrive</span>
+        </span>
+    </div>
+
+    <div class="tl-entry right c-pink future-entry">
+        <div class="tl-card">
+            <div class="period">Septembre 2026</div>
+            <div class="title">Rentr&eacute;e M1 KLIMA</div>
+            <div class="location">La D&eacute;fense</div>
+            <div class="desc">
+                D&eacute;but du M1 Business &amp; Transition Climatique.
+                RSE, bilan carbone, &eacute;co-conception, entrepreneuriat, logistique responsable.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag pink">&Agrave; VENIR</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-green future-entry">
+        <div class="tl-card">
+            <div class="period">2026</div>
+            <div class="title">Premi&egrave;re Jam Enregistr&eacute;e</div>
+            <div class="location">Paris / Bretagne</div>
+            <div class="desc">
+                8-15 personnes, HUBJAM V5, captation FLOAT.
+                Premier &eacute;v&eacute;nement AMA public.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag green">HUBJAM</span>
+                <span class="tl-tag pink">&Agrave; VENIR</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry right c-red future-entry">
+        <div class="tl-card">
+            <div class="period">2027 &mdash; 2028</div>
+            <div class="title">Phase 2 &mdash; Expansion</div>
+            <div class="location">France + International</div>
+            <div class="desc">
+                20+ institutions partenaires, 500 profils INDEX, 50 bo&icirc;tiers HUBJAM, Ondes &Eacute;ph&eacute;m&egrave;res &times; 10 events.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag red">VISION</span>
+                <span class="tl-tag pink">&Agrave; VENIR</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tl-entry left c-red future-entry">
+        <div class="tl-card">
+            <div class="period">2028</div>
+            <div class="title">JO 2028 &mdash; Ondes &Eacute;ph&eacute;m&egrave;res</div>
+            <div class="location">Paris</div>
+            <div class="desc">
+                Performances &eacute;ph&eacute;m&egrave;res &amp; production artistique autour des Jeux.
+                Collaboration FLOAT + HUBJAM + PIN-LAB.
+            </div>
+            <div class="tl-tags">
+                <span class="tl-tag red">VISION</span>
+                <span class="tl-tag pink">FLOAT</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- =================== FOOTER =================== -->
+<footer class="ama-footer">
+    <svg class="enso-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C75 5 95 25 95 50 C95 75 75 95 50 95 C25 95 5 75 5 50 C5 25 25 5 48 8" stroke="#818cf8" stroke-width="4" fill="none" stroke-linecap="round" opacity="1"/>
+    </svg>
+    <div class="ama-watermark">AMA-Workspace</div>
+    <div class="ama-signature">Y.C &mdash; Art, Musique, Architecture</div>
+    <div class="ama-date">2026</div>
+</footer>
+
+<!-- =================== SCRIPT =================== -->
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.tl-entry').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
